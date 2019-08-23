@@ -41,6 +41,26 @@ module.exports = function( grunt ){
 			}
 		},
 
+		// Minify all .js files
+		uglify: {
+			options:{
+				sourcemap: 'none',
+			},
+			target: {
+				files:[{
+					expand: true,
+					cwd: '<%= dirs.js %>/',
+					src: [
+							'*.js',
+							'!*.min.js',
+					],
+					dest: '<%= dirs.js %>/',
+					ext: '.min.js'
+
+				}]
+			}
+		},
+
 		// Watch changes for assets.
 		watch: {
 			css: {
@@ -152,13 +172,15 @@ module.exports = function( grunt ){
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 	grunt.loadNpmTasks( 'grunt-checktextdomain' );
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-compress' );
 
 	// Register tasks
 	grunt.registerTask( 'default', [
 		'css',
-		'i18n'
+		'i18n',
+		'uglify',
 	]);
 
 	grunt.registerTask( 'css', [

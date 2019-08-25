@@ -23,7 +23,7 @@ if ( ! class_exists( 'File_Upload_Types' ) ) {
 
 /**
  * Return the main instance of File_Upload_Types.
- * 
+ *
  * @return Object File_Upload_Types
  */
 function file_upload_types() {

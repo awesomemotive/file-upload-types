@@ -46,6 +46,7 @@ final class File_Upload_Types {
 
 		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		add_filter( 'plugin_action_links_'. plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 
 		$this->define_constants();
 		$this->includes();
@@ -56,6 +57,21 @@ final class File_Upload_Types {
 	 */
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain( 'file-upload-types', false, plugin_basename( dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) ) . '/languages' );
+	}
+
+	/**
+	 * Add plugin settings page link in plugins
+	 *
+	 * @param  array $actions Plugin Action links.
+	 *
+	 * @return array
+	 */
+	public function plugin_action_links( $actions ) {
+		$new_actions = array(
+			'settings' => '<a href="' . admin_url( 'options-general.php?page=file-upload-types' ) . '" aria-label="' . esc_attr__( 'File Upload Types Settings', 'file-upload-types' ) . '">' . esc_html__( 'Settings', 'file-upload-types' ) . '</a>',
+		);
+
+		return array_merge( $new_actions, $actions );
 	}
 
 	/**

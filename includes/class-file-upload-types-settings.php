@@ -32,6 +32,22 @@ class File_Upload_Types_Settings {
 	 * Add contents to the settings page.
 	 */
 	public function settings_content() {
+
+		// Return if not file upload types screen.
+		if ( ! $this->file_upload_types_screen() ) {
+			return;
+		}
+		?>
+			<div class="wrap" id="file-upload-types">
+				<div class="file-upload-types-page file-upload-types-page-settings ">
+					<div class="file-upload-types-page-title">
+						<h3>
+							<?php echo esc_html__( 'Settings', 'file-upload-types' ); ?>
+						</h3>
+					</div>
+				</div>
+			</div>
+		<?php
 	}
 
 	/**

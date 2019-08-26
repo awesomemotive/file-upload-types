@@ -60,7 +60,7 @@ final class File_Upload_Types {
 	}
 
 	/**
-	 * Add plugin settings page link in plugins
+	 * Add plugin settings page link.
 	 *
 	 * @param  array $actions Plugin Action links.
 	 *

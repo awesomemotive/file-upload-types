@@ -18,6 +18,7 @@ class File_Upload_Types_Settings {
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'in_admin_header', array( $this, 'display_admin_header' ), 100 );
+		add_filter( 'admin_footer_text', array( $this, 'get_admin_footer' ), 1, 2 );
 	}
 
 	/**
@@ -40,12 +41,9 @@ class File_Upload_Types_Settings {
 	 */
 	public function enqueue_assets() {
 
-		// Return if not File Upload Types settings screen.
-		if ( true !== $this->file_upload_types_screen() ) {
-			return;
+		if ( $this->file_upload_types_screen() ) {
+			wp_enqueue_style( 'file-upload-types', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION, $media = 'all' );
 		}
-
-		wp_enqueue_style( 'file-upload-types', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION, $media = 'all' );
 	}
 
 	/**
@@ -55,18 +53,17 @@ class File_Upload_Types_Settings {
 	 */
 	public function display_admin_header() {
 
-		// Return if not File Upload Types settings screen.
-		if ( true !== $this->file_upload_types_screen() ) {
-			return;
+		if ( $this->file_upload_types_screen() ) {
+
+			$image_url = plugins_url( 'assets/images/logo.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE );
+			?>
+			<div id="file-upload-types-header">
+				<img class="file-upload-types-header-logo" src="<?php echo esc_url( $image_url ); ?> " alt="File Upload Types"/>
+			</div>
+
+			<?php
 		}
 
-		$image_url = plugins_url( 'assets/images/logo.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE );
-		?>
-		<div id="file-upload-types-header">
-			<img class="file-upload-types-header-logo" src="<?php echo esc_url( $image_url ); ?> " alt="File Upload Types"/>
-		</div>
-
-		<?php
 	}
 
 	/**
@@ -81,6 +78,41 @@ class File_Upload_Types_Settings {
 		$screen_id	= $screen ? $screen->id : '';
 
 		return 'settings_page_file-upload-types' === $screen_id ? true : false;
+	}
+
+	/**
+	 * Display a text to ask users to review the plugin on WP.org.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $text
+	 *
+	 * @return string
+	 */
+	public function get_admin_footer( $text ) {
+
+		if ( $this->file_upload_types_screen() ) {
+			$url = 'https://wordpress.org/support/plugin/file-upload-types/reviews/?filter=5#new-post';
+
+			$text = sprintf(
+				wp_kses(
+					/* translators: %1$s - WP.org link; %2$s - same WP.org link. */
+					__( 'Please rate <strong>File Upload Types</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the File Upload Types team!', 'wp-mail-smtp' ),
+					array(
+						'strong' => array(),
+						'a'      => array(
+							'href'   => array(),
+							'target' => array(),
+							'rel'    => array(),
+						),
+					)
+				),
+				$url,
+				$url
+			);
+		}
+
+		return $text;
 	}
 }
 

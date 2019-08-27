@@ -40,10 +40,35 @@ class File_Upload_Types_Settings {
 		?>
 			<div class="wrap" id="file-upload-types">
 				<div class="file-upload-types-page file-upload-types-page-settings ">
-					<div class="file-upload-types-page-title">
-						<h3>
-							<?php echo esc_html__( 'Settings', 'file-upload-types' ); ?>
-						</h3>
+					<div class="file-upload-types-nav">
+						<div class="file-upload-types-nav-title">
+						<p>
+							<?php echo esc_html_e( 'Settings', 'file-upload-types' ); ?>
+						</p>
+						</div>
+						<div class="fie-upload-types-docs">
+						<p>
+							<?php echo esc_html_e( 'Need some help?', 'file-upload-types' ); ?>
+							<button class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange"><?php echo esc_html_e( 'View Documentation', 'file-upload-types' ); ?></button>
+						</p>
+						</div>
+					</div>
+
+					<div class="file-upload-types-content">
+						<div class="file-upload-types-content-title">
+						</div>
+
+						<div class="file-upload-types-content-table">
+						</div>
+
+						<div class="file-upload-types-products">
+						</div>
+
+						<p class="file-upload-types-submit">
+							<button type="submit" class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
+								<?php esc_html_e( 'Save Settings', 'file-upload-types' ); ?>
+							</button>
+						</p>
 					</div>
 				</div>
 			</div>

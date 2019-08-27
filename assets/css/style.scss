@@ -1,3 +1,6 @@
+$primary-color: #fff;
+$secondary-color: #ff982d;
+
 #wpcontent {
     padding-left: 0 !important;
     position: relative
@@ -17,13 +20,13 @@
 
 #file-upload-types-header {
     border-top: 3px solid #FF982D;
-    padding: 20px
-}
+    padding: 20px;
 
-#file-upload-types-header img {
-    display: block;
-    margin: 0;
-    max-width: 242px
+	img {
+		display: block;
+		margin: 0;
+		max-width: 242px
+    }
 }
 
 @media (max-width: 782px) {
@@ -33,21 +36,69 @@
 }
 
 #file-upload-types {
-    margin: 0
+    margin: 0;
+
+	.file-upload-types-nav {
+	    background-color: $primary-color;
+	    margin: 0 0 20px 0;
+	    padding: 0 20px;
+		display: flex;
+
+	    .file-upload-types-nav-title p {
+			box-shadow: none;
+			margin-right: 30px;
+			padding: 20px 0 18px 0;
+			text-decoration: none;
+	    }
+
+	    .fie-upload-types-docs {
+			margin-left: auto;
+			padding-top: 10px;
+
+			button {
+				color: $primary-color;
+				background-color: $secondary-color;
+			}
+		}
+	}
+
+	.file-upload-types-content {
+		margin: 0 0 20px 0;
+		padding: 0 20px;
+		display: flex;
+	}
+
+	.file-upload-types-btn.file-upload-types-btn-orange {
+		background-color: $secondary-color;
+		border-color: #FF982D;
+		color: $primary-color;
+	}
+
+	.file-upload-types-btn.file-upload-types-btn-orange:hover,
+	.file-upload-types-btn.file-upload-types-btn-orange:active,
+	.file-upload-types-btn.file-upload-types-btn-orange:focus {
+	    background-color: #f97f00;
+	    border-color: #f97f00;
+	}
 }
 
-#file-upload-types .file-upload-types-page-title {
-    background-color: #fff;
-    font-size: 14px;
-    margin: 0 0 20px 0;
-    padding: 0 20px
-}
-
-#file-upload-types .file-upload-types-page-title h3 {
+.file-upload-types-btn {
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-shadow: none;
     box-shadow: none;
-    color: #666;
-    margin-right: 30px;
-    padding: 20px 0 18px 0;
-    text-decoration: none
+    outline: none;
 }
 
+.file-upload-types-btn.file-upload-types-btn-md {
+	font-size: 13px;
+	font-weight: 600;
+	padding: 8px 12px;
+	min-height: 35px;
+}

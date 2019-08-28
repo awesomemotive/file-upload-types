@@ -43,22 +43,20 @@ class File_Upload_Types_Settings {
 					<div class="file-upload-types-nav">
 						<div class="file-upload-types-nav-title">
 						<p>
-							<?php echo esc_html_e( 'Settings', 'file-upload-types' ); ?>
+							<?php echo esc_html__( 'Settings', 'file-upload-types' ); ?>
 						</p>
 						</div>
 						<div class="fie-upload-types-docs">
 						<p>
-							<?php echo esc_html_e( 'Need some help?', 'file-upload-types' ); ?>
+							<?php echo esc_html__( 'Need some help?', 'file-upload-types' ); ?>
 							<button class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange"><?php echo esc_html_e( 'View Documentation', 'file-upload-types' ); ?></button>
 						</p>
 						</div>
 					</div>
 
 					<div class="file-upload-types-content">
-						<div class="file-upload-types-content-title">
-						</div>
-
-						<div class="file-upload-types-content-table">
+						<div class="file-upload-types-table">
+							<?php $this->table(); ?>
 						</div>
 
 						<div class="file-upload-types-products">
@@ -153,7 +151,49 @@ class File_Upload_Types_Settings {
 	}
 
 	/**
+	 * Displays table contents.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @return void.
+	 */
+	public function table() {
+		?>
+			<div class="title-description">
+
+				<h3> <?php echo esc_html__( 'Allowed File Upload Types', 'file-upload-types' );?> </h3>
+				<p> <?php echo sprintf(
+						wp_kses(
+							/* translators: %1$s - # link;  */
+							__( 'Below is list of the files types that are currently allowed. Additional file types are also available and can be enabled. Dont see what you need? No problem, <a href="%1$s" target="_blank" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
+							array(
+								'a' => array(
+									'href'   => array(),
+									'target' => array(),
+									'rel'    => array(),
+								),
+							),
+						),
+
+						'#',
+					);
+					?>
+				</p>
+
+				<div class="search-box">
+					<input type="search" placeholder="<?php _e( 'Search File Types', 'file-upload-types'); ?>" />
+				</div>
+			</div>
+
+			<div class="table">
+			</div>
+		<?php
+	}
+
+	/**
 	 * Displays recommended products section.
+	 *
+	 * @since  1.0.0
 	 */
 	public function products() {
 		?>

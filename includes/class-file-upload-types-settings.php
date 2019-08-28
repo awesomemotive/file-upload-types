@@ -62,13 +62,9 @@ class File_Upload_Types_Settings {
 						</div>
 
 						<div class="file-upload-types-products">
+							<?php $this->products(); ?>
 						</div>
 
-						<p class="file-upload-types-submit">
-							<button type="submit" class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
-								<?php esc_html_e( 'Save Settings', 'file-upload-types' ); ?>
-							</button>
-						</p>
 					</div>
 				</div>
 			</div>
@@ -138,7 +134,7 @@ class File_Upload_Types_Settings {
 			$text = sprintf(
 				wp_kses(
 					/* translators: %1$s - WP.org link; %2$s - same WP.org link. */
-					__( 'Please rate <strong>File Upload Types</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the File Upload Types team!', 'wp-mail-smtp' ),
+					__( 'Please rate <strong>File Upload Types</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the File Upload Types team!', 'file-upload-types' ),
 					array(
 						'strong' => array(),
 						'a'      => array(
@@ -154,6 +150,87 @@ class File_Upload_Types_Settings {
 		}
 
 		return $text;
+	}
+
+	/**
+	 * Displays recommended products section.
+	 */
+	public function products() {
+		?>
+		<h3> <?php echo esc_html__( 'You might like our other products', 'file-upload-types' );?> </h3>
+		<p> <?php echo sprintf(
+					wp_kses(
+						/* translators: %1$s - wpforms.com link;  */
+						__( 'File Upload Types is built by the team behind most popular WordPress form plugin, <a href="%1$s" target="_blank" rel="noopener noreferrer">WPForms</a>. Checkout some of our other plugins.', 'file-upload-types' ),
+						array(
+							'a' => array(
+								'href'   => array(),
+								'target' => array(),
+								'rel'    => array(),
+							),
+						),
+					),
+
+					'https://wpforms.com',
+				);
+			?>
+		</p>
+
+		<div class="file-upload-types-recommended-plugins">
+			<div class="plugins-container">
+				<?php
+				foreach ( $this->get_am_plugins() as $key => $plugin ) :
+					?>
+					<div class="plugin-container">
+						<div class="plugin-item">
+							<div class="details file-upload-types-clear">
+								<img src="<?php echo \esc_url( $plugin['icon'] ); ?>">
+								<h5 class="plugin-name">
+									<?php echo $plugin['name']; ?>
+								</h5>
+								<p class="plugin-desc">
+									<?php echo $plugin['desc']; ?>
+								</p>
+							</div>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * List of AM plugins that we propose to install.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	private function get_am_plugins() {
+
+		$data = array(
+			'mi'      => array(
+				'icon' => plugins_url( 'assets/images/plugin-mi.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'name' => \esc_html__( 'MonsterInsights', 'file-upload-types' ),
+				'desc' => \esc_html__( 'Effortlessly connect your WP site with Google Analytics.', 'file-upload-types' ),
+				'url'  => 'https://www.monsterinsights.com'
+			),
+			'om'      => array(
+				'icon' => plugins_url( 'assets/images/plugin-om.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'name' => \esc_html__( 'OptinMonster', 'file-upload-types' ),
+				'desc' => \esc_html__( 'Turn your traffic into leads, conversions and sales.', 'file-upload-types' ),
+				'url'  => 'https://optinmonster.com',
+			),
+			'wpf'      => array(
+				'icon' => plugins_url( 'assets/images/plugin-wpf.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'name' => \esc_html__( 'WPForms', 'file-upload-types' ),
+				'desc' => \esc_html__( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
+				'url'  => 'https://wpforms.com',
+			),
+		);
+
+		return $data;
 	}
 }
 

@@ -66,6 +66,55 @@ $secondary-color: #ff982d;
 		margin: 0 0 20px 0;
 		padding: 0 20px;
 		display: flex;
+
+		.file-upload-types-products {
+			margin-left: auto;
+			width: 33.33%;
+
+			.file-upload-types-recommended-plugins {
+			    padding: 0 10px;
+
+				.plugins-container {
+				    margin-left: -20px;
+				    margin-right: -20px;
+
+				    .plugin-container {
+						padding: 0 10px;
+						float: left;
+					}
+
+					.plugin-item {
+						border-top: 1px solid #ddd;
+						padding: 12px;
+
+						img {
+						    border: 1px solid #eee;
+						    float: left;
+						    max-width: 75px;
+						    padding: 10px;
+						}
+
+						h5 {
+						    margin: 0 0 10px 100px;
+						    font-size: 16px
+						}
+
+						p {
+						    margin: 0 0 0 100px
+						}
+
+						.details {
+							padding: 20px
+						}
+					}
+
+					h5 {
+						font-size: 17px;
+						font-weight: 700;
+					}
+				}
+			}
+		}
 	}
 
 	.file-upload-types-btn.file-upload-types-btn-orange {
@@ -101,4 +150,23 @@ $secondary-color: #ff982d;
 	font-weight: 600;
 	padding: 8px 12px;
 	min-height: 35px;
+}
+
+@media (max-width: 1249px) {
+     .file-upload-types-recommended-plugins .plugins-container .plugin-container {
+        width: 50%;
+    }
+}
+
+@media (max-width: 781px) {
+     .file-upload-types-recommended-plugins .plugins-container .plugin-container {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 781px) {
+     .file-upload-types-recommended-plugins .plugins-container .plugin-item {
+        margin: 0 0
+    }
 }

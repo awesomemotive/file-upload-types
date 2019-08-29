@@ -67,6 +67,17 @@ $secondary-color: #ff982d;
 		padding: 0 20px;
 		display: flex;
 
+		.file-upload-types-table {
+			.before-table {
+				display: flex;
+			}
+
+			.search-box {
+				margin-left: auto;
+				padding: 20px;
+			}
+		}
+
 		.file-upload-types-products {
 			margin-left: auto;
 			width: 33.33%;
@@ -115,6 +126,10 @@ $secondary-color: #ff982d;
 				}
 			}
 		}
+	}
+
+	p.file-upload-types-submit {
+		padding: 0 20px;
 	}
 
 	.file-upload-types-btn.file-upload-types-btn-orange {

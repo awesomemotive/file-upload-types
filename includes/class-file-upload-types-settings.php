@@ -43,13 +43,13 @@ class File_Upload_Types_Settings {
 					<div class="file-upload-types-nav">
 						<div class="file-upload-types-nav-title">
 						<p>
-							<?php echo esc_html__( 'Settings', 'file-upload-types' ); ?>
+							<?php esc_html_e( 'Settings', 'file-upload-types' ); ?>
 						</p>
 						</div>
 						<div class="fie-upload-types-docs">
 						<p>
-							<?php echo esc_html__( 'Need some help?', 'file-upload-types' ); ?>
-							<button class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange"><?php echo esc_html_e( 'View Documentation', 'file-upload-types' ); ?></button>
+							<?php esc_html_e( 'Need some help?', 'file-upload-types' ); ?>
+							<button class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange"><?php esc_html_e( 'View Documentation', 'file-upload-types' ); ?></button>
 						</p>
 						</div>
 					</div>
@@ -62,8 +62,13 @@ class File_Upload_Types_Settings {
 						<div class="file-upload-types-products">
 							<?php $this->products(); ?>
 						</div>
-
 					</div>
+
+					<p class="file-upload-types-submit">
+						<button type="submit" class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
+							<?php esc_html_e( 'Save Settings', 'file-upload-types' ); ?>
+						</button>
+					</p>
 				</div>
 			</div>
 		<?php
@@ -159,29 +164,30 @@ class File_Upload_Types_Settings {
 	 */
 	public function table() {
 		?>
-			<div class="title-description">
-
-				<h3> <?php echo esc_html__( 'Allowed File Upload Types', 'file-upload-types' );?> </h3>
-				<p> <?php echo sprintf(
-						wp_kses(
-							/* translators: %1$s - # link;  */
-							__( 'Below is list of the files types that are currently allowed. Additional file types are also available and can be enabled. Dont see what you need? No problem, <a href="%1$s" target="_blank" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
-							array(
-								'a' => array(
-									'href'   => array(),
-									'target' => array(),
-									'rel'    => array(),
+			<div class="before-table">
+				<div>
+					<h3> <?php esc_html_e( 'Allowed File Upload Types', 'file-upload-types' );?> </h3>
+					<p> <?php echo sprintf(
+							wp_kses(
+								/* translators: %1$s - # link;  */
+								__( 'Below is list of the files types that are currently allowed. Additional file types are also available and can be enabled. Dont see what you need? No problem, <a href="%1$s" target="_blank" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
+								array(
+									'a' => array(
+										'href'   => array(),
+										'target' => array(),
+										'rel'    => array(),
+									),
 								),
 							),
-						),
 
-						'#',
-					);
-					?>
-				</p>
+							'#',
+						);
+						?>
+					</p>
+				</div>
 
 				<div class="search-box">
-					<input type="search" placeholder="<?php _e( 'Search File Types', 'file-upload-types'); ?>" />
+					<input type="search" placeholder="<?php esc_html_e( 'Search File Types', 'file-upload-types'); ?>" />
 				</div>
 			</div>
 
@@ -197,7 +203,7 @@ class File_Upload_Types_Settings {
 	 */
 	public function products() {
 		?>
-		<h3> <?php echo esc_html__( 'You might like our other products', 'file-upload-types' );?> </h3>
+		<h3> <?php esc_html_e( 'You might like our other products', 'file-upload-types' );?> </h3>
 		<p> <?php echo sprintf(
 					wp_kses(
 						/* translators: %1$s - wpforms.com link;  */

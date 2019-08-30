@@ -19,10 +19,13 @@ class File_Upload_Types_Settings {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'in_admin_header', array( $this, 'display_admin_header' ), 100 );
 		add_filter( 'admin_footer_text', array( $this, 'get_admin_footer' ), 1, 2 );
+		add_action( 'admin_print_scripts', array( $this, 'remove_notices' ) );
 	}
 
 	/**
 	 * Add File Upload Types submenu under Settings menu.
+	 *
+	 * @since  1.0.0
 	 */
 	public function add_settings_page() {
 		add_options_page( 'Settings', 'File Upload Types', 'manage_options', 'file-upload-types', array( $this, 'settings_content' ) );
@@ -30,6 +33,8 @@ class File_Upload_Types_Settings {
 
 	/**
 	 * Add contents to the settings page.
+	 *
+	 * @since  1.0.0
 	 */
 	public function settings_content() {
 
@@ -77,7 +82,7 @@ class File_Upload_Types_Settings {
 	/**
 	 * Enqueue all assets.
 	 *
-	 * @return void.
+	 * @since  1.0.0
 	 */
 	public function enqueue_assets() {
 
@@ -159,8 +164,6 @@ class File_Upload_Types_Settings {
 	 * Displays table contents.
 	 *
 	 * @since  1.0.0
-	 *
-	 * @return void.
 	 */
 	public function table() {
 		?>
@@ -293,6 +296,32 @@ class File_Upload_Types_Settings {
 		);
 
 		return $data;
+	}
+
+	/**
+	 * Removes the admin notices on file upload types settings page.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @return void
+	 */
+	public function remove_notices() {
+
+		global $wp_filter;
+
+		if ( ! isset( $_REQUEST['page'] ) || 'file-upload-types' !== $_REQUEST['page'] ) {
+			return;
+		}
+
+		foreach ( array( 'user_admin_notices', 'admin_notices', 'all_admin_notices' ) as $wp_notice ) {
+			if ( ! empty( $wp_filter[ $wp_notice ]->callbacks ) && is_array( $wp_filter[ $wp_notice ]->callbacks ) ) {
+				foreach ( $wp_filter[ $wp_notice ]->callbacks as $priority => $hooks ) {
+					foreach ( $hooks as $name => $arr ) {
+						unset( $wp_filter[ $wp_notice ]->callbacks[ $priority ][ $name ] );
+					}
+				}
+			}
+		}
 	}
 }
 

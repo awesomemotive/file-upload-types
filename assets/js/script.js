@@ -14,6 +14,8 @@ jQuery( document ).ready( function( $ ) {
 	$( document ).on( 'click', '#file-upload-types .table-container .dashicons-minus', function( e ) {
 		e.preventDefault();
 
-		$( this ).closest( 'tr' ).remove();
+		if( $( this ).closest( 'table' ).find('tr.repetitive-fields' ).length > 1 ) {
+			$( this ).closest( 'tr' ).remove();
+		}
 	});
 });

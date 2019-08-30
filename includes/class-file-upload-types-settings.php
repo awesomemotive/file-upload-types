@@ -18,6 +18,7 @@ class File_Upload_Types_Settings {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'in_admin_header', array( $this, 'display_admin_header' ), 100 );
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
+		add_action( 'admin_init', array( $this, 'save_settings' ) );
 		add_filter( 'admin_footer_text', array( $this, 'get_admin_footer' ), 1, 2 );
 		add_action( 'admin_print_scripts', array( $this, 'remove_notices' ) );
 	}
@@ -107,21 +108,25 @@ class File_Upload_Types_Settings {
 						</div>
 					</div>
 
-					<div class="file-upload-types-content">
-						<div class="file-upload-types-table">
-							<?php $this->table(); ?>
+					<form method="post">
+						<div class="file-upload-types-content">
+							<div class="file-upload-types-table">
+								<?php $this->table(); ?>
+							</div>
+
+							<div class="file-upload-types-products">
+								<?php $this->products(); ?>
+							</div>
 						</div>
 
-						<div class="file-upload-types-products">
-							<?php $this->products(); ?>
-						</div>
-					</div>
+						<?php wp_nonce_field( 'file_upload_types_settings_save', 'file_upload_types_nonce_field' ); ?>
 
-					<p class="file-upload-types-submit">
-						<button type="submit" class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
-							<?php esc_html_e( 'Save Settings', 'file-upload-types' ); ?>
-						</button>
-					</p>
+						<p class="file-upload-types-submit">
+							<button type="submit" class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
+								<?php esc_html_e( 'Save Settings', 'file-upload-types' ); ?>
+							</button>
+						</p>
+					</form>
 				</div>
 			</div>
 		<?php
@@ -200,7 +205,7 @@ class File_Upload_Types_Settings {
 					<tr>
 						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?></th>
 					</tr>
-					<tr>
+					<tr class="repetitive-fields">
 						<td><input type="text" name="desc[]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
 						<td><input type="text" name="mime[]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
 						<td><input type="text" name="ext[]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
@@ -263,6 +268,25 @@ class File_Upload_Types_Settings {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Save settings to the database.
+	 *
+	 * @since  1.0.0
+	 */
+	public function save_settings() {
+		if (
+		    ! isset( $_POST['file_upload_types_nonce_field'] )
+		    || ! wp_verify_nonce( $_POST['file_upload_types_nonce_field'], 'file_upload_types_settings_save' )
+		) {
+
+		   print 'Sorry, your nonce did not verify.';
+		   exit;
+
+		} else {
+
+		}
 	}
 
 	/**

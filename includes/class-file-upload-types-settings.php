@@ -108,7 +108,6 @@ class File_Upload_Types_Settings {
 
 			<?php
 		}
-
 	}
 
 	/**
@@ -203,6 +202,17 @@ class File_Upload_Types_Settings {
 					</tr>
 					<tr>
 						<th colspan="3" class="heading"><?php esc_html_e( 'ALLOWED FILE TYPES', 'file-upload-types' ); ?></th>
+					</tr>
+					<tr>
+						<th colspan="3" class="heading"><?php esc_html_e( 'AVAILABLE FILE TYPES', 'file-upload-types' ); ?></th>
+					</tr>
+					<tr>
+						<th colspan="3" class="heading"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?></th>
+					</tr>
+					<tr>
+						<td><input type="text" name="desc[]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="mime[]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="ext[]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
 					</tr>
 				</table>
 			</div>

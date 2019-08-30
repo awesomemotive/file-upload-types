@@ -137,7 +137,7 @@ class File_Upload_Types_Settings {
 					<p> <?php echo sprintf(
 							wp_kses(
 								/* translators: %1$s - # link;  */
-								__( 'Below is list of the files types that are currently allowed. Additional file types are also available and can be enabled. Dont see what you need? No problem, <a href="%1$s" target="_blank" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
+								__( 'Below is list of the files types that are currently allowed. Additional file types are also available and can be enabled. Dont see what you need? No problem, <a href="%1$s" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
 								array(
 									'a' => array(
 										'href'   => array(),
@@ -147,7 +147,7 @@ class File_Upload_Types_Settings {
 								),
 							),
 
-							'#',
+							'#custom-file-types',
 						);
 						?>
 					</p>
@@ -195,7 +195,7 @@ class File_Upload_Types_Settings {
 						}
 					?>
 					<tr>
-						<th colspan="3" class="heading"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?></th>
+						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?></th>
 					</tr>
 					<tr>
 						<td><input type="text" name="desc[]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>

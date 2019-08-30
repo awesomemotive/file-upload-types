@@ -44,7 +44,10 @@ class File_Upload_Types_Settings {
 	public function enqueue_assets() {
 
 		if ( $this->file_upload_types_screen() ) {
-			wp_enqueue_style( 'file-upload-types', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION, $media = 'all' );
+
+			$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			wp_enqueue_style( 'file-upload-types-css', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION, $media = 'all' );
+			wp_enqueue_script( 'file-upload-types-js', plugins_url( 'assets/js/script'. $suffix .'.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION );
 		}
 	}
 
@@ -158,7 +161,7 @@ class File_Upload_Types_Settings {
 				</div>
 			</div>
 
-			<div class="main-table">
+			<div class="table-container">
 				<table>
 					<tr>
 						<th><?php esc_html_e( 'Description', 'file-upload-types' ); ?></th>
@@ -201,7 +204,12 @@ class File_Upload_Types_Settings {
 						<td><input type="text" name="desc[]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
 						<td><input type="text" name="mime[]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
 						<td><input type="text" name="ext[]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
+						<td>
+							<span class="dashicons dashicons-plus"></span>
+							<span class="dashicons dashicons-minus"></span>
+						</td>
 					</tr>
+					<tr>
 				</table>
 			</div>
 		<?php

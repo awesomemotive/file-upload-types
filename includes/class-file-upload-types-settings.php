@@ -187,11 +187,21 @@ class File_Upload_Types_Settings {
 				</div>
 
 				<div class="search-box">
-					<input type="search" placeholder="<?php esc_html_e( 'Search File Types', 'file-upload-types'); ?>" />
+					<input type="search" placeholder="<?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>" />
 				</div>
 			</div>
 
-			<div class="table">
+			<div class="main-table">
+				<table>
+					<tr>
+						<th><?php esc_html_e( 'Description', 'file-upload-types' ); ?></th>
+						<th><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></th>
+						<th><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></th>
+					</tr>
+					<tr>
+						<th colspan="3" class="heading"><?php esc_html_e( 'ALLOWED FILE TYPES', 'file-upload-types' ); ?></th>
+					</tr>
+				</table>
 			</div>
 		<?php
 	}

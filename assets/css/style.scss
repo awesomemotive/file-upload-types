@@ -68,6 +68,8 @@ $secondary-color: #ff982d;
 		display: flex;
 
 		.file-upload-types-table {
+			padding-right: 30px;
+
 			.before-table {
 				display: flex;
 			}
@@ -75,6 +77,25 @@ $secondary-color: #ff982d;
 			.search-box {
 				margin-left: auto;
 				padding: 20px;
+			}
+
+			.main-table {
+				table {
+					font-family: arial, sans-serif;
+					border-collapse: collapse;
+					width: 100%;
+				}
+
+				td, th {
+					border: 1px solid #dddddd;
+					text-align: left;
+					padding: 8px;
+					background: $primary-color;
+				}
+
+				th.heading {
+					background: none;
+				}
 			}
 		}
 

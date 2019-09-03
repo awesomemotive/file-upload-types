@@ -122,7 +122,7 @@ class File_Upload_Types_Settings {
 						<?php wp_nonce_field( 'file_upload_types_settings_save', 'file_upload_types_nonce_field' ); ?>
 
 						<p class="file-upload-types-submit">
-							<button type="submit" class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
+							<button type="submit" value="submit" name="file-upload-types-submit" class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
 								<?php esc_html_e( 'Save Settings', 'file-upload-types' ); ?>
 							</button>
 						</p>
@@ -276,16 +276,20 @@ class File_Upload_Types_Settings {
 	 * @since  1.0.0
 	 */
 	public function save_settings() {
-		if (
-		    ! isset( $_POST['file_upload_types_nonce_field'] )
-		    || ! wp_verify_nonce( $_POST['file_upload_types_nonce_field'], 'file_upload_types_settings_save' )
-		) {
 
-		   print 'Sorry, your nonce did not verify.';
-		   exit;
+		if ( isset( $_POST['file-upload-types-submit'] ) ) {
 
-		} else {
+			if (
+			    ! isset( $_POST['file_upload_types_nonce_field'] )
+			    || ! wp_verify_nonce( $_POST['file_upload_types_nonce_field'], 'file_upload_types_settings_save' )
+			) {
 
+			   print 'Sorry, your nonce did not verify.';
+			   exit;
+
+			} else {
+
+			}
 		}
 	}
 

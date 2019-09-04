@@ -288,7 +288,26 @@ class File_Upload_Types_Settings {
 			   exit;
 
 			} else {
+				$custom_types = isset( $_POST['custom_types'] ) ? $_POST['custom_types'] : array();
+				$description  = isset( $custom_types['desc'] ) ? array_map( 'sanitize_text_field', $custom_types['desc'] ) : array();
+				$mime_types   = isset( $custom_types['mime'] ) ? array_map( 'sanitize_mime_type', $custom_types['mime'] ) : array();
+				$extentions   = isset( $custom_types['ext'] ) ? array_map( 'sanitize_file_name', $custom_types['ext'] ) : array();
 
+				$custom_types = array();
+
+				foreach( $description as $key =>  $desc ) {
+					$custom_types['custom_types'][ $key ]['desc'] = $desc;
+				}
+
+				foreach( $mime_types as $key => $mime_type ) {
+					$custom_types['custom_types'][ $key ]['mime'] = $mime_type;
+				}
+
+				foreach( $extentions as $key => $extention ) {
+					$custom_types['custom_types'][ $key ]['ext'] = $extention;
+				}
+
+				update_option( 'file_upload_types', $custom_types );
 			}
 		}
 	}

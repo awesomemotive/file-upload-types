@@ -18,4 +18,13 @@ jQuery( document ).ready( function( $ ) {
 			$( this ).closest( 'tr' ).remove();
 		}
 	});
+
+	$( document ).on( 'keyup', '#file-upload-types-search', function( e ) {
+
+	    var value = $(this).val().toLowerCase();
+
+		$( 'table tr td' ).filter( function() {
+			$(this).toggle( $( this ).text().toLowerCase().indexOf( value ) > -1 );
+		});
+	});
 });

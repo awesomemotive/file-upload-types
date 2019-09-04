@@ -183,7 +183,7 @@ class File_Upload_Types_Settings {
 							echo '<tr>';
 							echo '<td>'. $type['desc'] . '</td>';
 							echo '<td>'. $type['mime'] . '</td>';
-							echo '<td>'. $type['ext'] . '</td>';
+							echo '<td>'. '.' . $type['ext'] . '</td>';
 							echo '</tr>';
 						}
 					?>
@@ -197,8 +197,8 @@ class File_Upload_Types_Settings {
 							echo '<tr>';
 							echo '<td>'. $type['desc'] . '</td>';
 							echo '<td>'. $type['mime'] . '</td>';
-							echo '<td>'. $type['ext'] . '</td>';
-							echo '<td> <input type="checkbox" name="'. esc_attr( $type['ext'] ) .'"> </td>';
+							echo '<td>'. '.' . $type['ext'] . '</td>';
+							echo '<td> <input type="checkbox" name="available_types['. esc_attr( $type['ext'] ).']"> </td>';
 							echo '</tr>';
 						}
 					?>
@@ -206,9 +206,9 @@ class File_Upload_Types_Settings {
 						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?></th>
 					</tr>
 					<tr class="repetitive-fields">
-						<td><input type="text" name="desc[]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
-						<td><input type="text" name="mime[]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
-						<td><input type="text" name="ext[]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="custom_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="custom_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="custom_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
 						<td>
 							<span class="dashicons dashicons-plus"></span>
 							<span class="dashicons dashicons-minus"></span>

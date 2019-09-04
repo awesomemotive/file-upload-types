@@ -21,12 +21,12 @@ function fut_get_allowed_file_types() {
 				array(
 					'desc' => 'JPEG image',
 					'mime' => 'image/jpeg',
-					'ext' => '.jpeg',
+					'ext' => 'jpeg',
 				),
 				array(
 					'desc' => 'Microsoft Word Document',
 					'mime' => 'application/msword',
-					'ext' => '.doc',
+					'ext' => 'doc',
 				),
 			));
 }

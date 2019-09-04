@@ -43,12 +43,12 @@ function fut_get_available_file_types() {
 				array(
 					'desc' => '3D Crossword Plugin',
 					'mime' => 'application/vnd.hzn-3d-crossword',
-					'ext' => '.x3d',
+					'ext' => 'x3d',
 				),
 				array(
 					'desc' => '3GPP MSEQ File',
 					'mime' => 'video/3gpp',
-					'ext' => '.mseq',
+					'ext' => 'mseq',
 				),
 			));
 }

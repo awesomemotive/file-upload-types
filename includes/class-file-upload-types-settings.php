@@ -205,16 +205,36 @@ class File_Upload_Types_Settings {
 					<tr>
 						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?></th>
 					</tr>
-					<tr class="repetitive-fields">
-						<td><input type="text" name="custom_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
-						<td><input type="text" name="custom_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
-						<td><input type="text" name="custom_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
-						<td>
-							<span class="dashicons dashicons-plus"></span>
-							<span class="dashicons dashicons-minus"></span>
-						</td>
-					</tr>
-					<tr>
+						<?php
+							$file_types   = get_option( 'file_upload_types', array() );
+							$custom_types = isset( $file_types['custom_types'] ) ? $file_types['custom_types'] : array();
+							$icons 		  = '<span class="dashicons dashicons-plus"></span>
+												<span class="dashicons dashicons-minus"></span>';
+
+							if ( ! empty( $custom_types ) ) {
+
+								foreach( $custom_types as $custom_type ) :
+										if ( empty( $custom_type['desc'] ) && empty( $custom_type['mime'] ) && empty( $custom_type['ext'] ) ) {
+											continue;
+										}
+									?>
+									<tr class="repetitive-fields">
+										<td><input type="text" name="custom_types[desc][]" value="<?php esc_attr_e( $custom_type['desc'] ); ?>" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
+										<td><input type="text" name="custom_types[mime][]" value="<?php esc_attr_e( $custom_type['mime'] ); ?>" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
+										<td><input type="text" name="custom_types[ext][]" value="<?php esc_attr_e( $custom_type['ext'] ); ?>" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
+										<td><?php echo $icons;?></td>
+									</tr>
+
+								<?php endforeach;
+							}
+						?>
+
+						<tr class="repetitive-fields">
+							<td><input type="text" name="custom_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
+							<td><input type="text" name="custom_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
+							<td><input type="text" name="custom_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
+							<td><?php echo $icons;?></td>
+						</tr>
 				</table>
 			</div>
 		<?php

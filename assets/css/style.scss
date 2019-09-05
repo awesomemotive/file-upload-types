@@ -44,20 +44,24 @@ $secondary-color: #ff982d;
 	    padding: 0 20px;
 		display: flex;
 
-	    .file-upload-types-nav-title p {
-			box-shadow: none;
-			margin-right: 30px;
-			padding: 20px 0 18px 0;
-			text-decoration: none;
+	    .file-upload-types-nav-title h1 {
+			margin-bottom: 10px;
+			padding-top: 10px;
 	    }
 
 	    .fie-upload-types-docs {
 			margin-left: auto;
-			padding-top: 10px;
 
 			button {
-				color: $primary-color;
-				background-color: $secondary-color;
+				color:#fff;
+				background:#809eb0;
+			}
+
+			button:hover,
+			button:active,
+			button:focus {
+				color:#fff;
+				background:#658699;
 			}
 		}
 	}

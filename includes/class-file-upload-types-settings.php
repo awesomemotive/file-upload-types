@@ -96,9 +96,9 @@ class File_Upload_Types_Settings {
 				<div class="file-upload-types-page file-upload-types-page-settings ">
 					<div class="file-upload-types-nav">
 						<div class="file-upload-types-nav-title">
-						<p>
+						<h1>
 							<?php esc_html_e( 'Settings', 'file-upload-types' ); ?>
-						</p>
+						</h1>
 						</div>
 						<div class="fie-upload-types-docs">
 						<p>
@@ -141,11 +141,11 @@ class File_Upload_Types_Settings {
 		?>
 			<div class="before-table">
 				<div>
-					<h3> <?php esc_html_e( 'Allowed File Upload Types', 'file-upload-types' );?> </h3>
+					<h3> <?php esc_html_e( 'Add File Upload Types', 'file-upload-types' );?> </h3>
 					<p> <?php echo sprintf(
 							wp_kses(
-								/* translators: %1$s - # link;  */
-								__( 'Below is list of the files types that are currently allowed. Additional file types are also available and can be enabled. Dont see what you need? No problem, <a href="%1$s" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
+								/* translators: %1$s - file upload types WordPress docs, %2$s - # link;  */
+								__( 'Below is list of the files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank"> files WordPress allows by default</a>. Dont see what you need? No problem, <a href="%2$s" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
 								array(
 									'a' => array(
 										'href'   => array(),
@@ -154,7 +154,7 @@ class File_Upload_Types_Settings {
 									),
 								),
 							),
-
+							'https://codex.wordpress.org/Uploading_Files#About_Uploading_Files_on_Dashboard',
 							'#custom-file-types',
 						);
 						?>
@@ -174,10 +174,10 @@ class File_Upload_Types_Settings {
 						<th><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></th>
 					</tr>
 					<tr>
-						<th colspan="3" class="heading"><?php esc_html_e( 'ALLOWED FILE TYPES', 'file-upload-types' ); ?></th>
+						<th colspan="3" class="heading"><?php esc_html_e( 'ENABLED FILE TYPES', 'file-upload-types' ); ?></th>
 					</tr>
 					<?php
-						$types = fut_get_allowed_file_types();
+						$types = array();
 
 						foreach( $types as $type ) {
 							echo '<tr>';

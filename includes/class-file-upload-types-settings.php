@@ -49,6 +49,7 @@ class File_Upload_Types_Settings {
 			$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_style( 'file-upload-types-css', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION, $media = 'all' );
 			wp_enqueue_script( 'file-upload-types-js', plugins_url( 'assets/js/script'. $suffix .'.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION );
+			wp_enqueue_style( 'file-upload-types-font-awesome',plugins_url( 'assets/css/font-awesome.min.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), '4.4.0' );
 		}
 	}
 
@@ -211,8 +212,9 @@ class File_Upload_Types_Settings {
 						<td><input type="text" name="custom_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
 						<td><input type="text" name="custom_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
 						<td><input type="text" name="custom_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
-						<td><span class="dashicons dashicons-plus"></span>
-							<span class="dashicons dashicons-minus"></span>
+						<td>
+							<i class="fa fa-plus"></i>
+							<i class="fa fa-minus"></i>
 						</td>
 					</tr>
 				</table>

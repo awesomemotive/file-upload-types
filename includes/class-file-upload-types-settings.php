@@ -184,59 +184,37 @@ class File_Upload_Types_Settings {
 							echo '<td>'. $type['desc'] . '</td>';
 							echo '<td>'. $type['mime'] . '</td>';
 							echo '<td>'. '.' . $type['ext'] . '</td>';
+							echo '<td> <input type="checkbox" name="enabled_types['. esc_attr( $type['ext'] ).']" checked> </td>';
 							echo '</tr>';
 						}
 					?>
 					<tr>
 						<th colspan="3" class="heading"><?php esc_html_e( 'AVAILABLE FILE TYPES', 'file-upload-types' ); ?></th>
 					</tr>
-					<?php
-						$types   		   = fut_get_available_file_types();
-						$file_upload_types = get_option( 'file_upload_types', array() );
-						$available_types   = isset( $file_upload_types['available_types'] ) ? $file_upload_types['available_types'] : array();
+						<?php
+							$types = array();
 
-						foreach( $types as $type ) {
-							echo '<tr>';
-							echo '<td>'. $type['desc'] . '</td>';
-							echo '<td>'. $type['mime'] . '</td>';
-							echo '<td>'. '.' . $type['ext'] . '</td>';
-							echo '<td> <input type="checkbox" name="available_types['. esc_attr( $type['ext'] ).']" '. checked( isset( $available_types[ $type['ext'] ] ), 1, false ) .' > </td>';
-							echo '</tr>';
-						}
-					?>
+							foreach( $types as $type ) {
+								echo '<tr>';
+								echo '<td>'. $type['desc'] . '</td>';
+								echo '<td>'. $type['mime'] . '</td>';
+								echo '<td>'. '.' . $type['ext'] . '</td>';
+								echo '<td> <input type="checkbox" name="available_types['. esc_attr( $type['ext'] ).']" > </td>';
+								echo '</tr>';
+							}
+						?>
 					<tr>
 						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?></th>
 					</tr>
-						<?php
-							$file_types   = get_option( 'file_upload_types', array() );
-							$custom_types = isset( $file_types['custom_types'] ) ? $file_types['custom_types'] : array();
-							$icons 		  = '<span class="dashicons dashicons-plus"></span>
-												<span class="dashicons dashicons-minus"></span>';
 
-							if ( ! empty( $custom_types ) ) {
-
-								foreach( $custom_types as $custom_type ) :
-										if ( empty( $custom_type['desc'] ) && empty( $custom_type['mime'] ) && empty( $custom_type['ext'] ) ) {
-											continue;
-										}
-									?>
-									<tr class="repetitive-fields">
-										<td><input type="text" name="custom_types[desc][]" value="<?php esc_attr_e( $custom_type['desc'] ); ?>" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
-										<td><input type="text" name="custom_types[mime][]" value="<?php esc_attr_e( $custom_type['mime'] ); ?>" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
-										<td><input type="text" name="custom_types[ext][]" value="<?php esc_attr_e( $custom_type['ext'] ); ?>" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
-										<td><?php echo $icons;?></td>
-									</tr>
-
-								<?php endforeach;
-							}
-						?>
-
-						<tr class="repetitive-fields">
-							<td><input type="text" name="custom_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
-							<td><input type="text" name="custom_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
-							<td><input type="text" name="custom_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
-							<td><?php echo $icons;?></td>
-						</tr>
+					<tr class="repetitive-fields">
+						<td><input type="text" name="custom_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="custom_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="custom_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
+						<td><span class="dashicons dashicons-plus"></span>
+							<span class="dashicons dashicons-minus"></span>
+						</td>
+					</tr>
 				</table>
 			</div>
 		<?php
@@ -311,12 +289,14 @@ class File_Upload_Types_Settings {
 
 			} else {
 				$file_upload_types 	= array();
+				$enabled_types 		= isset( $_POST['enabled_types'] ) ? $_POST['enabled_types'] : array();
 				$available_types 	= isset( $_POST['available_types'] ) ? $_POST['available_types'] : array();
 				$custom_types 		= isset( $_POST['custom_types'] ) ? $_POST['custom_types'] : array();
 				$description  		= isset( $custom_types['desc'] ) ? array_map( 'sanitize_text_field', $custom_types['desc'] ) : array();
 				$mime_types   		= isset( $custom_types['mime'] ) ? array_map( 'sanitize_mime_type', $custom_types['mime'] ) : array();
 				$extentions   		= isset( $custom_types['ext'] ) ? array_map( 'sanitize_file_name', $custom_types['ext'] ) : array();
 
+				$file_upload_types['enabled_types']   = $enabled_types;
 				$file_upload_types['available_types'] = $available_types;
 
 				foreach( $description as $key =>  $desc ) {

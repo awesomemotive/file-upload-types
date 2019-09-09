@@ -215,7 +215,9 @@ class File_Upload_Types_Settings {
 							}
 						?>
 					<tr>
-						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?></th>
+						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
+							<i class="fa fa-question-circle" style="font-size: 14px; color: #0073aa"></i>
+						</th>
 					</tr>
 
 					<tr class="repetitive-fields">
@@ -223,8 +225,8 @@ class File_Upload_Types_Settings {
 						<td><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
 						<td><input type="text" name="c_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
 						<td>
-							<i class="fa fa-plus"></i>
-							<i class="fa fa-minus"></i>
+							<i class="fa fa-plus-circle" style="font-size: 14px; color: #0073aa"></i>
+							<i class="fa fa-minus-circle" style="font-size: 14px; color: #0073aa"></i>
 						</td>
 					</tr>
 				</table>
@@ -276,12 +278,16 @@ class File_Upload_Types_Settings {
 								<p>
 									<?php echo sprintf(
 										wp_kses(
-											__( '<a href="%1$s" target="_blank">Get %2$s</a>', 'file-upload-types' ),
+											__( '<a href="%1$s" target="_blank">Get %2$s <i class="fa fa-external-link"></i></a>', 'file-upload-types' ),
 											array(
 												'a' => array(
-														'href' => array(),
-														'target' => array(),
-												)
+													'href' => array(),
+													'target' => array(),
+												),
+
+												'i' => array(
+													'class' => array(),
+												),
 											),
 										),
 

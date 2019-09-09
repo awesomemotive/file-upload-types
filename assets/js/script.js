@@ -1,7 +1,7 @@
 'use strict';
 
 jQuery( document ).ready( function( $ ) {
-	$( document ).on( 'click', '#file-upload-types .table-container .fa-plus', function( e ) {
+	$( document ).on( 'click', '#file-upload-types .table-container .fa-plus-circle', function( e ) {
 		e.preventDefault();
 
 		var closest = $( this ).closest( 'tr' );
@@ -11,7 +11,7 @@ jQuery( document ).ready( function( $ ) {
 		closest.after( clone );
 	});
 
-	$( document ).on( 'click', '#file-upload-types .table-container .fa-minus', function( e ) {
+	$( document ).on( 'click', '#file-upload-types .table-container .fa-minus-circle', function( e ) {
 		e.preventDefault();
 
 		if( $( this ).closest( 'table' ).find('tr.repetitive-fields' ).length > 1 ) {

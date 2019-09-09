@@ -273,6 +273,23 @@ class File_Upload_Types_Settings {
 								<p class="plugin-desc">
 									<?php echo $plugin['desc']; ?>
 								</p>
+								<p>
+									<?php echo sprintf(
+										wp_kses(
+											__( '<a href="%1$s" target="_blank">Get %2$s</a>', 'file-upload-types' ),
+											array(
+												'a' => array(
+														'href' => array(),
+														'target' => array(),
+												)
+											),
+										),
+
+										$plugin['url'],
+										$plugin['name'],
+									);
+									?>
+								</p>
 							</div>
 						</div>
 					</div>

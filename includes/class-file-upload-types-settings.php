@@ -49,7 +49,7 @@ class File_Upload_Types_Settings {
 			$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_style( 'file-upload-types-css', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION, $media = 'all' );
 			wp_enqueue_script( 'file-upload-types-js', plugins_url( 'assets/js/script'. $suffix .'.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION );
-			wp_enqueue_style( 'file-upload-types-font-awesome',plugins_url( 'assets/css/font-awesome.min.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), '4.4.0' );
+			wp_enqueue_style( 'file-upload-types-font-awesome', plugins_url( 'assets/css/font-awesome.min.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), '4.4.0' );
 		}
 	}
 
@@ -174,20 +174,28 @@ class File_Upload_Types_Settings {
 						<th><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></th>
 						<th><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></th>
 					</tr>
-					<tr>
-						<th colspan="3" class="heading"><?php esc_html_e( 'ENABLED FILE TYPES', 'file-upload-types' ); ?></th>
-					</tr>
-					<?php
-						$types = array();
 
-						foreach( $types as $type ) {
-							echo '<tr>';
-							echo '<td>'. $type['desc'] . '</td>';
-							echo '<td>'. $type['mime'] . '</td>';
-							echo '<td>'. '.' . $type['ext'] . '</td>';
-							echo '<td> <input type="checkbox" name="enabled_types['. esc_attr( $type['ext'] ).']" checked> </td>';
-							echo '</tr>';
-						}
+					<?php
+						$types = get_option( 'file_upload_types', array() );
+
+						if ( ! empty( $types ) ) : ?>
+							<tr>
+								<th colspan="3" class="heading"><?php esc_html_e( 'ENABLED FILE TYPES', 'file-upload-types' ); ?></th>
+							</tr>
+
+							<?php
+							foreach( $types as $key => $type ) {
+								echo '<tr>';
+								echo '<td>'. $type['desc'] . '</td>';
+								echo '<td>'. $type['mime'] . '</td>';
+								echo '<td>'. '.' . $type['ext'] . '</td>';
+								echo '<td> <input type="hidden" value="' . esc_attr( $type['desc'] ) . '" name="e_types['. $key .'][desc]" > </td>';
+								echo '<td> <input type="hidden" value="' . esc_attr( $type['mime'] ) . '" name="e_types['. $key .'][mime]" > </td>';
+								echo '<td> <input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types['. $key.'][ext]" checked> </td>';
+								echo '</tr>';
+							}
+
+						endif;
 					?>
 					<tr>
 						<th colspan="3" class="heading"><?php esc_html_e( 'AVAILABLE FILE TYPES', 'file-upload-types' ); ?></th>
@@ -195,12 +203,14 @@ class File_Upload_Types_Settings {
 						<?php
 							$types = array();
 
-							foreach( $types as $type ) {
+							foreach( $types as $key => $type ) {
 								echo '<tr>';
 								echo '<td>'. $type['desc'] . '</td>';
 								echo '<td>'. $type['mime'] . '</td>';
 								echo '<td>'. '.' . $type['ext'] . '</td>';
-								echo '<td> <input type="checkbox" name="available_types['. esc_attr( $type['ext'] ).']" > </td>';
+								echo '<td> <input type="hidden" value="' . esc_attr( $type['desc'] ) . '" name="a_types['. $key .'][desc]" > </td>';
+								echo '<td> <input type="hidden" value="' . esc_attr( $type['mime'] ) . '" name="a_types['. $key .'][mime]" > </td>';
+								echo '<td> <input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types['. $key .'][ext]"> </td>';
 								echo '</tr>';
 							}
 						?>
@@ -209,9 +219,9 @@ class File_Upload_Types_Settings {
 					</tr>
 
 					<tr class="repetitive-fields">
-						<td><input type="text" name="custom_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
-						<td><input type="text" name="custom_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
-						<td><input type="text" name="custom_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="c_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="c_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
 						<td>
 							<i class="fa fa-plus"></i>
 							<i class="fa fa-minus"></i>
@@ -290,27 +300,36 @@ class File_Upload_Types_Settings {
 			   exit;
 
 			} else {
-				$file_upload_types 	= array();
-				$enabled_types 		= isset( $_POST['enabled_types'] ) ? $_POST['enabled_types'] : array();
-				$available_types 	= isset( $_POST['available_types'] ) ? $_POST['available_types'] : array();
-				$custom_types 		= isset( $_POST['custom_types'] ) ? $_POST['custom_types'] : array();
-				$description  		= isset( $custom_types['desc'] ) ? array_map( 'sanitize_text_field', $custom_types['desc'] ) : array();
-				$mime_types   		= isset( $custom_types['mime'] ) ? array_map( 'sanitize_mime_type', $custom_types['mime'] ) : array();
-				$extentions   		= isset( $custom_types['ext'] ) ? array_map( 'sanitize_file_name', $custom_types['ext'] ) : array();
 
-				$file_upload_types['enabled_types']   = $enabled_types;
-				$file_upload_types['available_types'] = $available_types;
+				$custom_types 		 = array();
+				$enabled_types       = isset( $_POST['e_types'] ) ? $_POST['e_types'] : array();
+				$available_types     = isset( $_POST['a_types'] ) ? $_POST['a_types'] : array();
+				$custom_types_raw	 = isset( $_POST['c_types'] ) ? $_POST['c_types'] : array();
+
+				$description  		 = isset( $custom_types_raw['desc'] ) ? array_map( 'sanitize_text_field', $custom_types_raw['desc'] ) : array();
+				$mime_types   		 = isset( $custom_types_raw['mime'] ) ? array_map( 'sanitize_mime_type', $custom_types_raw['mime'] ) : array();
+				$extentions   		 = isset( $custom_types_raw['ext'] ) ? array_map( 'sanitize_text_field', $custom_types_raw['ext'] ) : array();
 
 				foreach( $description as $key =>  $desc ) {
-					$file_upload_types['custom_types'][ $key ]['desc'] = $desc;
+					$custom_types[ $key ]['desc'] = $desc;
 				}
 
 				foreach( $mime_types as $key => $mime_type ) {
-					$file_upload_types['custom_types'][ $key ]['mime'] = $mime_type;
+					$custom_types[ $key ]['mime'] = $mime_type;
 				}
 
 				foreach( $extentions as $key => $extention ) {
-					$file_upload_types['custom_types'][ $key ]['ext'] = $extention;
+					$custom_types[ $key ]['ext'] = $extention;
+				}
+
+				$file_upload_types = array_merge( $enabled_types, $available_types, $custom_types );
+
+				foreach( $file_upload_types as $unit => $type ) {
+
+					// Remove if mime type or extension is empty.
+					if( empty( $type['ext'] ) || empty( $type['mime']) ) {
+						unset( $file_upload_types[ $unit ] );
+					}
 				}
 
 				update_option( 'file_upload_types', $file_upload_types );

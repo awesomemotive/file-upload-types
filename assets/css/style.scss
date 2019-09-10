@@ -210,3 +210,25 @@ $secondary-color: #ff982d;
         margin: 0 0
     }
 }
+
+.fa-question-circle {
+  position: relative;
+  display: inline-block;
+}
+
+.fa-question-circle .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  position: absolute;
+  z-index: 1;
+}
+
+.fa-question-circle:hover .tooltiptext {
+  visibility: visible;
+}

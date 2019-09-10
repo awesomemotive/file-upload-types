@@ -216,7 +216,9 @@ class File_Upload_Types_Settings {
 						?>
 					<tr>
 						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
-							<i class="fa fa-question-circle" style="font-size: 14px; color: #0073aa"></i>
+							<div class="fa fa-question-circle" style="font-size: 14px; color: #0073aa">
+								<span class="tooltiptext"><?php echo esc_html__( 'Add the custom file types to allow uploads', 'file-upload-types' );?> </span>
+							</div>
 						</th>
 					</tr>
 

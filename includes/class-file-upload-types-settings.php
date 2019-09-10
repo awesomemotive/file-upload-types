@@ -172,7 +172,7 @@ class File_Upload_Types_Settings {
 					<tr>
 						<th><?php esc_html_e( 'Description', 'file-upload-types' ); ?></th>
 						<th><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></th>
-						<th><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></th>
+						<th colspan="2"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></th>
 					</tr>
 
 					<?php
@@ -189,9 +189,9 @@ class File_Upload_Types_Settings {
 								echo '<td>'. $type['desc'] . '</td>';
 								echo '<td>'. $type['mime'] . '</td>';
 								echo '<td>'. '.' . $type['ext'] . '</td>';
-								echo '<td> <input type="hidden" value="' . esc_attr( $type['desc'] ) . '" name="e_types['. $key .'][desc]" > </td>';
-								echo '<td> <input type="hidden" value="' . esc_attr( $type['mime'] ) . '" name="e_types['. $key .'][mime]" > </td>';
-								echo '<td> <input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types['. $key.'][ext]" checked> </td>';
+								echo '<td> <input type="hidden" value="' . esc_attr( $type['desc'] ) . '" name="e_types['. $key .'][desc]" >';
+								echo '<input type="hidden" value="' . esc_attr( $type['mime'] ) . '" name="e_types['. $key .'][mime]" >';
+								echo '<input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types['. $key.'][ext]" checked> </td>';
 								echo '</tr>';
 							}
 
@@ -208,9 +208,9 @@ class File_Upload_Types_Settings {
 								echo '<td>'. $type['desc'] . '</td>';
 								echo '<td>'. $type['mime'] . '</td>';
 								echo '<td>'. '.' . $type['ext'] . '</td>';
-								echo '<td> <input type="hidden" value="' . esc_attr( $type['desc'] ) . '" name="a_types['. $key .'][desc]" > </td>';
-								echo '<td> <input type="hidden" value="' . esc_attr( $type['mime'] ) . '" name="a_types['. $key .'][mime]" > </td>';
-								echo '<td> <input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types['. $key .'][ext]"> </td>';
+								echo '<td> <input type="hidden" value="' . esc_attr( $type['desc'] ) . '" name="a_types['. $key .'][desc]" >';
+								echo '<input type="hidden" value="' . esc_attr( $type['mime'] ) . '" name="a_types['. $key .'][mime]" >';
+								echo '<input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types['. $key .'][ext]"> </td>';
 								echo '</tr>';
 							}
 						?>

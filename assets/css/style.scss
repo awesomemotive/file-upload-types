@@ -90,8 +90,11 @@ $secondary-color: #ff982d;
 					width: 100%;
 				}
 
+				tr {
+					border-top: 1px ridge;
+				}
+
 				td, th {
-					border: 1px solid #dddddd;
 					text-align: left;
 					padding: 8px;
 					background: $primary-color;
@@ -192,43 +195,24 @@ $secondary-color: #ff982d;
 	min-height: 35px;
 }
 
-@media (max-width: 1249px) {
-     .file-upload-types-recommended-plugins .plugins-container .plugin-container {
-        width: 50%;
-    }
-}
-
-@media (max-width: 781px) {
-     .file-upload-types-recommended-plugins .plugins-container .plugin-container {
-        width: 100%;
-        margin-bottom: 20px;
-    }
-}
-
-@media (max-width: 781px) {
-     .file-upload-types-recommended-plugins .plugins-container .plugin-item {
-        margin: 0 0
-    }
-}
-
 .fa-question-circle {
-  position: relative;
-  display: inline-block;
-}
+	position: relative;
+	display: inline-block;
 
-.fa-question-circle .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
+ 	.tooltiptext {
+		visibility: hidden;
+		width: 120px;
+		background-color: black;
+		color: #fff;
+		text-align: center;
+		border-radius: 6px;
+		padding: 5px 0;
 
-  position: absolute;
-  z-index: 1;
+		position: absolute;
+		z-index: 1;
+	}
 }
 
 .fa-question-circle:hover .tooltiptext {
-  visibility: visible;
+	visibility: visible;
 }

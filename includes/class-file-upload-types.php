@@ -147,6 +147,6 @@ final class File_Upload_Types {
 	 * @since  1.0.0
 	 */
 	public function real_file_types ( $wp_check_filetype_and_ext, $file, $filename, $mimes, $real_mime ) {
-
+		return $wp_check_filetype_and_ext;
 	}
 }

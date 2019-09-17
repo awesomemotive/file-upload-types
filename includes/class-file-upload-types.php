@@ -48,7 +48,7 @@ final class File_Upload_Types {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_filter( 'plugin_action_links_'. plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
-		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_types' ), 10, 5 );
+		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 5 );
 
 		$this->define_constants();
 		$this->includes();
@@ -107,6 +107,29 @@ final class File_Upload_Types {
 	}
 
 	/**
+	 * Format mime types stored in the database in the 'ext => mime' format.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	public function enabled_types() {
+		$enabled_types_raw		= get_option( 'file_upload_types', array() );
+		$enabled_types			= array();
+
+		foreach( $enabled_types_raw as $type ) {
+
+			if ( empty( $type['ext'] ) || empty( $type['mime'] ) ) {
+				continue;
+			}
+
+			$enabled_types[ $type['ext'] ] = $type['mime'];
+		}
+
+		return $enabled_types;
+	}
+
+	/**
 	 * File types allowed to upload.
 	 *
 	 * @param  $mime_types array  List of all mime allowed mime types.
@@ -118,19 +141,9 @@ final class File_Upload_Types {
 	 * @since  1.0.0
 	 */
 	public function allowed_types( $mime_types ) {
-		$enabled_types 		= get_option( 'file_upload_types', array() );
-		$add_mime_types	   	= array();
 
-		foreach( $enabled_types as $type ) {
-
-			if ( empty( $type['ext'] ) || empty( $type['mime'] ) ) {
-				continue;
-			}
-
-			$add_mime_types[ $type['ext'] ] = $type['mime'];
-		}
-
-		return array_merge( $mime_types, $add_mime_types );
+		$enabled_types = $this->enabled_types();
+		return array_merge( $mime_types, $enabled_types );
 	}
 
 	/**
@@ -146,7 +159,27 @@ final class File_Upload_Types {
 	 *
 	 * @since  1.0.0
 	 */
-	public function real_file_types ( $wp_check_filetype_and_ext, $file, $filename, $mimes, $real_mime ) {
-		return $wp_check_filetype_and_ext;
+	public function real_file_type( $wp_check_filetype_and_ext, $file, $filename, $mimes, $real_mime ) {
+		$real_file_type = array();
+
+		foreach ( $wp_check_filetype_and_ext as $key => $value ) {
+			if ( ! empty( $value ) ) {
+				$real_file_type[ $key ] = $value;
+			}
+		}
+
+		$parts 		 = explode( '.', $filename );
+		$extension   = array_pop( $parts );
+		$extension	 = strtolower( $extension );
+
+		$enabled_types = $this->enabled_types();
+
+		if ( isset( $enabled_types[ $extension ] ) ) {
+			$real_file_type['ext']  = $extension;
+			$real_file_type['type'] = $enabled_types[ $extension ];
+			$real_file_type['proper_filename'] = $filename;
+		}
+
+		return $real_file_type;
 	}
 }

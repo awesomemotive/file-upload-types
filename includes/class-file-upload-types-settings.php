@@ -201,9 +201,10 @@ class File_Upload_Types_Settings {
 						<th colspan="3" class="heading"><?php esc_html_e( 'AVAILABLE FILE TYPES', 'file-upload-types' ); ?></th>
 					</tr>
 						<?php
-							$types = array();
+							$available_types = fut_get_available_file_types();
+							$enabled_types   = get_option( 'file_upload_types', array() );
 
-							foreach( $types as $key => $type ) {
+							foreach( $available_types as $key => $type ) {
 								echo '<tr>';
 								echo '<td>'. $type['desc'] . '</td>';
 								echo '<td>'. $type['mime'] . '</td>';

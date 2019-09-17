@@ -169,7 +169,7 @@ class File_Upload_Types_Settings {
 
 			<div class="table-container">
 				<table>
-					<tr>
+					<tr class="section">
 						<th><?php esc_html_e( 'Description', 'file-upload-types' ); ?></th>
 						<th><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></th>
 						<th colspan="2"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></th>
@@ -179,7 +179,7 @@ class File_Upload_Types_Settings {
 						$types = get_option( 'file_upload_types', array() );
 
 						if ( ! empty( $types ) ) : ?>
-							<tr>
+							<tr class="sub-section">
 								<th colspan="3" class="heading"><?php esc_html_e( 'ENABLED FILE TYPES', 'file-upload-types' ); ?></th>
 							</tr>
 
@@ -197,7 +197,7 @@ class File_Upload_Types_Settings {
 
 						endif;
 					?>
-					<tr>
+					<tr class="sub-section">
 						<th colspan="3" class="heading"><?php esc_html_e( 'AVAILABLE FILE TYPES', 'file-upload-types' ); ?></th>
 					</tr>
 						<?php
@@ -215,7 +215,7 @@ class File_Upload_Types_Settings {
 								echo '</tr>';
 							}
 						?>
-					<tr>
+					<tr class="sub-section">
 						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
 							<div class="fa fa-question-circle" style="font-size: 14px; color: #0073aa">
 								<span class="tooltiptext"><?php echo esc_html__( 'Add the custom file types to allow uploads', 'file-upload-types' );?> </span>

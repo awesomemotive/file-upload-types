@@ -20,11 +20,17 @@ jQuery( document ).ready( function( $ ) {
 	});
 
 	$( document ).on( 'keyup', '#file-upload-types-search', function( e ) {
-
 	    var value = $(this).val().toLowerCase();
 
-		$( 'table tr td' ).filter( function() {
-			$(this).toggle( $( this ).text().toLowerCase().indexOf( value ) > -1 );
+		$( '.file-upload-types-table table tr' ).filter( function() {
+
+			if ( ! $(this).hasClass('section') ) {
+				if ( value !== '' && $(this).hasClass('sub-section')  ) {
+					$( this ).hide();
+				} else {
+					$(this).toggle( $( this ).text().toLowerCase().indexOf( value ) > -1 );
+				}
+			}
 		});
 	});
 });

@@ -48,7 +48,7 @@ final class File_Upload_Types {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_filter( 'plugin_action_links_'. plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
-		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 5 );
+		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 3 );
 
 		$this->define_constants();
 		$this->includes();
@@ -136,9 +136,9 @@ final class File_Upload_Types {
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/wp_get_mime_types/
 	 *
-	 * @return array
-	 *
 	 * @since  1.0.0
+	 *
+	 * @return array
 	 */
 	public function allowed_types( $mime_types ) {
 
@@ -149,20 +149,18 @@ final class File_Upload_Types {
 	/**
 	 * Filters the “real” file type of the given file.
 	 *
-	 * @param array 	$wp_check_filetype_and_ext 	File data array containing 'ext', 'type', and 'proper_filename' keys.
-	 * @param string 	$file 						Full path to the file.
-	 * @param string 	$filename 					The name of the file (may differ from $file due to $file being in a tmp directory).
-	 * @param array 	$mimes 						Key is the file extension with value as the mime type.
-	 * @param string|bool $real_mime 				The actual mime type or false if the type cannot be determined.
-	 *
-	 * @return array.
+	 * @param array 	$file_data 	File data array containing 'ext', 'type', and 'proper_filename' keys.
+	 * @param string 	$file 		Full path to the file.
+	 * @param string 	$filename 	The name of the file (may differ from $file due to $file being in a tmp directory).
 	 *
 	 * @since  1.0.0
+	 *
+	 * @return  array
 	 */
-	public function real_file_type( $wp_check_filetype_and_ext, $file, $filename, $mimes, $real_mime ) {
+	public function real_file_type( $file_data, $file, $filename ) {
 		$real_file_type = array();
 
-		foreach ( $wp_check_filetype_and_ext as $key => $value ) {
+		foreach ( $file_data as $key => $value ) {
 			if ( ! empty( $value ) ) {
 				$real_file_type[ $key ] = $value;
 			}

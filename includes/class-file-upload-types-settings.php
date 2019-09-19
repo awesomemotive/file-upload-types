@@ -203,8 +203,9 @@ class File_Upload_Types_Settings {
 						<?php
 							$available_types = fut_get_available_file_types();
 							$enabled_types   = get_option( 'file_upload_types', array() );
+							$types 			 = fut_array_recursive_diff( $available_types, $enabled_types ); // Available types that are not included in enabled types.
 
-							foreach( $available_types as $key => $type ) {
+							foreach( $types as $key => $type ) {
 								echo '<tr>';
 								echo '<td>'. $type['desc'] . '</td>';
 								echo '<td>'. $type['mime'] . '</td>';

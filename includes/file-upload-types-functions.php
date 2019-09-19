@@ -52,3 +52,39 @@ function fut_get_available_file_types() {
 				),
 			));
 }
+
+/**
+ * Performs recursive array_diff alike functionality.
+ *
+ * @param  array $array1
+ * @param  array $array2
+ *
+ * @see  https://www.php.net/manual/en/function.array-diff.php#91756
+ *
+ * @since  1.0.0
+ *
+ * @return array
+ */
+function fut_array_recursive_diff( $array1, $array2 ) {
+	$return = array();
+
+	foreach ( $array1 as $key => $value ) {
+		if ( array_key_exists( $key, $array2 ) ) {
+			if ( is_array( $value ) ) {
+				$recursive_diff = fut_array_recursive_diff( $value, $array2[ $key ] );
+
+				if ( count( $recursive_diff ) ) {
+					$return[ $key ] = $recursive_diff;
+				}
+			} else {
+				if ( $value != $array2[ $key ] ) {
+					$return[ $key ] = $value;
+				}
+			}
+		} else {
+			$return[ $key ] = $value;
+		}
+	}
+
+	return $return;
+}

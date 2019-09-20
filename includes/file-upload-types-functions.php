@@ -10,28 +10,6 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * File Types WordPress supports by default.
- *
- * @since  1.0.0
- *
- * @return array
- */
-function fut_get_allowed_file_types() {
-	return apply_filters( 'file_upload_types_allowed_file_types', array(
-				array(
-					'desc' => 'JPEG image',
-					'mime' => 'image/jpeg',
-					'ext' => 'jpeg',
-				),
-				array(
-					'desc' => 'Microsoft Word Document',
-					'mime' => 'application/msword',
-					'ext' => 'doc',
-				),
-			));
-}
-
-/**
  * Additional available file types.
  *
  * @since  1.0.0
@@ -39,18 +17,36 @@ function fut_get_allowed_file_types() {
  * @return array
  */
 function fut_get_available_file_types() {
+
+	require_once dirname( __FILE__ ) . '/library/simple_html_dom.php';
+
+	$html 	  = file_get_html( 'https://www.freeformatter.com/mime-types-list.html' );
+	$types 	  = array();
+	$columns  = $html->find( '#mime-types-list table tbody tr' );
+
+	foreach( $columns as $column ) {
+		$tds 	 = $column->find('td');
+		$types['desc'][] = isset( $tds[0]->plaintext ) ? $tds[0]->plaintext : '';
+		$types['mime'][] = isset( $tds[1]->plaintext ) ? $tds[1]->plaintext : '';
+		$types['ext'][]  = isset( $tds[2]->plaintext ) ? $tds[2]->plaintext : '';
+	}
+
+	$html->clear();
+	unset( $html );
+
 	return apply_filters( 'file_upload_types_available_file_types', array(
-				array(
-					'desc' => '3D Crossword Plugin',
-					'mime' => 'application/vnd.hzn-3d-crossword',
-					'ext' => 'x3d',
-				),
-				array(
-					'desc' => '3GPP MSEQ File',
-					'mime' => 'video/3gpp',
-					'ext' => 'mseq',
-				),
-			));
+		array(
+			'desc' => '3D Crossword Plugin',
+			'mime' => 'application/vnd.hzn-3d-crossword',
+			'ext' => 'x3d',
+		),
+
+		array(
+			'desc' => '3GPP MSEQ File',
+			'mime' => 'video/3gpp',
+			'ext' => 'mseq',
+		),
+	));
 }
 
 /**

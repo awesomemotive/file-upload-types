@@ -34,6 +34,11 @@ function fut_get_available_file_types() {
 	$html->clear();
 	unset( $html );
 
+	$list   = fopen( dirname( __FILE__ ) . '/file-types-list.txt', "wb" ) or die( "Unable to open file!" );
+
+	fwrite( $list, serialize( $types ) );
+	fclose( $list );
+
 	$types  = fut_format_raw_custom_types( $types );
 
 	return $types;

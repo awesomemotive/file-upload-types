@@ -34,12 +34,16 @@ function fut_get_available_file_types() {
 	$html->clear();
 	unset( $html );
 
+	$types  = fut_format_raw_custom_types( $types );
+
+	usort( $types, function( $str1, $str2 ) {
+		return strcasecmp( $str1['desc'], $str2['desc'] );
+	});
+
 	$list   = fopen( dirname( __FILE__ ) . '/file-types-list.txt', "wb" ) or die( "Unable to open file!" );
 
 	fwrite( $list, serialize( $types ) );
 	fclose( $list );
-
-	$types  = fut_format_raw_custom_types( $types );
 
 	return $types;
 }

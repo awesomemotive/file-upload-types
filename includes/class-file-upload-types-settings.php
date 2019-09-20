@@ -332,22 +332,7 @@ class File_Upload_Types_Settings {
 				$enabled_types       = isset( $_POST['e_types'] ) ? $_POST['e_types'] : array();
 				$available_types     = isset( $_POST['a_types'] ) ? $_POST['a_types'] : array();
 				$custom_types_raw	 = isset( $_POST['c_types'] ) ? $_POST['c_types'] : array();
-
-				$description  		 = isset( $custom_types_raw['desc'] ) ? array_map( 'sanitize_text_field', $custom_types_raw['desc'] ) : array();
-				$mime_types   		 = isset( $custom_types_raw['mime'] ) ? array_map( 'sanitize_mime_type', $custom_types_raw['mime'] ) : array();
-				$extentions   		 = isset( $custom_types_raw['ext'] ) ? array_map( 'sanitize_text_field', $custom_types_raw['ext'] ) : array();
-
-				foreach( $description as $key =>  $desc ) {
-					$custom_types[ $key ]['desc'] = $desc;
-				}
-
-				foreach( $mime_types as $key => $mime_type ) {
-					$custom_types[ $key ]['mime'] = $mime_type;
-				}
-
-				foreach( $extentions as $key => $extention ) {
-					$custom_types[ $key ]['ext'] = $extention;
-				}
+				$custom_types 		 = fut_format_raw_custom_types( $custom_types_raw );
 
 				$file_upload_types = array_merge( $enabled_types, $available_types, $custom_types );
 

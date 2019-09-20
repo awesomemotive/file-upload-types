@@ -25,7 +25,7 @@ function fut_get_available_file_types() {
 	$columns  = $html->find( '#mime-types-list table tbody tr' );
 
 	foreach( $columns as $column ) {
-		$tds 	 = $column->find('td');
+		$tds 	 		 = $column->find('td');
 		$types['desc'][] = isset( $tds[0]->plaintext ) ? $tds[0]->plaintext : '';
 		$types['mime'][] = isset( $tds[1]->plaintext ) ? $tds[1]->plaintext : '';
 		$types['ext'][]  = isset( $tds[2]->plaintext ) ? $tds[2]->plaintext : '';
@@ -34,19 +34,9 @@ function fut_get_available_file_types() {
 	$html->clear();
 	unset( $html );
 
-	return apply_filters( 'file_upload_types_available_file_types', array(
-		array(
-			'desc' => '3D Crossword Plugin',
-			'mime' => 'application/vnd.hzn-3d-crossword',
-			'ext' => 'x3d',
-		),
+	$types  = fut_format_raw_custom_types( $types );
 
-		array(
-			'desc' => '3GPP MSEQ File',
-			'mime' => 'video/3gpp',
-			'ext' => 'mseq',
-		),
-	));
+	return $types;
 }
 
 /**
@@ -83,4 +73,35 @@ function fut_array_recursive_diff( $array1, $array2 ) {
 	}
 
 	return $return;
+}
+
+/**
+ * Formats raw data of file types.
+ *
+ * @param  array
+ *
+ * @since  1.0.0
+ *
+ * @return array
+ */
+function fut_format_raw_custom_types( $custom_types_raw ) {
+
+	$custom_types 		 = array();
+	$description  		 = isset( $custom_types_raw['desc'] ) ? array_map( 'sanitize_text_field', $custom_types_raw['desc'] ) : array();
+	$mime_types   		 = isset( $custom_types_raw['mime'] ) ? array_map( 'sanitize_mime_type', $custom_types_raw['mime'] ) : array();
+	$extentions   		 = isset( $custom_types_raw['ext'] ) ? array_map( 'sanitize_text_field', $custom_types_raw['ext'] ) : array();
+
+	foreach( $description as $key =>  $desc ) {
+		$custom_types[ $key ]['desc'] = $desc;
+	}
+
+	foreach( $mime_types as $key => $mime_type ) {
+		$custom_types[ $key ]['mime'] = $mime_type;
+	}
+
+	foreach( $extentions as $key => $extention ) {
+		$custom_types[ $key ]['ext'] = $extention;
+	}
+
+	return $custom_types;
 }

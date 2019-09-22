@@ -114,19 +114,27 @@ final class File_Upload_Types {
 	 * @return array
 	 */
 	public function enabled_types() {
-		$enabled_types_raw		= get_option( 'file_upload_types', array() );
-		$enabled_types			= array();
+		$stored_types		= get_option( 'file_upload_types', array() );
+		$enabled_types		= isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : '';
+		$custom_types_raw   = isset( $stored_types['custom'] ) ? $stored_types['custom'] : '';
+		$available_types 	= fut_get_available_file_types();
+		$return_types		= array();
 
-		foreach( $enabled_types_raw as $type ) {
+		foreach( $available_types as $type ) {
+			if( in_array( $enabled_types, $type['ext'] ) ) {
+				$return_types[ $type['ext'] ] = $type['mime'];
+			}
+		}
 
+		foreach( $custom_types_raw as $type ) {
 			if ( empty( $type['ext'] ) || empty( $type['mime'] ) ) {
 				continue;
 			}
 
-			$enabled_types[ $type['ext'] ] = $type['mime'];
+			$return_types[ $type['ext'] ] = $type['mime'];
 		}
 
-		return $enabled_types;
+		return $return_types;
 	}
 
 	/**

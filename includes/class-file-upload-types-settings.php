@@ -176,22 +176,29 @@ class File_Upload_Types_Settings {
 					</tr>
 
 					<?php
-						$types = get_option( 'file_upload_types', array() );
+						$stored_types  		= get_option( 'file_upload_types', array() );
+						$enabled_types 		= isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
+						$custom_types       = isset( $stored_types['custom'] ) ? $stored_types['custom'] : array();
+						$available_types    = fut_get_available_file_types();
+						$types 				= array_merge( $available_types, $custom_types );
 
-						if ( ! empty( $types ) ) : ?>
+						if ( ! empty( $stored_types ) ) : ?>
 							<tr class="sub-section">
 								<th colspan="3" class="heading"><?php esc_html_e( 'ENABLED FILE TYPES', 'file-upload-types' ); ?></th>
 							</tr>
 
 							<?php
+
 							foreach( $types as $key => $type ) {
+								if ( ! in_array( $type['ext'], $enabled_types ) && ! in_array( $type['ext'], array_column( $custom_types, 'ext' ) ) ) {
+									continue;
+								}
+
 								echo '<tr>';
 								echo '<td>'. $type['desc'] . '</td>';
 								echo '<td>'. $type['mime'] . '</td>';
-								echo '<td>'. '.' . $type['ext'] . '</td>';
-								echo '<td> <input type="hidden" value="' . esc_attr( $type['desc'] ) . '" name="e_types['. $key .'][desc]" >';
-								echo '<input type="hidden" value="' . esc_attr( $type['mime'] ) . '" name="e_types['. $key .'][mime]" >';
-								echo '<input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types['. $key.'][ext]" checked> </td>';
+								echo '<td>'. $type['ext'] . '</td>';
+								echo '<td><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types[]" checked> </td>';
 								echo '</tr>';
 							}
 
@@ -202,17 +209,20 @@ class File_Upload_Types_Settings {
 					</tr>
 						<?php
 							$available_types = fut_get_available_file_types();
-							$enabled_types   = get_option( 'file_upload_types', array() );
-							$types 			 = fut_array_recursive_diff( $available_types, $enabled_types ); // Available types that are not included in enabled types.
+							$stored_types    = get_option( 'file_upload_types', array() );
+							$enabled_types   = isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
 
-							foreach( $types as $key => $type ) {
+							foreach( $available_types as $key => $type ) {
+
+								if ( in_array( $type['ext'], $enabled_types ) ) {
+									continue;
+								}
+
 								echo '<tr>';
 								echo '<td>'. $type['desc'] . '</td>';
 								echo '<td>'. $type['mime'] . '</td>';
-								echo '<td>'. '.' . $type['ext'] . '</td>';
-								echo '<td> <input type="hidden" value="' . esc_attr( $type['desc'] ) . '" name="a_types['. $key .'][desc]" >';
-								echo '<input type="hidden" value="' . esc_attr( $type['mime'] ) . '" name="a_types['. $key .'][mime]" >';
-								echo '<input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types['. $key .'][ext]"> </td>';
+								echo '<td>'. $type['ext'] . '</td>';
+								echo '<td><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
 								echo '</tr>';
 							}
 						?>
@@ -328,21 +338,35 @@ class File_Upload_Types_Settings {
 
 			} else {
 
-				$custom_types 		 = array();
 				$enabled_types       = isset( $_POST['e_types'] ) ? $_POST['e_types'] : array();
 				$available_types     = isset( $_POST['a_types'] ) ? $_POST['a_types'] : array();
 				$custom_types_raw	 = isset( $_POST['c_types'] ) ? $_POST['c_types'] : array();
 				$custom_types 		 = fut_format_raw_custom_types( $custom_types_raw );
 
-				$file_upload_types = array_merge( $enabled_types, $available_types, $custom_types );
-
-				foreach( $file_upload_types as $unit => $type ) {
+				foreach( $custom_types as $key => $type ) {
 
 					// Remove if mime type or extension is empty.
 					if( empty( $type['ext'] ) || empty( $type['mime']) ) {
-						unset( $file_upload_types[ $unit ] );
+						unset( $custom_types[ $key ] );
 					}
 				}
+
+				$types 	   		  	  = get_option( 'file_upload_types', array() );
+				$stored_custom_types  = isset( $types['custom'] ) ? $types['custom'] : array();
+
+				foreach( $stored_custom_types as $key => $value ) {
+
+					if ( ! in_array( $value['ext'], $enabled_types  ) ) {
+						unset( $stored_custom_types[ $key ] );
+					}
+				}
+
+				$enabled_types 		  = array_merge( $enabled_types, $available_types );
+
+				$file_upload_types = array(
+					'enabled' => $enabled_types,
+					'custom'  => array_merge( $custom_types, $stored_custom_types ),
+				);
 
 				update_option( 'file_upload_types', $file_upload_types );
 			}

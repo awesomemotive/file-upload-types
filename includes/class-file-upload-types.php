@@ -121,8 +121,12 @@ final class File_Upload_Types {
 		$return_types		= array();
 
 		foreach( $available_types as $type ) {
-			if( in_array( $enabled_types, $type['ext'], true ) ) {
-				$return_types[ $type['ext'] ] = $type['mime'];
+			if( in_array( $type['ext'], $enabled_types, true ) ) {
+
+				$ext = trim( $type['ext'], '.' );
+				$ext = str_replace( ',', '|', $ext );
+
+				$return_types[ $ext ] = $type['mime'];
 			}
 		}
 
@@ -131,7 +135,10 @@ final class File_Upload_Types {
 				continue;
 			}
 
-			$return_types[ $type['ext'] ] = $type['mime'];
+			$ext = trim( $type['ext'], '.' );
+			$ext = str_replace( ',', '|', $ext );
+
+			$return_types[ $ext ] = $type['mime'];
 		}
 
 		return $return_types;

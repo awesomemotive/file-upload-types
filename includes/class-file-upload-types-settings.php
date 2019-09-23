@@ -190,7 +190,7 @@ class File_Upload_Types_Settings {
 							<?php
 
 							foreach( $types as $key => $type ) {
-								if ( ! in_array( $type['ext'], $enabled_types ) && ! in_array( $type['ext'], array_column( $custom_types, 'ext' ) ) ) {
+								if ( ! in_array( $type['ext'], $enabled_types, true ) && ! in_array( $type['ext'], array_column( $custom_types, 'ext' ), true ) ) {
 									continue;
 								}
 
@@ -356,7 +356,7 @@ class File_Upload_Types_Settings {
 
 				foreach( $stored_custom_types as $key => $value ) {
 
-					if ( ! in_array( $value['ext'], $enabled_types  ) ) {
+					if ( ! in_array( $value['ext'], $enabled_types, true  ) ) {
 						unset( $stored_custom_types[ $key ] );
 					}
 				}

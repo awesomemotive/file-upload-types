@@ -121,7 +121,7 @@ final class File_Upload_Types {
 		$return_types		= array();
 
 		foreach( $available_types as $type ) {
-			if( in_array( $enabled_types, $type['ext'] ) ) {
+			if( in_array( $enabled_types, $type['ext'], true ) ) {
 				$return_types[ $type['ext'] ] = $type['mime'];
 			}
 		}

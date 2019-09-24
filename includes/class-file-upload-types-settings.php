@@ -174,7 +174,10 @@ class File_Upload_Types_Settings {
 						<th><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></th>
 						<th colspan="2"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></th>
 					</tr>
-
+				</table>
+			</div>
+			<div  style="overflow-y:scroll; height:500px;" class="table-container">
+				<table>
 					<?php
 						$stored_types  		= get_option( 'file_upload_types', array() );
 						$enabled_types 		= isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
@@ -226,7 +229,12 @@ class File_Upload_Types_Settings {
 								echo '</tr>';
 							}
 						?>
-					<tr class="sub-section">
+				</table>
+			</div>
+
+			<div class="table-container">
+				<table>
+					<tr class="sub-section" style="overflow-y:hidden">
 						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
 							<div class="fa fa-question-circle" style="font-size: 14px; color: #0073aa">
 								<span class="tooltiptext"><?php echo esc_html__( 'Add the custom file types to allow uploads', 'file-upload-types' );?> </span>

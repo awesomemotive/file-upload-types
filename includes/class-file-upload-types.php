@@ -100,10 +100,12 @@ final class File_Upload_Types {
 	 * Includes.
 	 */
 	private function includes() {
+		include_once dirname( __FILE__ ) . '/file-upload-types-functions.php';
+
 		if ( is_admin() ) {
 			include_once dirname( __FILE__ ) . '/class-file-upload-types-settings.php';
-			include_once dirname( __FILE__ ) . '/file-upload-types-functions.php';
 		}
+
 	}
 
 	/**

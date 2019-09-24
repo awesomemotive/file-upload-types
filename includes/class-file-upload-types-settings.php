@@ -163,7 +163,7 @@ class File_Upload_Types_Settings {
 				</div>
 
 				<div class="search-box">
-					<input type="search" id="file-upload-types-search" placeholder="<?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>" />
+					<input type="search" id="file-upload-types-search" style="font-family:Arial, FontAwesome" placeholder="&#xF002; <?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>" />
 				</div>
 			</div>
 

@@ -61,7 +61,7 @@ class File_Upload_Types_Settings {
 
 		if ( $this->file_upload_types_screen() ) {
 
-			$image_url = plugins_url( 'assets/images/logo.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE );
+			$image_url = plugins_url( 'assets/images/logo.png', FILE_UPLOAD_TYPES_PLUGIN_FILE );
 			?>
 			<div id="file-upload-types-header">
 				<img class="file-upload-types-header-logo" src="<?php echo esc_url( $image_url ); ?> " alt="File Upload Types"/>
@@ -238,6 +238,7 @@ class File_Upload_Types_Settings {
 					<tr class="sub-section" style="overflow-y:hidden">
 						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
 							<div class="fa fa-question-circle" style="font-size: 14px; color: #0073aa">
+								<img src="<?php echo plugins_url( 'assets/images/question-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
 								<span class="tooltiptext"><?php echo esc_html__( 'Add the custom file types to allow uploads', 'file-upload-types' );?> </span>
 							</div>
 						</th>
@@ -248,8 +249,8 @@ class File_Upload_Types_Settings {
 						<td><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
 						<td><input type="text" name="c_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
 						<td>
-							<i class="fa fa-plus-circle" style="font-size: 14px; color: #0073aa"></i>
-							<i class="fa fa-minus-circle" style="font-size: 14px; color: #0073aa"></i>
+							<img src="<?php echo plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
+							<img src="<?php echo plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
 						</td>
 					</tr>
 				</table>
@@ -301,21 +302,18 @@ class File_Upload_Types_Settings {
 								<p>
 									<?php echo sprintf(
 										wp_kses(
-											__( '<a href="%1$s" target="_blank">Get %2$s <i class="fa fa-external-link"></i></a>', 'file-upload-types' ),
+											__( '<a href="%1$s" target="_blank">Get %2$s <img src="%3$s"/></a>', 'file-upload-types' ),
 											array(
 												'a' => array(
 													'href' => array(),
 													'target' => array(),
-												),
-
-												'i' => array(
-													'class' => array(),
 												),
 											),
 										),
 
 										$plugin['url'],
 										$plugin['name'],
+										plugins_url( 'assets/images/external-link-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 									);
 									?>
 								</p>
@@ -401,25 +399,25 @@ class File_Upload_Types_Settings {
 
 		$data = array(
 			'wpf'      => array(
-				'icon' => plugins_url( 'assets/images/plugin-wpf.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'icon' => plugins_url( 'assets/images/wpforms.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => \esc_html__( 'WPForms', 'file-upload-types' ),
 				'desc' => \esc_html__( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
 				'url'  => 'https://wpforms.com',
 			),
 			'mi'      => array(
-				'icon' => plugins_url( 'assets/images/plugin-mi.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'icon' => plugins_url( 'assets/images/monsterinsights.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => \esc_html__( 'MonsterInsights', 'file-upload-types' ),
 				'desc' => \esc_html__( 'Effortlessly connect your WP site with Google Analytics.', 'file-upload-types' ),
 				'url'  => 'https://www.monsterinsights.com'
 			),
 			'om'      => array(
-				'icon' => plugins_url( 'assets/images/plugin-om.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'icon' => plugins_url( 'assets/images/optinmonster.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => \esc_html__( 'OptinMonster', 'file-upload-types' ),
 				'desc' => \esc_html__( 'Turn your traffic into leads, conversions and sales.', 'file-upload-types' ),
 				'url'  => 'https://optinmonster.com',
 			),
 			'sp'      => array(
-				'icon' => plugins_url( 'assets/images/plugin-smtp.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'icon' => plugins_url( 'assets/images/seedprod.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => \esc_html__( 'SeedProd', 'file-upload-types' ),
 				'desc' => \esc_html__( 'Create beautiful coming soon pages, skyrocket your email list.', 'file-upload-types' ),
 				'url'  => 'https://seedprod.com',

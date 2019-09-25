@@ -123,7 +123,7 @@ final class File_Upload_Types {
 		$return_types		= array();
 
 		foreach( $available_types as $type ) {
-			if( in_array( $type['ext'], $enabled_types, true ) ) {
+			if ( in_array( $type['ext'], $enabled_types, true ) ) {
 
 				$ext = trim( $type['ext'], '.' );
 				$ext = str_replace( ',', '|', $ext );

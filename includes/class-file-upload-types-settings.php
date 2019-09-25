@@ -97,9 +97,9 @@ class File_Upload_Types_Settings {
 				<div class="file-upload-types-page file-upload-types-page-settings ">
 					<div class="file-upload-types-nav">
 						<div class="file-upload-types-nav-title">
-						<h1>
+						<p>
 							<?php esc_html_e( 'Settings', 'file-upload-types' ); ?>
-						</h1>
+						</p>
 						</div>
 						<div class="fie-upload-types-docs">
 						<p>
@@ -108,6 +108,8 @@ class File_Upload_Types_Settings {
 						</p>
 						</div>
 					</div>
+
+					<?php do_action( 'file_upload_types_settings_after_nav_bar' ) ;?>
 
 					<form method="post">
 						<div class="file-upload-types-content">
@@ -354,7 +356,7 @@ class File_Upload_Types_Settings {
 				foreach( $custom_types as $key => $type ) {
 
 					// Remove if mime type or extension is empty.
-					if( empty( $type['ext'] ) || empty( $type['mime']) ) {
+					if ( empty( $type['ext'] ) || empty( $type['mime']) ) {
 						unset( $custom_types[ $key ] );
 					}
 				}
@@ -376,7 +378,15 @@ class File_Upload_Types_Settings {
 					'custom'  => array_merge( $custom_types, $stored_custom_types ),
 				);
 
-				update_option( 'file_upload_types', $file_upload_types );
+				$saving = update_option( 'file_upload_types', $file_upload_types );
+
+				add_action( 'file_upload_types_settings_after_nav_bar', function() {
+					?>
+						<div class="notice notice-success file-upload-types-notice is-dismissible">
+							<p><strong><?php echo esc_html__( 'Your settings have been saved.', 'file-upload-types' );?></strong></p>
+						</div>
+					<?php
+				});
 			}
 		}
 	}
@@ -400,7 +410,7 @@ class File_Upload_Types_Settings {
 			'smtp'      => array(
 				'icon' => plugins_url( 'assets/images/plugin-smtp.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => \esc_html__( 'WP Mail SMTP', 'file-upload-types' ),
-				'desc' => \esc_html__( 'Fixes your email deliverability by reconfiguring WordPress to use a proper SMTP provider when sending emails..', 'file-upload-types' ),
+				'desc' => \esc_html__( 'Fixes your email deliverability by reconfiguring WordPress to use a proper SMTP provider when sending emails.', 'file-upload-types' ),
 				'url'  => 'https://wpmailsmtp.com',
 			),
 			'mi'      => array(

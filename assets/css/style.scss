@@ -38,15 +38,22 @@ $secondary-color: #ff982d;
 #file-upload-types {
     margin: 0;
 
+    .file-upload-types-notice {
+		margin-left: 20px;
+		margin-right: 20px;
+    }
+
 	.file-upload-types-nav {
 	    background-color: $primary-color;
 	    margin: 0 0 20px 0;
 	    padding: 0 20px;
 		display: flex;
 
-	    .file-upload-types-nav-title h1 {
+	    .file-upload-types-nav-title p {
 			margin-bottom: 10px;
-			padding-top: 10px;
+			font-size: 20px;
+			font-weight: 700;
+			color: #444;
 	    }
 
 	    .fie-upload-types-docs {
@@ -108,13 +115,12 @@ $secondary-color: #ff982d;
 
 		.file-upload-types-products {
 			margin-left: auto;
-			width: 33.33%;
+			width: 25%;
 
 			.file-upload-types-recommended-plugins {
-			    padding: 0 10px;
 
 				.plugins-container {
-				    margin-left: -20px;
+				    margin-left: -30px;
 				    margin-right: -20px;
 
 				    .plugin-container {
@@ -124,7 +130,6 @@ $secondary-color: #ff982d;
 
 					.plugin-item {
 						border-top: 1px solid #ddd;
-						padding: 12px;
 
 						img {
 						    border: 1px solid #eee;

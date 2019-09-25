@@ -24,7 +24,9 @@ function fut_get_available_file_types() {
 
 	} else {
 
-		require_once dirname( __FILE__ ) . '/library/simple_html_dom.php';
+		if ( ! function_exists( 'file_get_html' ) ) {
+			require_once dirname( __FILE__ ) . '/library/simple_html_dom.php';
+		}
 
 		$html 	  = file_get_html( 'https://www.freeformatter.com/mime-types-list.html' );
 		$types 	  = array();

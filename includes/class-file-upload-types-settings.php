@@ -146,7 +146,7 @@ class File_Upload_Types_Settings {
 					<p> <?php echo sprintf(
 							wp_kses(
 								/* translators: %1$s - file upload types WordPress docs, %2$s - # link;  */
-								__( 'Below is list of the files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank"> files WordPress allows by default</a>. Dont see what you need? No problem, <a href="%2$s" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
+								__( 'Below is list of the files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank"> files WordPress allows by default</a>. Don\'t see what you need? No problem, <a href="%2$s" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
 								array(
 									'a' => array(
 										'href'   => array(),
@@ -185,7 +185,7 @@ class File_Upload_Types_Settings {
 						$available_types    = fut_get_available_file_types();
 						$types 				= array_merge( $available_types, $custom_types );
 
-						if ( ! empty( $stored_types ) ) : ?>
+						if ( ! empty( $enabled_types ) || ! empty( $custom_types ) ) : ?>
 							<tr class="sub-section">
 								<th colspan="3" class="heading"><?php esc_html_e( 'ENABLED FILE TYPES', 'file-upload-types' ); ?></th>
 							</tr>

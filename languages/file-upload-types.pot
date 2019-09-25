@@ -1,0 +1,163 @@
+# Copyright (C) 2019 WPForms
+# This file is distributed under the same license as the File Upload Types package.
+msgid ""
+msgstr ""
+"Project-Id-Version: File Upload Types 1.0.0\n"
+"Report-Msgid-Bugs-To: "
+"https://github.com/awesomemotive/file-upload-types/issues\n"
+"POT-Creation-Date: 2019-09-25 07:19:42+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: includes/class-file-upload-types-settings.php:101
+#: includes/class-file-upload-types.php:73
+msgid "Settings"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:106
+msgid "Need some help?"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:107
+msgid "View Documentation"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:129
+msgid "Save Settings"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:147
+msgid "Add File Upload Types"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:151
+#. translators: %1$s - file upload types WordPress docs, %2$s - # link;
+msgid ""
+"Below is list of the files types that can be enabled, not including the <a "
+"href=\"%1$s\" rel=\"noopener\" target=\"_blank\"> files WordPress allows by "
+"default</a>. Don't see what you need? No problem, <a href=\"%2$s\" "
+"rel=\"noopener noreferrer\">add your custom file types</a>."
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:168
+msgid "Search File Types"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:175
+msgid "Description"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:176
+#: includes/class-file-upload-types-settings.php:249
+msgid "MIME Type"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:177
+#: includes/class-file-upload-types-settings.php:250
+msgid "Extension"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:192
+msgid "ENABLED FILE TYPES"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:213
+msgid "AVAILABLE FILE TYPES"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:240
+msgid "ADD CUSTOM FILE TYPES"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:242
+msgid "Add the custom file types to allow uploads"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:248
+msgid "File Description"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:268
+msgid "You might like our other products"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:272
+#. translators: %1$s - wpforms.com link;
+msgid ""
+"File Upload Types is built by the team behind most popular WordPress form "
+"plugin, <a href=\"%1$s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">WPForms</a>. Checkout some of our other plugins."
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:305
+msgid ""
+"<a href=\"%1$s\" target=\"_blank\">Get %2$s <i class=\"fa "
+"fa-external-link\"></i></a>"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:386
+msgid "Your settings have been saved."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WPForms"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:407
+msgid "The most beginner friendly WordPress contact form plugin."
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:412
+msgid "MonsterInsights"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:413
+msgid "Effortlessly connect your WP site with Google Analytics."
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:418
+msgid "OptinMonster"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:419
+msgid "Turn your traffic into leads, conversions and sales."
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:424
+msgid "SeedProd"
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:425
+msgid "Create beautiful coming soon pages, skyrocket your email list."
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:450
+#. translators: %1$s - WP.org link; %2$s - same WP.org link.
+msgid ""
+"Please rate <strong>File Upload Types</strong> <a href=\"%1$s\" "
+"target=\"_blank\" rel=\"noopener "
+"noreferrer\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">WordPress.org</a> to help us "
+"spread the word. Thank you from the File Upload Types team!"
+msgstr ""
+
+#: includes/class-file-upload-types.php:73
+msgid "File Upload Types Settings"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "File Upload Types"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Manage the types of files that can be uploaded to your WordPress site."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wpforms.com"
+msgstr ""

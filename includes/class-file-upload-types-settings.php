@@ -49,7 +49,6 @@ class File_Upload_Types_Settings {
 			$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_style( 'file-upload-types-css', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION, $media = 'all' );
 			wp_enqueue_script( 'file-upload-types-js', plugins_url( 'assets/js/script'. $suffix .'.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION );
-			wp_enqueue_style( 'file-upload-types-font-awesome', plugins_url( 'assets/css/font-awesome.min.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), '4.4.0' );
 		}
 	}
 
@@ -165,7 +164,7 @@ class File_Upload_Types_Settings {
 				</div>
 
 				<div class="search-box">
-					<input type="search" id="file-upload-types-search" style="font-family:Arial, FontAwesome" placeholder="&#xF002; <?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>" />
+					<input type="search" id="file-upload-types-search" placeholder="&#xF002; <?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>" />
 				</div>
 			</div>
 

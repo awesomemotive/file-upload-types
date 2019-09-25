@@ -178,7 +178,7 @@ class File_Upload_Types_Settings {
 					</tr>
 				</table>
 			</div>
-			<div  style="overflow-y:scroll; height:500px;" class="table-container">
+			<div  style="overflow-y:scroll; overflow-x:hidden; height:500px;" class="table-container">
 				<table>
 					<?php
 						$stored_types  		= get_option( 'file_upload_types', array() );

@@ -407,12 +407,6 @@ class File_Upload_Types_Settings {
 				'desc' => \esc_html__( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
 				'url'  => 'https://wpforms.com',
 			),
-			'smtp'      => array(
-				'icon' => plugins_url( 'assets/images/plugin-smtp.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => \esc_html__( 'WP Mail SMTP', 'file-upload-types' ),
-				'desc' => \esc_html__( 'Fixes your email deliverability by reconfiguring WordPress to use a proper SMTP provider when sending emails.', 'file-upload-types' ),
-				'url'  => 'https://wpmailsmtp.com',
-			),
 			'mi'      => array(
 				'icon' => plugins_url( 'assets/images/plugin-mi.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => \esc_html__( 'MonsterInsights', 'file-upload-types' ),
@@ -424,6 +418,12 @@ class File_Upload_Types_Settings {
 				'name' => \esc_html__( 'OptinMonster', 'file-upload-types' ),
 				'desc' => \esc_html__( 'Turn your traffic into leads, conversions and sales.', 'file-upload-types' ),
 				'url'  => 'https://optinmonster.com',
+			),
+			'sp'      => array(
+				'icon' => plugins_url( 'assets/images/plugin-smtp.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'name' => \esc_html__( 'SeedProd', 'file-upload-types' ),
+				'desc' => \esc_html__( 'Create beautiful coming soon pages, skyrocket your email list.', 'file-upload-types' ),
+				'url'  => 'https://seedprod.com',
 			),
 		);
 

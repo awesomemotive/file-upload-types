@@ -175,12 +175,20 @@ final class File_Upload_Types {
 	 * @return  array
 	 */
 	public function real_file_type( $file_data, $file, $filename ) {
-		$real_file_type = array();
+		$real_file_type = array(
+			'ext' => '',
+			'type' => '',
+			'proper_filename' => ''
+		);
 
 		foreach ( $file_data as $key => $value ) {
 			if ( ! empty( $value ) ) {
 				$real_file_type[ $key ] = $value;
 			}
+		}
+
+		if ( true === apply_filters( 'file_upload_types_strict_check', true ) ) {
+			return $real_file_type;
 		}
 
 		$parts 		 = explode( '.', $filename );

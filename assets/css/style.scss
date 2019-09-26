@@ -91,6 +91,7 @@ $secondary-color: #ff982d;
 			}
 
 			.table-container {
+
 				table {
 					font-family: arial, sans-serif;
 					border-collapse: collapse;
@@ -185,6 +186,12 @@ $secondary-color: #ff982d;
 				}
 			}
 		}
+
+		@media (max-width: 600px) {
+			.file-upload-types-products {
+		        display: none;
+		    }
+		}
 	}
 
 	p.file-upload-types-submit {
@@ -226,7 +233,7 @@ $secondary-color: #ff982d;
 	min-height: 35px;
 }
 
-.fut-question-circle {
+.file-upload-types-info {
 	position: relative;
 	display: inline-block;
 
@@ -244,7 +251,7 @@ $secondary-color: #ff982d;
 	}
 }
 
-.fut-question-circle:hover .tooltiptext {
+.file-upload-types-info:hover .tooltiptext {
 	visibility: visible;
 }
 

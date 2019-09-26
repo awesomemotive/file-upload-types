@@ -237,7 +237,7 @@ class File_Upload_Types_Settings {
 				<table>
 					<tr class="sub-section" style="overflow-y:hidden">
 						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
-							<div class="fut-question-circle" style="font-size: 14px;">
+							<div class="file-upload-types-info" style="font-size: 14px;">
 								<img src="<?php echo plugins_url( 'assets/images/question-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
 								<span class="tooltiptext"><?php echo esc_html__( 'Add the custom file types to allow uploads', 'file-upload-types' );?> </span>
 							</div>

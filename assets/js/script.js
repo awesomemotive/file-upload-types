@@ -11,7 +11,7 @@ jQuery( document ).ready( function( $ ) {
 		closest.after( clone );
 	});
 
-	$( document ).on( 'click', '#file-upload-types .table-container .fa-minus-circle', function( e ) {
+	$( document ).on( 'click', '#file-upload-types .table-container .file-upload-types-trash', function( e ) {
 		e.preventDefault();
 
 		if( $( this ).closest( 'table' ).find('tr.repetitive-fields' ).length > 1 ) {

@@ -152,19 +152,19 @@ class File_Upload_Types_Settings {
 									'a' => array(
 										'href'   => array(),
 										'target' => array(),
-										'rel'    => array(),
+										'rel'    => array()
 									),
-								),
+								)
 							),
 							'https://codex.wordpress.org/Uploading_Files#About_Uploading_Files_on_Dashboard',
-							'#custom-file-types',
+							'#custom-file-types'
 						);
 						?>
 					</p>
 				</div>
 
 				<div class="search-box">
-					<input type="search" id="file-upload-types-search" placeholder="&#xF002; <?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>" />
+					<input type="search" id="file-upload-types-search" placeholder="&#128269; <?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>" />
 				</div>
 			</div>
 
@@ -237,7 +237,7 @@ class File_Upload_Types_Settings {
 				<table>
 					<tr class="sub-section" style="overflow-y:hidden">
 						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
-							<div class="fa fa-question-circle" style="font-size: 14px; color: #0073aa">
+							<div class="fut-question-circle" style="font-size: 14px;">
 								<img src="<?php echo plugins_url( 'assets/images/question-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
 								<span class="tooltiptext"><?php echo esc_html__( 'Add the custom file types to allow uploads', 'file-upload-types' );?> </span>
 							</div>
@@ -249,8 +249,8 @@ class File_Upload_Types_Settings {
 						<td><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
 						<td><input type="text" name="c_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
 						<td>
-							<img src="<?php echo plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
-							<img src="<?php echo plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
+							<img class="file-upload-types-plus" src="<?php echo plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
+							<img class="file-upload-types-trash" src="<?php echo plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
 						</td>
 					</tr>
 				</table>
@@ -274,12 +274,12 @@ class File_Upload_Types_Settings {
 							'a' => array(
 								'href'   => array(),
 								'target' => array(),
-								'rel'    => array(),
+								'rel'    => array()
 							),
-						),
+						)
 					),
 
-					'https://wpforms.com',
+					'https://wpforms.com'
 				);
 			?>
 		</p>
@@ -302,18 +302,23 @@ class File_Upload_Types_Settings {
 								<p>
 									<?php echo sprintf(
 										wp_kses(
-											__( '<a href="%1$s" target="_blank">Get %2$s <img src="%3$s"/></a>', 'file-upload-types' ),
+											__( '<strong>
+													<a href="%1$s" target="_blank">Get %2$s<img src="%3$s"/></a>
+												</strong>', 'file-upload-types' ),
 											array(
+
+												'strong' => array(),
+
 												'a' => array(
 													'href' => array(),
-													'target' => array(),
+													'target' => array()
 												),
-											),
+											)
 										),
 
 										$plugin['url'],
 										$plugin['name'],
-										plugins_url( 'assets/images/external-link-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+										plugins_url( 'assets/images/external-link-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE )
 									);
 									?>
 								</p>

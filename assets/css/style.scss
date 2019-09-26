@@ -116,6 +116,26 @@ $secondary-color: #ff982d;
 				th.heading {
 					background: none;
 				}
+
+				input {
+					padding: 8px;
+					font-size: 14px;
+					font-weight: 400;
+					color: #bbb;
+					background: #fff;
+					border: 1px solid #ddd;
+					border-radius: 4px;
+				}
+
+				input:focus {
+					padding: 8px;
+					font-size: 14px;
+					font-weight: 400;
+					color: #444;
+					background: #fff;
+					border:1px solid #999;
+					border-radius: 4px;
+				}
 			}
 		}
 
@@ -206,7 +226,7 @@ $secondary-color: #ff982d;
 	min-height: 35px;
 }
 
-.fa-question-circle {
+.fut-question-circle {
 	position: relative;
 	display: inline-block;
 
@@ -224,7 +244,7 @@ $secondary-color: #ff982d;
 	}
 }
 
-.fa-question-circle:hover .tooltiptext {
+.fut-question-circle:hover .tooltiptext {
 	visibility: visible;
 }
 

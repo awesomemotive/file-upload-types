@@ -108,10 +108,18 @@ $secondary-color: #ff982d;
 					border-top: 1px ridge;
 				}
 
-				td, th {
+				th {
 					text-align: left;
 					padding: 8px;
 					background: $primary-color;
+					max-width: 100px;
+				}
+
+				td {
+					text-align: left;
+					padding: 8px;
+					background: $primary-color;
+					max-width: 100px;
 				}
 
 				th.heading {
@@ -126,6 +134,10 @@ $secondary-color: #ff982d;
 					background: #fff;
 					border: 1px solid #ddd;
 					border-radius: 4px;
+				}
+
+				input[type="text"] {
+					width: 90%;
 				}
 
 				input:focus {

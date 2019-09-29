@@ -170,11 +170,12 @@ class File_Upload_Types_Settings {
 
 			<div class="table-container">
 				<table>
-					<tr class="section">
+					<thead class="section">
 						<th><?php esc_html_e( 'Description', 'file-upload-types' ); ?></th>
 						<th><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></th>
-						<th colspan="2"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></th>
-					</tr>
+						<th width="10%"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></th>
+						<th width="5%"></th>
+					</thead>
 				</table>
 			</div>
 			<div  style="overflow-y:scroll; overflow-x:hidden; height:500px;" class="table-container">
@@ -185,6 +186,8 @@ class File_Upload_Types_Settings {
 						$custom_types       = isset( $stored_types['custom'] ) ? $stored_types['custom'] : array();
 						$available_types    = fut_get_available_file_types();
 						$types 				= array_merge( $available_types, $custom_types );
+						$temp_types			= array_unique( array_column( $types, 'ext' ) );
+						$types 				= array_intersect_key( $types, $temp_types );
 
 						if ( ! empty( $enabled_types ) || ! empty( $custom_types ) ) : ?>
 							<tr class="sub-section">
@@ -201,15 +204,15 @@ class File_Upload_Types_Settings {
 								echo '<tr>';
 								echo '<td>'. $type['desc'] . '</td>';
 								echo '<td>'. $type['mime'] . '</td>';
-								echo '<td>'. $type['ext'] . '</td>';
-								echo '<td><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types[]" checked> </td>';
+								echo '<td width="10%">'. $type['ext'] . '</td>';
+								echo '<td width="5%"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types[]" checked> </td>';
 								echo '</tr>';
 							}
 
 						endif;
 					?>
 					<tr class="sub-section">
-						<th colspan="3" class="heading"><?php esc_html_e( 'AVAILABLE FILE TYPES', 'file-upload-types' ); ?></th>
+						<th colspan="4" class="heading"><?php esc_html_e( 'AVAILABLE FILE TYPES', 'file-upload-types' ); ?></th>
 					</tr>
 						<?php
 							$available_types = fut_get_available_file_types();
@@ -225,8 +228,8 @@ class File_Upload_Types_Settings {
 								echo '<tr>';
 								echo '<td>'. $type['desc'] . '</td>';
 								echo '<td>'. $type['mime'] . '</td>';
-								echo '<td>'. $type['ext'] . '</td>';
-								echo '<td><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
+								echo '<td width="10%">'. $type['ext'] . '</td>';
+								echo '<td width="5%"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
 								echo '</tr>';
 							}
 						?>
@@ -245,13 +248,12 @@ class File_Upload_Types_Settings {
 					</tr>
 
 					<tr class="repetitive-fields">
-						<td><input type="text" name="c_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
-						<td><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
-						<td><input type="text" name="c_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
-						<td>
+						<th><input type="text" name="c_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></th>
+						<th><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></th>
+						<th width="10%"><input style="max-width: 100%" type="text" name="c_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></th>
+						<th width="5%">
 							<img class="file-upload-types-plus" src="<?php echo plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
-							<img class="file-upload-types-trash" src="<?php echo plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
-						</td>
+						</th>
 					</tr>
 				</table>
 			</div>
@@ -380,7 +382,7 @@ class File_Upload_Types_Settings {
 					'custom'  => array_merge( $custom_types, $stored_custom_types ),
 				);
 
-				$saving = update_option( 'file_upload_types', $file_upload_types );
+				update_option( 'file_upload_types', $file_upload_types );
 
 				add_action( 'file_upload_types_settings_after_nav_bar', function() {
 					?>

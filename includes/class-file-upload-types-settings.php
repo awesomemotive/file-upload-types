@@ -170,12 +170,12 @@ class File_Upload_Types_Settings {
 
 			<div class="table-container">
 				<table>
-					<thead class="section">
-						<th><?php esc_html_e( 'Description', 'file-upload-types' ); ?></th>
-						<th><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></th>
-						<th width="10%"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></th>
-						<th width="5%"></th>
-					</thead>
+					<tr class="heading">
+						<td><?php esc_html_e( 'Description', 'file-upload-types' ); ?></td>
+						<td><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></td>
+						<td width="10%"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></td>
+						<td width="5%"></td>
+					</tr>
 				</table>
 			</div>
 			<div  style="overflow-y:scroll; overflow-x:hidden; height:500px;" class="table-container">
@@ -190,8 +190,8 @@ class File_Upload_Types_Settings {
 						$types 				= array_intersect_key( $types, $temp_types );
 
 						if ( ! empty( $enabled_types ) || ! empty( $custom_types ) ) : ?>
-							<tr class="sub-section">
-								<th colspan="3" class="heading"><?php esc_html_e( 'ENABLED FILE TYPES', 'file-upload-types' ); ?></th>
+							<tr class="section">
+								<td colspan="4"><?php esc_html_e( 'ENABLED FILE TYPES', 'file-upload-types' ); ?></td>
 							</tr>
 
 							<?php
@@ -211,8 +211,8 @@ class File_Upload_Types_Settings {
 
 						endif;
 					?>
-					<tr class="sub-section">
-						<th colspan="4" class="heading"><?php esc_html_e( 'AVAILABLE FILE TYPES', 'file-upload-types' ); ?></th>
+					<tr class="section">
+						<td colspan="4"><?php esc_html_e( 'AVAILABLE FILE TYPES', 'file-upload-types' ); ?></td>
 					</tr>
 						<?php
 							$available_types = fut_get_available_file_types();
@@ -238,24 +238,25 @@ class File_Upload_Types_Settings {
 
 			<div class="table-container">
 				<table>
-					<tr class="sub-section" style="overflow-y:hidden">
-						<th colspan="3" class="heading" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
+					<tr class="section" style="overflow-y:hidden">
+						<td colspan="4" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
 							<div class="file-upload-types-info" style="font-size: 14px;">
 								<img src="<?php echo plugins_url( 'assets/images/question-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
 								<span class="tooltiptext"><?php echo esc_html__( 'Add the custom file types to allow uploads', 'file-upload-types' );?> </span>
 							</div>
-						</th>
+						</td>
 					</tr>
 
 					<tr class="repetitive-fields">
-						<th><input type="text" name="c_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></th>
-						<th><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></th>
-						<th width="10%"><input style="max-width: 100%" type="text" name="c_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></th>
-						<th width="5%">
+						<td><input type="text" name="c_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' );?>" ></td>
+						<td><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' );?>" ></td>
+						<td width="10%"><input style="max-width: 100%" type="text" name="c_types[ext][]" placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' );?>" ></td>
+						<td width="5%">
 							<img class="file-upload-types-plus" src="<?php echo plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
-						</th>
+							<img class="file-upload-types-minus" src="<?php echo plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
+						</td>
 					</tr>
-				</table>
+				</table>s
 			</div>
 		<?php
 	}

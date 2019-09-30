@@ -108,11 +108,20 @@ $secondary-color: #ff982d;
 					border-top: 1px ridge;
 				}
 
-				th {
-					text-align: left;
-					padding: 8px;
-					background: $primary-color;
-					max-width: 100px;
+				tr.heading td {
+					font-size: 14px;
+					font-weight: 700;
+					color: #777;
+				}
+
+				tr.section td {
+					background: none;
+					padding:15px20px;
+					font-size: 11px;
+					font-weight: 700;
+					text-transform: uppercase;
+					color: #777;
+					background: #f8f8f8;
 				}
 
 				td {
@@ -120,10 +129,6 @@ $secondary-color: #ff982d;
 					padding: 8px;
 					background: $primary-color;
 					max-width: 100px;
-				}
-
-				th.heading {
-					background: none;
 				}
 
 				input {

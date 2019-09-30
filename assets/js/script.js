@@ -11,7 +11,7 @@ jQuery( document ).ready( function( $ ) {
 		closest.after( clone );
 	});
 
-	$( document ).on( 'click', '#file-upload-types .table-container .file-upload-types-trash', function( e ) {
+	$( document ).on( 'click', '#file-upload-types .table-container .file-upload-types-minus', function( e ) {
 		e.preventDefault();
 
 		if( $( this ).closest( 'table' ).find('tr.repetitive-fields' ).length > 1 ) {
@@ -24,8 +24,8 @@ jQuery( document ).ready( function( $ ) {
 
 		$( '.file-upload-types-table table tr' ).filter( function() {
 
-			if ( ! $(this).hasClass('section') ) {
-				if ( value !== '' && $(this).hasClass('sub-section')  ) {
+			if ( ! $(this).hasClass('heading') ) {
+				if ( value !== '' && $(this).hasClass('section')  ) {
 					$( this ).hide();
 				} else {
 					$(this).toggle( $( this ).text().toLowerCase().indexOf( value ) > -1 );

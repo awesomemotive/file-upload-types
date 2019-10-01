@@ -307,7 +307,7 @@ class File_Upload_Types_Settings {
 									<?php echo sprintf(
 										wp_kses(
 											__( '<strong>
-													<a href="%1$s" target="_blank">Get %2$s<img src="%3$s"/></a>
+													<a href="%1$s" class="external-link" target="_blank">Get %2$s<img src="%3$s"/></a>
 												</strong>', 'file-upload-types' ),
 											array(
 
@@ -315,7 +315,7 @@ class File_Upload_Types_Settings {
 
 												'a' => array(
 													'href' => array(),
-													'target' => array()
+													'target' => array(),
 												),
 											)
 										),

@@ -103,7 +103,7 @@ class File_Upload_Types_Settings {
 						<div class="fie-upload-types-docs">
 						<p>
 							<?php esc_html_e( 'Need some help?', 'file-upload-types' ); ?>
-							<button class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange"><?php esc_html_e( 'View Documentation', 'file-upload-types' ); ?></button>
+							<a href="https://wpforms.com/docs/how-to-allow-additional-file-upload-types/" target="_blank"><button class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange"><?php esc_html_e( 'View Documentation', 'file-upload-types' ); ?></button></a>
 						</p>
 						</div>
 					</div>
@@ -185,7 +185,8 @@ class File_Upload_Types_Settings {
 						$enabled_types 		= isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
 						$custom_types       = isset( $stored_types['custom'] ) ? $stored_types['custom'] : array();
 						$available_types    = fut_get_available_file_types();
-						$types 				= array_merge( $available_types, $custom_types );
+
+						$types 				= array_merge( $custom_types, $available_types );
 						$temp_types			= array_unique( array_column( $types, 'ext' ) );
 						$types 				= array_intersect_key( $types, $temp_types );
 
@@ -256,7 +257,7 @@ class File_Upload_Types_Settings {
 							<img class="file-upload-types-minus" src="<?php echo plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ); ?>" >
 						</td>
 					</tr>
-				</table>s
+				</table>
 			</div>
 		<?php
 	}
@@ -475,7 +476,6 @@ class File_Upload_Types_Settings {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @return void
 	 */
 	public function remove_notices() {
 

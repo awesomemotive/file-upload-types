@@ -1,3 +1,5 @@
+/* global file_upload_types_params */
+
 'use strict';
 
 jQuery( document ).ready( function( $ ) {
@@ -16,6 +18,8 @@ jQuery( document ).ready( function( $ ) {
 
 		if( $( this ).closest( 'table' ).find('tr.repetitive-fields' ).length > 1 ) {
 			$( this ).closest( 'tr' ).remove();
+		} else {
+			alert( file_upload_types_params.default_section );
 		}
 	});
 

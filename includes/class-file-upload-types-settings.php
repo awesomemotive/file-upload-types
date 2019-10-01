@@ -49,6 +49,12 @@ class File_Upload_Types_Settings {
 			$suffix    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_style( 'file-upload-types-css', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION, $media = 'all' );
 			wp_enqueue_script( 'file-upload-types-js', plugins_url( 'assets/js/script'. $suffix .'.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FUT_VERSION );
+
+			$translation_strings = array(
+				'default_section' => __( 'Default section couldnot be deleted.' )
+			);
+
+			wp_localize_script( 'file-upload-types-js', 'file_upload_types_params',  $translation_strings );
 		}
 	}
 

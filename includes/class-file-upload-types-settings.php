@@ -383,10 +383,10 @@ class File_Upload_Types_Settings {
 					}
 				}
 
-				$enabled_types 		  = array_merge( $enabled_types, $available_types );
+				$enabled_types = array_merge( $enabled_types, $available_types );
 
 				$file_upload_types = array(
-					'enabled' => $enabled_types,
+					'enabled' => array_map( 'sanitize_text_field', $enabled_types ),
 					'custom'  => array_merge( $custom_types, $stored_custom_types ),
 				);
 

@@ -117,8 +117,8 @@ final class File_Upload_Types {
 	 */
 	public function enabled_types() {
 		$stored_types		= get_option( 'file_upload_types', array() );
-		$enabled_types		= isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : '';
-		$custom_types_raw   = isset( $stored_types['custom'] ) ? $stored_types['custom'] : '';
+		$enabled_types		= isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
+		$custom_types_raw   = isset( $stored_types['custom'] ) ? $stored_types['custom'] : array();
 		$available_types 	= fut_get_available_file_types();
 		$return_types		= array();
 

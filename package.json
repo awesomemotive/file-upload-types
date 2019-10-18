@@ -9,6 +9,25 @@
   },
   "license": "GPL-2.0+",
   "main": "Gruntfile.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.php": [
+      "php -d display_errors=1 -l",
+      "composer run-script phpcs-pre-commit"
+    ],
+    "*.scss": [
+      "stylelint --syntax=scss --fix",
+      "git add"
+    ],
+    "!(*.min).js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "grunt": "^1.0.4",
     "grunt-checktextdomain": "1.0.1",
@@ -18,10 +37,14 @@
     "grunt-contrib-watch": "1.1.0",
     "grunt-sass": "~3.1.0",
     "grunt-wp-i18n": "1.0.3",
+    "husky": "^3.0.9",
     "node-sass": "4.12.0"
   },
   "engines": {
     "node": ">=8.9.3",
     "npm": ">=5.5.1"
+  },
+  "dependencies": {
+    "lint-staged": "^9.4.2"
   }
 }

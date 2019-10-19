@@ -1,4 +1,12 @@
 <?php
+/**
+ * File Upload Types Final Class File.
+ *
+ * @package    File Upload Types
+ * @author     WPForms
+ * @since      1.0.0
+ * @license    GPL-3.0+
+ */
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
@@ -23,7 +31,7 @@ final class File_Upload_Types {
 	 *
 	 * @var object File_Upload_Types
 	 */
-	protected static $_instance = null;
+	protected static $instance = null;
 
 	/**
 	 * Main File_Upload_Types Instance.
@@ -32,11 +40,11 @@ final class File_Upload_Types {
 	 */
 	public static function get_instance() {
 		// If the single instance hasn't been set, set it now.
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
@@ -46,7 +54,7 @@ final class File_Upload_Types {
 
 		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-		add_filter( 'plugin_action_links_'. plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 3 );
 
@@ -87,8 +95,8 @@ final class File_Upload_Types {
 	/**
 	 * Define constant if not already set.
 	 *
-	 * @param string      $name
-	 * @param string|bool $value
+	 * @param string      $name Name of the constant.
+	 * @param string|bool $value Value of the constant.
 	 */
 	private function define( $name, $value ) {
 		if ( ! defined( $name ) ) {
@@ -116,13 +124,13 @@ final class File_Upload_Types {
 	 * @return array
 	 */
 	public function enabled_types() {
-		$stored_types		= get_option( 'file_upload_types', array() );
-		$enabled_types		= isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
-		$custom_types_raw   = isset( $stored_types['custom'] ) ? $stored_types['custom'] : array();
-		$available_types 	= fut_get_available_file_types();
-		$return_types		= array();
+		$stored_types     = get_option( 'file_upload_types', array() );
+		$enabled_types    = isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
+		$custom_types_raw = isset( $stored_types['custom'] ) ? $stored_types['custom'] : array();
+		$available_types  = fut_get_available_file_types();
+		$return_types     = array();
 
-		foreach( $available_types as $type ) {
+		foreach ( $available_types as $type ) {
 			if ( in_array( $type['ext'], $enabled_types, true ) ) {
 
 				$ext = trim( $type['ext'], '.' );
@@ -132,7 +140,7 @@ final class File_Upload_Types {
 			}
 		}
 
-		foreach( $custom_types_raw as $type ) {
+		foreach ( $custom_types_raw as $type ) {
 			if ( empty( $type['ext'] ) || empty( $type['mime'] ) ) {
 				continue;
 			}
@@ -149,7 +157,7 @@ final class File_Upload_Types {
 	/**
 	 * File types allowed to upload.
 	 *
-	 * @param  $mime_types array  List of all mime allowed mime types.
+	 * @param  array $mime_types List of all mime allowed mime types.
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/wp_get_mime_types/
 	 *
@@ -166,9 +174,9 @@ final class File_Upload_Types {
 	/**
 	 * Filters the “real” file type of the given file.
 	 *
-	 * @param array 	$file_data 	File data array containing 'ext', 'type', and 'proper_filename' keys.
-	 * @param string 	$file 		Full path to the file.
-	 * @param string 	$filename 	The name of the file (may differ from $file due to $file being in a tmp directory).
+	 * @param array  $file_data  File data array containing 'ext', 'type', and 'proper_filename' keys.
+	 * @param string $file       Full path to the file.
+	 * @param string $filename   The name of the file (may differ from $file due to $file being in a tmp directory).
 	 *
 	 * @since  1.0.0
 	 *
@@ -176,9 +184,9 @@ final class File_Upload_Types {
 	 */
 	public function real_file_type( $file_data, $file, $filename ) {
 		$real_file_type = array(
-			'ext' => '',
-			'type' => '',
-			'proper_filename' => ''
+			'ext'             => '',
+			'type'            => '',
+			'proper_filename' => '',
 		);
 
 		foreach ( $file_data as $key => $value ) {
@@ -191,15 +199,15 @@ final class File_Upload_Types {
 			return $real_file_type;
 		}
 
-		$parts 		 = explode( '.', $filename );
-		$extension   = array_pop( $parts );
-		$extension	 = strtolower( $extension );
+		$parts     = explode( '.', $filename );
+		$extension = array_pop( $parts );
+		$extension = strtolower( $extension );
 
 		$enabled_types = $this->enabled_types();
 
 		if ( isset( $enabled_types[ $extension ] ) ) {
-			$real_file_type['ext']  = $extension;
-			$real_file_type['type'] = $enabled_types[ $extension ];
+			$real_file_type['ext']             = $extension;
+			$real_file_type['type']            = $enabled_types[ $extension ];
 			$real_file_type['proper_filename'] = $filename;
 		}
 

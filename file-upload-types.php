@@ -7,6 +7,11 @@
  * Author URI: https://wpforms.com
  * Text Domain: file-upload-types
  * Domain Path: /languages/
+ *
+ * @package    File Upload Types
+ * @author     WPForms
+ * @since      1.0.0
+ * @license    GPL-3.0+
  */
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.

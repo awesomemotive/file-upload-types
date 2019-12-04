@@ -140,7 +140,7 @@ class File_Upload_Types_Settings {
 						<p>
 							<?php esc_html_e( 'Need some help?', 'file-upload-types' ); ?>
 							<a href="https://wpforms.com/docs/how-to-allow-additional-file-upload-types/" target="_blank" rel="noopener noreferrer"
-								class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
+								class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-blue">
 								<?php esc_html_e( 'View Documentation', 'file-upload-types' ); ?>
 							</a>
 						</p>
@@ -184,13 +184,13 @@ class File_Upload_Types_Settings {
 		?>
 
 		<div class="before-table">
-			<div>
+			<div class="file-upload-types-heading">
 				<h3><?php esc_html_e( 'Add File Upload Types', 'file-upload-types' ); ?></h3>
 				<p>
 					<?php
 					printf(
 						wp_kses( /* translators: %1$s - URL to WordPress Codex page, %2$s - anchor link. */
-							__( 'Below is the list of files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank">files WordPress allows by default</a>. Don\'t see what you need? No problem, <a href="%2$s" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
+							__( 'Below is the list of files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank">files WordPress allows by default</a>. <br>Don\'t see what you need? No problem, <a href="%2$s" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
 							array(
 								'a' => array(
 									'href'   => array(),

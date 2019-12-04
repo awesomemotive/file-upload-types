@@ -10,6 +10,13 @@ defined( 'ABSPATH' ) || exit;
 class File_Upload_Types_Settings {
 
 	/**
+	 * Admin page slug.
+	 *
+	 * @since 1.0.0
+	 */
+	const SLUG = 'file-upload-types';
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
@@ -31,12 +38,12 @@ class File_Upload_Types_Settings {
 	 *
 	 * @return bool
 	 */
-	public function file_upload_types_screen() {
+	public function is_admin_screen() {
 
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
-		return 'settings_page_file-upload-types' === $screen_id ? true : false;
+		return 'settings_page_file-upload-types' === $screen_id;
 	}
 
 	/**
@@ -46,18 +53,31 @@ class File_Upload_Types_Settings {
 	 */
 	public function enqueue_assets() {
 
-		if ( $this->file_upload_types_screen() ) {
-
-			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			wp_enqueue_style( 'file-upload-types-css', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FILE_UPLOAD_TYPES_VERSION, $media = 'all' );
-			wp_enqueue_script( 'file-upload-types-js', plugins_url( 'assets/js/script' . $suffix . '.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FILE_UPLOAD_TYPES_VERSION, true );
-
-			$translation_strings = array(
-				'default_section' => __( 'Default section couldnot be deleted.', 'file-upload-types' ),
-			);
-
-			wp_localize_script( 'file-upload-types-js', 'file_upload_types_params', $translation_strings );
+		if ( ! $this->is_admin_screen() ) {
+			return;
 		}
+
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_style(
+			'file-upload-types-css',
+			plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+			array(),
+			FILE_UPLOAD_TYPES_VERSION
+		);
+		wp_enqueue_script(
+			'file-upload-types',
+			plugins_url( 'assets/js/script' . $suffix . '.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+			array( 'jquery' ),
+			FILE_UPLOAD_TYPES_VERSION,
+			true
+		);
+
+		$strings = array(
+			'default_section' => esc_html__( 'Default section can not be deleted.', 'file-upload-types' ),
+		);
+
+		wp_localize_script( 'file-upload-types', 'file_upload_types_params', $strings );
 	}
 
 	/**
@@ -67,16 +87,16 @@ class File_Upload_Types_Settings {
 	 */
 	public function display_admin_header() {
 
-		if ( $this->file_upload_types_screen() ) {
-
-			$image_url = plugins_url( 'assets/images/logo.png', FILE_UPLOAD_TYPES_PLUGIN_FILE );
-			?>
-			<div id="file-upload-types-header">
-				<img class="file-upload-types-header-logo" src="<?php echo esc_url( $image_url ); ?> " alt="File Upload Types" />
-			</div>
-
-			<?php
+		if ( $this->is_admin_screen() ) {
+			return;
 		}
+
+		?>
+		<div id="file-upload-types-header">
+			<img src="<?php echo esc_url( plugins_url( 'assets/images/logo.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?> " alt="<?php esc_html_e( 'File Upload Types', 'file-upload-types' ); ?>" class="file-upload-types-header-logo" />
+		</div>
+
+		<?php
 	}
 
 	/**
@@ -86,7 +106,13 @@ class File_Upload_Types_Settings {
 	 */
 	public function add_settings_page() {
 
-		add_options_page( 'Settings', 'File Upload Types', 'manage_options', 'file-upload-types', array( $this, 'settings_content' ) );
+		add_options_page(
+			esc_html__( 'Settings', 'file-upload-types' ),
+			esc_html__( 'File Upload Types', 'file-upload-types' ),
+			'manage_options',
+			self::SLUG,
+			array( $this, 'settings_content' )
+		);
 	}
 
 	/**
@@ -97,10 +123,11 @@ class File_Upload_Types_Settings {
 	public function settings_content() {
 
 		// Return if not file upload types screen.
-		if ( ! $this->file_upload_types_screen() ) {
+		if ( ! $this->is_admin_screen() ) {
 			return;
 		}
 		?>
+
 		<div class="wrap" id="file-upload-types">
 			<div class="file-upload-types-page file-upload-types-page-settings ">
 				<div class="file-upload-types-nav">
@@ -122,7 +149,7 @@ class File_Upload_Types_Settings {
 
 				<?php do_action( 'file_upload_types_settings_after_nav_bar' ); ?>
 
-				<form method="post">
+				<form method="post" action="">
 					<div class="file-upload-types-content">
 						<div class="file-upload-types-table">
 							<?php $this->table(); ?>
@@ -155,13 +182,14 @@ class File_Upload_Types_Settings {
 	public function table() {
 
 		?>
+
 		<div class="before-table">
 			<div>
-				<h3> <?php esc_html_e( 'Add File Upload Types', 'file-upload-types' ); ?> </h3>
+				<h3><?php esc_html_e( 'Add File Upload Types', 'file-upload-types' ); ?></h3>
 				<p>
 					<?php
-					echo sprintf(
-						wp_kses( /* translators: %1$s - file upload types WordPress docs, %2$s - # link. */
+					printf(
+						wp_kses( /* translators: %1$s - URL to WordPress Codex page, %2$s - anchor link. */
 							__( 'Below is the list of files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank">files WordPress allows by default</a>. Don\'t see what you need? No problem, <a href="%2$s" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
 							array(
 								'a' => array(
@@ -197,8 +225,8 @@ class File_Upload_Types_Settings {
 			<table>
 				<?php
 				$stored_types    = get_option( 'file_upload_types', array() );
-				$enabled_types   = isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
-				$custom_types    = isset( $stored_types['custom'] ) ? $stored_types['custom'] : array();
+				$enabled_types   = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : array();
+				$custom_types    = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : array();
 				$available_types = fut_get_available_file_types();
 
 				$types      = array_merge( $custom_types, $available_types );
@@ -212,9 +240,11 @@ class File_Upload_Types_Settings {
 					</tr>
 
 					<?php
-
 					foreach ( $types as $key => $type ) {
-						if ( ! in_array( $type['ext'], $enabled_types, true ) && ! in_array( $type['ext'], array_column( $custom_types, 'ext' ), true ) ) {
+						if (
+							! in_array( $type['ext'], $enabled_types, true ) &&
+							! in_array( $type['ext'], array_column( $custom_types, 'ext' ), true )
+						) {
 							continue;
 						}
 
@@ -289,12 +319,14 @@ class File_Upload_Types_Settings {
 	public function products() {
 
 		?>
+
 		<h3><?php esc_html_e( 'You might like our other products', 'file-upload-types' ); ?></h3>
+
 		<p>
 			<?php
-			echo sprintf(
-				wp_kses( /* translators: %1$s - wpforms.com link;  */
-					__( 'File Upload Types is built by the team behind the most popular WordPress form plugin, <a href="%1$s" target="_blank" rel="noopener noreferrer">WPForms</a>. Check out some of our other plugins.', 'file-upload-types' ),
+			printf(
+				wp_kses( /* translators: %s - wpforms.com link. */
+					__( 'File Upload Types is built by the team behind the most popular WordPress form plugin, <a href="%s" target="_blank" rel="noopener noreferrer">WPForms</a>. Check out some of our other plugins.', 'file-upload-types' ),
 					array(
 						'a' => array(
 							'href'   => array(),
@@ -310,9 +342,7 @@ class File_Upload_Types_Settings {
 
 		<div class="file-upload-types-recommended-plugins">
 			<div class="plugins-container">
-				<?php
-				foreach ( $this->get_am_plugins() as $key => $plugin ) :
-					?>
+				<?php foreach ( $this->get_am_plugins() as $key => $plugin ) : ?>
 					<div class="plugin-container">
 						<div class="plugin-item">
 							<div class="details file-upload-types-clear">
@@ -325,14 +355,9 @@ class File_Upload_Types_Settings {
 								</p>
 								<p>
 									<?php
-									echo sprintf(
-										wp_kses( /* translators: %1$s - Plugin URL link; %2$s - Plugin Name; %3$s - Image source. */
-											__(
-												'<strong>
-													<a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">Get %2$s<img src="%3$s"/></a>
-												</strong>',
-												'file-upload-types'
-											),
+									printf(
+										wp_kses( /* translators: %1$s - Plugin URL; %2$s - Plugin Name; %3$s - Image source. */
+											__( '<strong><a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">Get %2$s<img src="%3$s"/></a></strong>', 'file-upload-types' ),
 											array(
 												'strong' => true,
 												'img'    => array(
@@ -372,13 +397,10 @@ class File_Upload_Types_Settings {
 		}
 
 		if (
-			! isset( $_POST['file_upload_types_nonce_field'] )
-			|| ! wp_verify_nonce( $_POST['file_upload_types_nonce_field'], 'file_upload_types_settings_save' )
+			! isset( $_POST['file_upload_types_nonce_field'] ) ||
+			! wp_verify_nonce( $_POST['file_upload_types_nonce_field'], 'file_upload_types_settings_save' )
 		) {
-
-			print 'Sorry, your nonce did not verify.';
-			exit;
-
+			return;
 		}
 
 		$enabled_types    = isset( $_POST['e_types'] ) ? array_map( 'sanitize_text_field', $_POST['e_types'] ) : array();
@@ -395,7 +417,7 @@ class File_Upload_Types_Settings {
 		}
 
 		$types               = get_option( 'file_upload_types', array() );
-		$stored_custom_types = isset( $types['custom'] ) ? $types['custom'] : array();
+		$stored_custom_types = isset( $types['custom'] ) ? (array) $types['custom'] : array();
 
 		foreach ( $stored_custom_types as $key => $value ) {
 
@@ -416,7 +438,6 @@ class File_Upload_Types_Settings {
 		add_action(
 			'file_upload_types_settings_after_nav_bar',
 			static function () {
-
 				?>
 				<div class="notice notice-success file-upload-types-notice is-dismissible">
 					<p><strong><?php echo esc_html__( 'Your settings have been saved.', 'file-upload-types' ); ?></strong></p>
@@ -474,13 +495,13 @@ class File_Upload_Types_Settings {
 	 */
 	public function get_admin_footer( $text ) {
 
-		if ( ! $this->file_upload_types_screen() ) {
+		if ( ! $this->is_admin_screen() ) {
 			return $text;
 		}
 
 		$url = 'https://wordpress.org/support/plugin/file-upload-types/reviews/?filter=5#new-post';
 
-		$text = sprintf(
+		return sprintf(
 			wp_kses( /* translators: %1$s - WP.org link; %2$s - same WP.org link. */
 				__( 'Please rate <strong>File Upload Types</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the File Upload Types team!', 'file-upload-types' ),
 				array(
@@ -495,8 +516,6 @@ class File_Upload_Types_Settings {
 			$url,
 			$url
 		);
-
-		return $text;
 	}
 
 	/**
@@ -508,7 +527,7 @@ class File_Upload_Types_Settings {
 
 		global $wp_filter;
 
-		if ( ! isset( $_REQUEST['page'] ) || 'file-upload-types' !== $_REQUEST['page'] ) {
+		if ( ! isset( $_REQUEST['page'] ) || self::SLUG !== $_REQUEST['page'] ) {
 			return;
 		}
 

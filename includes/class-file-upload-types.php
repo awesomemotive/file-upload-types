@@ -42,7 +42,6 @@ final class File_Upload_Types {
 	 */
 	public function __construct() {
 
-		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
@@ -52,7 +51,7 @@ final class File_Upload_Types {
 	}
 
 	/**
-	 * Load Localisation files.
+	 * Load translation files.
 	 *
 	 * @since 1.0.0
 	 */
@@ -103,8 +102,8 @@ final class File_Upload_Types {
 	public function enabled_types() {
 
 		$stored_types     = get_option( 'file_upload_types', array() );
-		$enabled_types    = isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
-		$custom_types_raw = isset( $stored_types['custom'] ) ? $stored_types['custom'] : array();
+		$enabled_types    = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : array();
+		$custom_types_raw = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : array();
 		$available_types  = fut_get_available_file_types();
 		$return_types     = array();
 
@@ -139,15 +138,13 @@ final class File_Upload_Types {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $mime_types List of all mime allowed mime types.
+	 * @param array $mime_types List of all allowed in WordPress mime types.
 	 *
 	 * @return array
 	 */
 	public function allowed_types( $mime_types ) {
 
-		$enabled_types = $this->enabled_types();
-
-		return array_merge( $mime_types, $enabled_types );
+		return array_merge( $mime_types, $this->enabled_types() );
 	}
 
 	/**

@@ -19,13 +19,14 @@ $secondary-color: #ff982d;
 }
 
 #file-upload-types-header {
-    border-top: 3px solid #FF982D;
-    padding: 20px;
+    border-top: 3px solid #df7739;
+    padding: 16px 20px 17px;
 
 	img {
 		display: block;
 		margin: 0;
-		max-width: 242px
+		width: 319px;
+		height: 75px;
     }
 }
 
@@ -46,22 +47,35 @@ $secondary-color: #ff982d;
 	.file-upload-types-nav {
 	    background-color: $primary-color;
 	    margin: 0 0 20px 0;
-	    padding: 0 20px;
+	    padding: 15px 20px;
 		display: flex;
+		align-items: center;
 
 	    .file-upload-types-nav-title p {
-			margin-bottom: 10px;
-			font-size: 20px;
-			font-weight: 700;
-			color: #444;
+	    	margin: 0;
+			font-size: 23px;
+			font-weight: 400;
+			line-height: 1.3;
+			color: #2d3235;
 	    }
 
 	    .fie-upload-types-docs {
 			margin-left: auto;
 
+			p {
+				margin: 0;
+				font-size: 14px;
+				line-height: 1;
+				color: #777;
+			}
+
+			p a {
+				margin-left: 20px;
+			}
+
 			button {
 				color:#fff;
-				background:#809eb0;
+				background:#64869a;
 			}
 
 			button:hover,
@@ -78,16 +92,52 @@ $secondary-color: #ff982d;
 		padding: 0 20px;
 		display: flex;
 
+		.file-upload-types-heading {
+			
+			h3 {
+				margin: 14px 0 10px;
+				font-size: 20px;
+				font-weight: 700;
+				color: #444;
+			}
+
+			p {
+				margin-top: 0;
+				font-size: 14px;
+				color: #444;
+			}
+
+		}
+
 		.file-upload-types-table {
-			padding-right: 30px;
+			padding-right: 50px;
 
 			.before-table {
 				display: flex;
+				align-items: flex-end;
+				margin-bottom: 10px;
 			}
 
 			.search-box {
 				margin-left: auto;
-				padding: 20px;
+				padding: 20px 0 15px 40px;
+			}
+
+			.search-box input {
+				width: 200px;
+				padding: 10px 10px 10px 35px;
+				line-height: 1;
+				color: #777;
+				background: #fff url('../images/search-regular.svg') no-repeat 10px 50%;
+				background-size: 16px 16px;
+				border: 1px solid #ddd;
+				border-radius: 4px;
+			}
+
+			.search-box input:focus {
+				color: #444;
+				border: 1px solid #bbb;
+				box-shadow: none;
 			}
 
 			.table-container {
@@ -158,41 +208,50 @@ $secondary-color: #ff982d;
 		}
 
 		.file-upload-types-products {
-			margin-left: auto;
-			width: 25%;
+			min-width: 300px;
+			max-width: 300px;
+
+			h3 {
+				margin: 15px 0 -5px;
+				font-size: 16px;
+				color: #444;
+			}
+
+			p {
+				margin-bottom: 30px;
+				font-size: 14px;
+				color: #444;
+			}
 
 			.file-upload-types-recommended-plugins {
 
 				.plugins-container {
-				    margin-left: -30px;
-				    margin-right: -20px;
 
 				    .plugin-container {
-						padding: 0 10px;
 						float: left;
 					}
 
 					.plugin-item {
-						border-top: 1px solid #ddd;
+						border-top: 1px solid #e4e4e4;
 
 						img {
-						    border: 1px solid #eee;
 						    float: left;
-						    max-width: 75px;
-						    padding: 10px;
+						    max-width: 70px;
+						    height: auto;
 						}
 
 						h5 {
-						    margin: 0 0 10px 100px;
-						    font-size: 16px
+						    margin: 0 0 0 90px;
+						    font-size: 14px
 						}
 
 						p {
-						    margin: 0 0 0 100px;
+						    margin: 0 0 0 90px;
+						    color: #777;
 						}
 
 						.details {
-							padding: 20px;
+							padding: 30px 0;
 						}
 					}
 
@@ -201,9 +260,10 @@ $secondary-color: #ff982d;
 						font-weight: 700;
 					}
 
-					a[target="_blank"]::after {
-					  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
-					  margin: 0 3px 0 5px;
+					a[target="_blank"] {
+					  background: url('../images/external-link-solid.svg') no-repeat 100% 50%;
+					  background-size: 16px 16px;
+					  padding: 0 21px 0 0;
 					}
 				}
 			}
@@ -231,6 +291,19 @@ $secondary-color: #ff982d;
 	.file-upload-types-btn.file-upload-types-btn-orange:focus {
 	    background-color: #f97f00;
 	    border-color: #f97f00;
+	}
+
+	.file-upload-types-btn.file-upload-types-btn-blue {
+		background-color: #809eb0;
+		border-color: #809eb0;
+		color: $primary-color;
+	}
+
+	.file-upload-types-btn.file-upload-types-btn-blue:hover,
+	.file-upload-types-btn.file-upload-types-btn-blue:active,
+	.file-upload-types-btn.file-upload-types-btn-blue:focus {
+	    background-color: #658699;
+	    border-color: #658699;
 	}
 }
 

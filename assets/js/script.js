@@ -23,7 +23,7 @@ jQuery( document ).ready( function ( $ ) {
 				alert( file_upload_types_params.default_section );
 			}
 		} )
-		.on( 'keyup keypress', '#file-upload-types-form', function( e ) {
+		.on( 'keyup keypress', '#file-upload-types form', function( e ) {
 			// Do not allow to submit the form on Enter.
 			var keyCode = e.keyCode || e.which;
 			if (keyCode === 13) {

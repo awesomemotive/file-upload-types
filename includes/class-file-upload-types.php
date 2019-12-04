@@ -1,46 +1,34 @@
 <?php
-/**
- * File Upload Types Final Class File.
- *
- * @package    File Upload Types
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-3.0+
- */
 
-defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Main File_Upload_Types Class.
  *
- * @since  1.0.0
- *
- * @class   File_Upload_Types
+ * @since 1.0.0
  */
 final class File_Upload_Types {
 
 	/**
-	 * File Upload Types version.
-	 *
-	 * @var string
-	 */
-	public $version = '1.0.0';
-
-	/**
 	 * Instance of this class.
 	 *
-	 * @var object File_Upload_Types
+	 * @since 1.0.0
+	 *
+	 * @var null|File_Upload_Types
 	 */
 	protected static $instance = null;
 
 	/**
 	 * Main File_Upload_Types Instance.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @return File_Upload_Types Main Instance.
 	 */
 	public static function get_instance() {
+
 		// If the single instance hasn't been set, set it now.
-		if ( is_null( self::$instance ) ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 
@@ -49,6 +37,8 @@ final class File_Upload_Types {
 
 	/**
 	 * File_Upload_Types Constructor.
+	 *
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 
@@ -58,25 +48,30 @@ final class File_Upload_Types {
 		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 3 );
 
-		$this->define_constants();
 		$this->includes();
 	}
 
 	/**
 	 * Load Localisation files.
+	 *
+	 * @since 1.0.0
 	 */
 	public function load_plugin_textdomain() {
+
 		load_plugin_textdomain( 'file-upload-types', false, plugin_basename( dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) ) . '/languages' );
 	}
 
 	/**
 	 * Add plugin settings page link.
 	 *
-	 * @param  array $actions Plugin Action links.
+	 * @since 1.0.0
+	 *
+	 * @param array $actions Plugin Action links.
 	 *
 	 * @return array
 	 */
 	public function plugin_action_links( $actions ) {
+
 		$new_actions = array(
 			'settings' => '<a href="' . admin_url( 'options-general.php?page=file-upload-types' ) . '" aria-label="' . esc_attr__( 'File Upload Types Settings', 'file-upload-types' ) . '">' . esc_html__( 'Settings', 'file-upload-types' ) . '</a>',
 		);
@@ -85,35 +80,17 @@ final class File_Upload_Types {
 	}
 
 	/**
-	 * Define Constants.
-	 */
-	private function define_constants() {
-		$this->define( 'FUT_ABSPATH', dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) . '/' );
-		$this->define( 'FUT_VERSION', $this->version );
-	}
-
-	/**
-	 * Define constant if not already set.
-	 *
-	 * @param string      $name Name of the constant.
-	 * @param string|bool $value Value of the constant.
-	 */
-	private function define( $name, $value ) {
-		if ( ! defined( $name ) ) {
-			define( $name, $value );
-		}
-	}
-
-	/**
 	 * Includes.
+	 *
+	 * @since 1.0.0
 	 */
 	private function includes() {
+
 		include_once dirname( __FILE__ ) . '/file-upload-types-functions.php';
 
 		if ( is_admin() ) {
 			include_once dirname( __FILE__ ) . '/class-file-upload-types-settings.php';
 		}
-
 	}
 
 	/**
@@ -124,6 +101,7 @@ final class File_Upload_Types {
 	 * @return array
 	 */
 	public function enabled_types() {
+
 		$stored_types     = get_option( 'file_upload_types', array() );
 		$enabled_types    = isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
 		$custom_types_raw = isset( $stored_types['custom'] ) ? $stored_types['custom'] : array();
@@ -157,32 +135,34 @@ final class File_Upload_Types {
 	/**
 	 * File types allowed to upload.
 	 *
-	 * @param  array $mime_types List of all mime allowed mime types.
-	 *
 	 * @link https://developer.wordpress.org/reference/functions/wp_get_mime_types/
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
+	 *
+	 * @param array $mime_types List of all mime allowed mime types.
 	 *
 	 * @return array
 	 */
 	public function allowed_types( $mime_types ) {
 
 		$enabled_types = $this->enabled_types();
+
 		return array_merge( $mime_types, $enabled_types );
 	}
 
 	/**
-	 * Filters the “real” file type of the given file.
+	 * Filters the "real" file type of the given file.
 	 *
-	 * @param array  $file_data  File data array containing 'ext', 'type', and 'proper_filename' keys.
-	 * @param string $file       Full path to the file.
-	 * @param string $filename   The name of the file (may differ from $file due to $file being in a tmp directory).
+	 * @since 1.0.0
 	 *
-	 * @since  1.0.0
+	 * @param array  $file_data File data array containing 'ext', 'type', and 'proper_filename' keys.
+	 * @param string $file      Full path to the file.
+	 * @param string $filename  The name of the file (may differ from $file due to $file being in a tmp directory).
 	 *
 	 * @return  array
 	 */
 	public function real_file_type( $file_data, $file, $filename ) {
+
 		$real_file_type = array(
 			'ext'             => '',
 			'type'            => '',

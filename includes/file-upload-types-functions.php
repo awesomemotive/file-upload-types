@@ -1,19 +1,11 @@
 <?php
-/**
- * File Upload Types Functions.
- *
- * @package    File Upload Types
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-3.0+
- */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Additional available file types.
  *
- * @since  1.0.0
+ * @since 1.0.0
  *
  * @return array
  */
@@ -27,9 +19,9 @@ function fut_get_available_file_types() {
 /**
  * Formats raw data of file types.
  *
- * @param  array $file_data_raw Raw data of the file types.
+ * @since 1.0.0
  *
- * @since  1.0.0
+ * @param array $file_data_raw Raw data of the file types.
  *
  * @return array
  */

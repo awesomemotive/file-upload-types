@@ -23,7 +23,7 @@ jQuery( document ).ready( function ( $ ) {
 				alert( file_upload_types_params.default_section );
 			}
 		} )
-		.on( 'keyup', '#file-upload-types-search', function ( e ) {
+		.on( 'input', '#file-upload-types-search', function ( e ) {
 			var value = $( this ).val().toLowerCase();
 
 			$( '.file-upload-types-table table tr' ).filter( function () {

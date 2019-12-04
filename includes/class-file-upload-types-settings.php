@@ -110,15 +110,18 @@ class File_Upload_Types_Settings {
 				<div class="file-upload-types-page file-upload-types-page-settings ">
 					<div class="file-upload-types-nav">
 						<div class="file-upload-types-nav-title">
-						<p>
-							<?php esc_html_e( 'Settings', 'file-upload-types' ); ?>
-						</p>
+							<p>
+								<?php esc_html_e( 'Settings', 'file-upload-types' ); ?>
+							</p>
 						</div>
 						<div class="fie-upload-types-docs">
-						<p>
-							<?php esc_html_e( 'Need some help?', 'file-upload-types' ); ?>
-							<a href="https://wpforms.com/docs/how-to-allow-additional-file-upload-types/" target="_blank"><button class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange"><?php esc_html_e( 'View Documentation', 'file-upload-types' ); ?></button></a>
-						</p>
+							<p>
+								<?php esc_html_e( 'Need some help?', 'file-upload-types' ); ?>
+								<a href="https://wpforms.com/docs/how-to-allow-additional-file-upload-types/" target="_blank" rel="noopener noreferrer"
+									class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
+									<?php esc_html_e( 'View Documentation', 'file-upload-types' ); ?>
+								</a>
+							</p>
 						</div>
 					</div>
 
@@ -161,9 +164,8 @@ class File_Upload_Types_Settings {
 					<p>
 					<?php
 					echo sprintf(
-						wp_kses(
-							/* translators: %1$s - file upload types WordPress docs, %2$s - # link;  */
-								__( 'Below is list of the files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank"> files WordPress allows by default</a>. Don\'t see what you need? No problem, <a href="%2$s" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
+						wp_kses( /* translators: %1$s - file upload types WordPress docs, %2$s - # link. */
+							__( 'Below is the list of files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank">files WordPress allows by default</a>. Don\'t see what you need? No problem, <a href="%2$s" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
 							array(
 								'a' => array(
 									'href'   => array(),
@@ -209,7 +211,7 @@ class File_Upload_Types_Settings {
 					if ( ! empty( $enabled_types ) || ! empty( $custom_types ) ) :
 						?>
 							<tr class="section">
-								<td colspan="4"><?php esc_html_e( 'ENABLED FILE TYPES', 'file-upload-types' ); ?></td>
+								<td colspan="4"><?php esc_html_e( 'ENABLED', 'file-upload-types' ); ?></td>
 							</tr>
 
 							<?php
@@ -230,7 +232,7 @@ class File_Upload_Types_Settings {
 						endif;
 					?>
 					<tr class="section">
-						<td colspan="4"><?php esc_html_e( 'AVAILABLE FILE TYPES', 'file-upload-types' ); ?></td>
+						<td colspan="4"><?php esc_html_e( 'AVAILABLE', 'file-upload-types' ); ?></td>
 					</tr>
 						<?php
 							$available_types = fut_get_available_file_types();

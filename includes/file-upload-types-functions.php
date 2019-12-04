@@ -19,46 +19,9 @@ defined( 'ABSPATH' ) || exit;
  */
 function fut_get_available_file_types() {
 
-	if ( file_exists( dirname( __FILE__ ) . '/file-types-list.txt' ) ) {
-		$mime_types_serialized = trim( file_get_contents( dirname( __FILE__ ) . '/file-types-list.txt' ) );
-		$types                 = @unserialize( $mime_types_serialized );
+	$mime_types_serialized = trim( file_get_contents( dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) . '/assets/file-types-list.json' ) );
 
-	} else {
-
-		if ( ! function_exists( 'file_get_html' ) ) {
-			require_once dirname( __FILE__ ) . '/library/simple_html_dom.php';
-		}
-
-		$html    = file_get_html( 'https://www.freeformatter.com/mime-types-list.html' );
-		$types   = array();
-		$columns = $html->find( '#mime-types-list table tbody tr' );
-
-		foreach ( $columns as $column ) {
-			$tds             = $column->find( 'td' );
-			$types['desc'][] = isset( $tds[0]->plaintext ) ? $tds[0]->plaintext : '';
-			$types['mime'][] = isset( $tds[1]->plaintext ) ? $tds[1]->plaintext : '';
-			$types['ext'][]  = isset( $tds[2]->plaintext ) ? $tds[2]->plaintext : '';
-		}
-
-		$html->clear();
-		unset( $html );
-
-		$types = fut_format_raw_custom_types( $types );
-
-		usort(
-			$types,
-			function( $str1, $str2 ) {
-				return strcasecmp( $str1['desc'], $str2['desc'] );
-			}
-		);
-
-		$list = fopen( dirname( __FILE__ ) . '/file-types-list.txt', 'wb' ) or die( 'Unable to open file!' );
-
-		fwrite( $list, serialize( $types ) );
-		fclose( $list );
-	}
-
-	return $types;
+	return json_decode( $mime_types_serialized, true );
 }
 
 /**

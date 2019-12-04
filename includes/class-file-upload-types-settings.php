@@ -111,7 +111,7 @@ class File_Upload_Types_Settings {
 			esc_html__( 'File Upload Types', 'file-upload-types' ),
 			'manage_options',
 			self::SLUG,
-			array( $this, 'settings_content' )
+			array( $this, 'display' )
 		);
 	}
 
@@ -120,7 +120,7 @@ class File_Upload_Types_Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function settings_content() {
+	public function display() {
 
 		// Return if not file upload types screen.
 		if ( ! $this->is_admin_screen() ) {
@@ -152,11 +152,11 @@ class File_Upload_Types_Settings {
 				<form method="post" action="">
 					<div class="file-upload-types-content">
 						<div class="file-upload-types-table">
-							<?php $this->table(); ?>
+							<?php $this->display_types_table(); ?>
 						</div>
 
 						<div class="file-upload-types-products">
-							<?php $this->products(); ?>
+							<?php $this->display_am_products(); ?>
 						</div>
 					</div>
 
@@ -179,7 +179,7 @@ class File_Upload_Types_Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function table() {
+	public function display_types_table() {
 
 		?>
 
@@ -322,7 +322,7 @@ class File_Upload_Types_Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function products() {
+	public function display_am_products() {
 
 		?>
 

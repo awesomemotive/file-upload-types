@@ -265,10 +265,16 @@ class File_Upload_Types_Settings {
 				$available_types = fut_get_available_file_types();
 				$stored_types    = get_option( 'file_upload_types', array() );
 				$enabled_types   = isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : array();
+				$wp_ext_mimes    = get_allowed_mime_types();
 
 				foreach ( $available_types as $key => $type ) {
 
 					if ( in_array( $type['ext'], $enabled_types, true ) ) {
+						continue;
+					}
+
+					// Ignore default WordPress already enabled extensions.
+					if ( array_key_exists( ltrim( $type['ext'], '.' ), $wp_ext_mimes ) ) {
 						continue;
 					}
 

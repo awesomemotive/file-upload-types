@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
  */
 define( 'FILE_UPLOAD_TYPES_PLUGIN_FILE', __FILE__ );
 define( 'FILE_UPLOAD_TYPES_PLUGIN_PATH', dirname( __FILE__ ) );
-define( 'FILE_UPLOAD_TYPES_VERION', '1.0.0' );
+define( 'FILE_UPLOAD_TYPES_VERSION', '1.0.0' );
 
 /**
  * Return the main instance of File_Upload_Types.

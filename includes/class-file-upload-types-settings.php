@@ -49,8 +49,8 @@ class File_Upload_Types_Settings {
 		if ( $this->file_upload_types_screen() ) {
 
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-			wp_enqueue_style( 'file-upload-types-css', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FILE_UPLOAD_TYPES_VERION, $media = 'all' );
-			wp_enqueue_script( 'file-upload-types-js', plugins_url( 'assets/js/script' . $suffix . '.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FILE_UPLOAD_TYPES_VERION, true );
+			wp_enqueue_style( 'file-upload-types-css', plugins_url( 'assets/css/style.css', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FILE_UPLOAD_TYPES_VERSION, $media = 'all' );
+			wp_enqueue_script( 'file-upload-types-js', plugins_url( 'assets/js/script' . $suffix . '.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ), array(), FILE_UPLOAD_TYPES_VERSION, true );
 
 			$translation_strings = array(
 				'default_section' => __( 'Default section couldnot be deleted.', 'file-upload-types' ),

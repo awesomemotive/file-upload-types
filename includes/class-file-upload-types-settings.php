@@ -149,7 +149,7 @@ class File_Upload_Types_Settings {
 
 				<?php do_action( 'file_upload_types_settings_after_nav_bar' ); ?>
 
-				<form method="post" action="">
+				<form method="post" action="" id="file-upload-types-form">
 					<div class="file-upload-types-content">
 						<div class="file-upload-types-table">
 							<?php $this->table(); ?>

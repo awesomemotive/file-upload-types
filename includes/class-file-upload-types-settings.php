@@ -357,13 +357,14 @@ class File_Upload_Types_Settings {
 									<?php
 									printf(
 										wp_kses( /* translators: %1$s - Plugin URL; %2$s - Plugin Name; %3$s - Image source. */
-											__( '<strong><a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">Get %2$s<img src="%3$s"/></a></strong>', 'file-upload-types' ),
+											__( '<strong><a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">Get %2$s</a></strong>', 'file-upload-types' ),
 											array(
 												'strong' => true,
 												'img'    => array(
 													'src' => true,
 												),
 												'a'      => array(
+													'alt'    => true,
 													'href'   => true,
 													'class'  => true,
 													'target' => true,

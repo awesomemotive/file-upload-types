@@ -87,7 +87,7 @@ class File_Upload_Types_Settings {
 	 */
 	public function display_admin_header() {
 
-		if ( $this->is_admin_screen() ) {
+		if ( ! $this->is_admin_screen() ) {
 			return;
 		}
 

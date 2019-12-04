@@ -4,3 +4,4 @@ none
 
 # Compressed Files
 *.zip
+/vendor/

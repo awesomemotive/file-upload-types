@@ -1,5 +1,5 @@
 $primary-color: #fff;
-$secondary-color: #ff982d;
+$secondary-color: #e17730;
 
 #wpcontent {
     padding-left: 0 !important;
@@ -27,12 +27,6 @@ $secondary-color: #ff982d;
 		margin: 0;
 		width: 319px;
 		height: 75px;
-    }
-}
-
-@media (max-width: 782px) {
-    #file-upload-types-header img {
-        max-width: 200px
     }
 }
 
@@ -75,7 +69,7 @@ $secondary-color: #ff982d;
 
 			button {
 				color:#fff;
-				background:#64869a;
+				background:#e2772f;
 			}
 
 			button:hover,
@@ -110,7 +104,7 @@ $secondary-color: #ff982d;
 		}
 
 		.file-upload-types-table {
-			padding-right: 50px;
+			padding-right: 30px;
 
 			.before-table {
 				display: flex;
@@ -143,19 +137,20 @@ $secondary-color: #ff982d;
 			.table-container {
 
 				table {
+					width: 100%;
 					font-family: arial, sans-serif;
 					border-collapse: collapse;
-					width: 100%;
 					border: 1px solid #e1e1e1;
 
 					img {
-						height: 15px;
-						width: 15px;
+						display: block;
+						height: 16px;
+						width: 16px;
 					}
 				}
 
 				tr {
-					border-top: 1px ridge;
+					border-top: 1px solid #e1e1e1;
 				}
 
 				tr.heading td {
@@ -165,8 +160,7 @@ $secondary-color: #ff982d;
 				}
 
 				tr.section td {
-					background: none;
-					padding:15px20px;
+					padding: 10px 20px;
 					font-size: 11px;
 					font-weight: 700;
 					text-transform: uppercase;
@@ -176,15 +170,16 @@ $secondary-color: #ff982d;
 
 				td {
 					text-align: left;
-					padding: 8px;
+					padding: 15px 20px;
 					background: $primary-color;
 					max-width: 100px;
 				}
 
 				input {
-					padding: 8px;
+					padding: 10px;
 					font-size: 14px;
 					font-weight: 400;
+					line-height: 1;
 					color: #bbb;
 					background: #fff;
 					border: 1px solid #ddd;
@@ -192,19 +187,27 @@ $secondary-color: #ff982d;
 				}
 
 				input[type="text"] {
-					width: 90%;
+					width: 100%;
 				}
 
 				input:focus {
-					padding: 8px;
-					font-size: 14px;
-					font-weight: 400;
 					color: #444;
 					background: #fff;
 					border:1px solid #999;
-					border-radius: 4px;
+					box-shadow: none;
+					outline: none;
 				}
+
+				.file-upload-types-table-main {
+					border-bottom: 1px solid #fff;
+				}
+
+				.file-upload-types-table-main tr.section:nth-of-type(1) {
+					border-top: 1px solid #f8f8f8;
+				}
+
 			}
+			
 		}
 
 		.file-upload-types-products {
@@ -282,15 +285,15 @@ $secondary-color: #ff982d;
 
 	.file-upload-types-btn.file-upload-types-btn-orange {
 		background-color: $secondary-color;
-		border-color: #FF982D;
+		border-color: #f982d;
 		color: $primary-color;
 	}
 
 	.file-upload-types-btn.file-upload-types-btn-orange:hover,
 	.file-upload-types-btn.file-upload-types-btn-orange:active,
 	.file-upload-types-btn.file-upload-types-btn-orange:focus {
-	    background-color: #f97f00;
-	    border-color: #f97f00;
+	    background-color: #c45e1b;
+	    border-color: #c45e1b;
 	}
 
 	.file-upload-types-btn.file-upload-types-btn-blue {
@@ -331,18 +334,34 @@ $secondary-color: #ff982d;
 .file-upload-types-info {
 	position: relative;
 	display: inline-block;
+	margin: 0 0 -3px 5px;
 
  	.tooltiptext {
 		visibility: hidden;
-		width: 120px;
-		background-color: black;
+		width: 150px;
+		background: rgba(0, 0, 0, .8);
 		color: #fff;
 		text-align: center;
-		border-radius: 6px;
-		padding: 5px 5px;
+		text-transform: none;
+		border-radius: 4px;
+		padding: 10px;
 		position: absolute;
 		z-index: 1;
-		font-size: 12px;
+		margin: -35px 0 0 26px;
+		font-size: 13px;
+		font-weight: 400;
+	}
+
+	.tooltiptext::after{
+		position: absolute;
+		top: 23px;
+		left: -5px;
+		content: '';
+		width: 0;
+		height: 0;
+		border-right: solid 5px rgba(0,0,0,.8);
+		border-bottom: solid 5px transparent;
+		border-top: solid 5px transparent;
 	}
 }
 
@@ -350,24 +369,17 @@ $secondary-color: #ff982d;
 	visibility: visible;
 }
 
-/* Scrollbar width */
-.table-container::-webkit-scrollbar {
-  width: 7px;
+.file-upload-types-plus,
+.file-upload-types-minus {
+	float: right;
+	cursor: pointer;
 }
 
-/* Scrollbar Track */
-.table-container::-webkit-scrollbar-track {
-  border-radius: 10px;
+.file-upload-types-plus:hover,
+.file-upload-types-minus:hover {
+	opacity: .75;
 }
 
-/* Scrollbar Handle */
-.table-container::-webkit-scrollbar-thumb {
-  background: grey;
-  border-radius: 10px;
-  min-height: 50px;
-}
-
-/* Scrollbar Handle on hover */
-.table-container::-webkit-scrollbar-thumb:hover {
-  background: darkgrey;
+.file-upload-types-minus {
+	margin-left: 10px;
 }

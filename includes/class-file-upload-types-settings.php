@@ -214,15 +214,15 @@ class File_Upload_Types_Settings {
 		<div class="table-container">
 			<table>
 				<tr class="heading">
-					<td><?php esc_html_e( 'Description', 'file-upload-types' ); ?></td>
-					<td><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></td>
-					<td width="10%"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></td>
-					<td width="5%"></td>
+					<td width="35%"><?php esc_html_e( 'Description', 'file-upload-types' ); ?></td>
+					<td width="40%"><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></td>
+					<td width="15%"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></td>
+					<td width="10%">&nbsp;</td>
 				</tr>
 			</table>
 		</div>
 		<div style="overflow-y:scroll; overflow-x:hidden; height:500px;" class="table-container">
-			<table>
+			<table class="file-upload-types-table-main">
 				<?php
 				$stored_types    = get_option( 'file_upload_types', array() );
 				$enabled_types   = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : array();
@@ -249,10 +249,10 @@ class File_Upload_Types_Settings {
 						}
 
 						echo '<tr>';
-						echo '<td>' . esc_html( $type['desc'] ) . '</td>';
-						echo '<td>' . esc_html( $type['mime'] ) . '</td>';
-						echo '<td width="10%">' . esc_html( $type['ext'] ) . '</td>';
-						echo '<td width="5%"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types[]" checked> </td>';
+						echo '<td width="35%">' . esc_html( $type['desc'] ) . '</td>';
+						echo '<td width="40%">' . esc_html( $type['mime'] ) . '</td>';
+						echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
+						echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types[]" checked> </td>';
 						echo '</tr>';
 					}
 
@@ -279,10 +279,10 @@ class File_Upload_Types_Settings {
 					}
 
 					echo '<tr>';
-					echo '<td>' . esc_html( $type['desc'] ) . '</td>';
-					echo '<td>' . esc_html( $type['mime'] ) . '</td>';
-					echo '<td width="10%">' . esc_html( $type['ext'] ) . '</td>';
-					echo '<td width="5%"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
+					echo '<td width="35%">' . esc_html( $type['desc'] ) . '</td>';
+					echo '<td width="40%">' . esc_html( $type['mime'] ) . '</td>';
+					echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
+					echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
 					echo '</tr>';
 				}
 				?>
@@ -301,15 +301,15 @@ class File_Upload_Types_Settings {
 				</tr>
 
 				<tr class="repetitive-fields">
-					<td><input type="text" name="c_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
-					<td><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
-					<td width="10%"><input style="max-width: 100%" type="text" name="c_types[ext][]"
+					<td width="35%"><input type="text" name="c_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
+					<td width="40%"><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
+					<td width="15%"><input style="max-width: 100%" type="text" name="c_types[ext][]"
 							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>"></td>
-					<td width="5%">
-						<img class="file-upload-types-plus"
-							src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
+					<td width="10%">
 						<img class="file-upload-types-minus"
 							src="<?php echo esc_url( plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
+						<img class="file-upload-types-plus"
+							src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
 					</td>
 				</tr>
 			</table>

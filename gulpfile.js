@@ -72,6 +72,7 @@ var plugin = {
 	],
 	js: [
 		'assets/js/*.js',
+		'!assets/js/*.min.js'
 	],
 	images: [
 		'assets/images/**/*',

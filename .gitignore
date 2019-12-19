@@ -1,7 +1,4 @@
-# Grunt
 /node_modules/
-none
-
-# Compressed Files
-*.zip
 /vendor/
+/build/
+*.zip

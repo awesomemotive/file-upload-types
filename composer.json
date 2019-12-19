@@ -3,7 +3,7 @@
   "description": "Manage the types of files that can be uploaded to your WordPress site.",
   "homepage": "https://github.com/awesomemotive.com/file-upload-types",
   "type": "wordpress-plugin",
-  "license": "GPL-3.0-or-later",
+  "license": "GPL-2.0+",
   "require": {
     "composer/installers": "1.7.0"
   },

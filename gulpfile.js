@@ -129,7 +129,7 @@ gulp.task( 'img', function () {
  * Generate .pot files.
  */
 gulp.task( 'pot', function ( cb ) {
-	exec( 'wp i18n make-pot ./ ./languages/file-upload-types.pot --slug="file-upload-types" --domain="file-upload-types" --package-name="File Upload Types" --file-comment=""', function ( err, stdout, stderr ) {
+	exec( 'wp i18n make-pot ./ ./languages/file-upload-types.pot --slug="'+ plugin.slug +'" --domain="'+ plugin.slug +'" --package-name="'+ plugin.name +'" --file-comment=""', function ( err, stdout, stderr ) {
 		console.log( stdout );
 		console.log( stderr );
 		cb( err );
@@ -155,7 +155,7 @@ gulp.task( 'zip', function () {
 /**
  * Task: build.
  */
-gulp.task( 'build', gulp.series( gulp.parallel( 'css', 'js', 'img', 'pot', 'zip' ) ) );
+gulp.task( 'build', gulp.series( gulp.parallel( 'css', 'js', 'img', 'pot' ), 'zip' ) );
 
 /**
  * Look out for relevant sass/js changes.

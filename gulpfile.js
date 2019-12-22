@@ -19,7 +19,6 @@ var plugin = {
 	files: [
 		'**',
 		// Exclude all the files/dirs below. Note the double negate (when ! is used inside the exclusion) - we may actually need some things.
-		'!src/**/_*.php',
 		'!**/*.map',
 		'!LICENSE',
 		'!assets/**/*.scss',

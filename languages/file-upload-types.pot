@@ -1,38 +1,34 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: File Upload Types 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/file-upload-types\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: support@wpforms.com\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-12-19T07:25:54+00:00\n"
+"POT-Creation-Date: 2020-01-06 17:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Domain: file-upload-types\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: _e;__;esc_html__;esc_attr__;esc_html_e;esc_attr_e;_n;_n_noop\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: vendor\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
 
-#. Plugin Name of the plugin
-#: includes/class-file-upload-types-settings.php:96
-#: includes/class-file-upload-types-settings.php:111
-msgid "File Upload Types"
-msgstr ""
-
-#. Description of the plugin
-msgid "Manage the types of files that can be uploaded to your WordPress site."
-msgstr ""
-
-#. Author of the plugin
-#: includes/class-file-upload-types-settings.php:469
-msgid "WPForms"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://wpforms.com"
+#: file-upload-types.php:44
+msgid "The File Upload Types plugin has been deactivated. Your site is running an outdated version of PHP that is no longer supported and is not compatible with the File Upload Types plugin."
 msgstr ""
 
 #: includes/class-file-upload-types-settings.php:77
 msgid "Default section can not be deleted."
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:96
+#: includes/class-file-upload-types-settings.php:111
+msgid "File Upload Types"
 msgstr ""
 
 #: includes/class-file-upload-types-settings.php:110
@@ -57,8 +53,8 @@ msgstr ""
 msgid "Add File Upload Types"
 msgstr ""
 
-#. translators: %1$s - URL to WordPress Codex page, %2$s - anchor link.
 #: includes/class-file-upload-types-settings.php:193
+#, php-format
 msgid "Below is the list of files types that can be enabled, not including the <a href=\"%1$s\" rel=\"noopener\" target=\"_blank\">files WordPress allows by default</a>. <br>Don't see what you need? No problem, <a href=\"%2$s\" rel=\"noopener noreferrer\">add your custom file types</a>."
 msgstr ""
 
@@ -104,18 +100,22 @@ msgstr ""
 msgid "You might like our other products"
 msgstr ""
 
-#. translators: %s - wpforms.com link.
 #: includes/class-file-upload-types-settings.php:335
+#, php-format
 msgid "File Upload Types is built by the team behind the most popular WordPress form plugin, <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">WPForms</a>. Check out some of our other plugins."
 msgstr ""
 
-#. translators: %1$s - Plugin URL; %2$s - Plugin Name; %3$s - Image source.
 #: includes/class-file-upload-types-settings.php:366
+#, php-format
 msgid "<strong><a href=\"%1$s\" class=\"external-link\" target=\"_blank\" rel=\"noopener noreferrer\">Get %2$s</a></strong>"
 msgstr ""
 
 #: includes/class-file-upload-types-settings.php:450
 msgid "Your settings have been saved."
+msgstr ""
+
+#: includes/class-file-upload-types-settings.php:469
+msgid "WPForms"
 msgstr ""
 
 #: includes/class-file-upload-types-settings.php:470
@@ -146,8 +146,8 @@ msgstr ""
 msgid "Create beautiful coming soon pages, skyrocket your email list."
 msgstr ""
 
-#. translators: %1$s - WP.org link; %2$s - same WP.org link.
 #: includes/class-file-upload-types-settings.php:513
+#, php-format
 msgid "Please rate <strong>File Upload Types</strong> <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">WordPress.org</a> to help us spread the word. Thank you from the File Upload Types team!"
 msgstr ""
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle name="File Upload Types">
+	<domain name="file-upload-types">
+		<project name="File Upload Types" slug="file-upload-types">
+			<source>
+				<directory>.</directory>
+			</source>
+			<target>
+				<directory>languages</directory>
+			</target>
+			<template>
+				<file>languages/file-upload-types.pot</file>
+			</template>
+		</project>
+	</domain>
+</bundle>

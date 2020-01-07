@@ -55,7 +55,6 @@ var plugin = {
 		'loco.xml',
 		'!**/*.yml',
 		'!**/*.dist',
-		'!**/*.json',
 		'!**/*.lock',
 		'!**/gulpfile.js',
 		'!**/Makefile',

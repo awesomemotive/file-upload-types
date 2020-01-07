@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: File Upload Types
- * Description: Manage the types of files that can be uploaded to your WordPress site.
+ * Description: Easily allow WordPress to accept and upload any file type extension or MIME type, including custom file types.
  * Version: 1.0.0
  * Author: WPForms
  * Author URI: https://wpforms.com

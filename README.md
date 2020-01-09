@@ -13,7 +13,7 @@ If you find an bug or problem, please let us know by [creating an issue](https:/
 Contributions to File Upload Types are welcome!
 
 1. Open an [Issue](https://github.com/awesomemotive/file-upload-types/issues) on GitHub.
-2. Fork WP Mail SMTP on GitHub.
+2. Fork File Upload Types on GitHub.
 3. Create a new branch.
 4. When committing, reference your issue and provide notes/feedback.
 5. Send us a Pull Request with your bug fixes and/or new features.

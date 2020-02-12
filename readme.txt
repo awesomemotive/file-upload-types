@@ -53,7 +53,7 @@ We hope that you find the File Upload Types plugin helpful!
 
 ### Credits
 
-This plugin was created by the team behind Ma <a href="https://wpforms.com/?utm_source=wprepo&utm_medium=link&utm_campaign=fileuploadtyes&utm_content=readme" rel="friend">WPForms</a> – the best drag & drop form builder for WordPress.
+This plugin was created by the team behind <a href="https://wpforms.com/?utm_source=wprepo&utm_medium=link&utm_campaign=fileuploadtyes&utm_content=readme" rel="friend">WPForms</a> – the best drag & drop form builder for WordPress.
 
 ### What's Next
 

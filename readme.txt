@@ -29,7 +29,7 @@ This plugin lets your website upload more file types beyond the limited file ext
 
 The File Upload Types plugin works by letting you adjust the internal file whitelist, letting you manually control which types of file extensions your WordPress website can upload.
 
-This way, you can accept any file type through your website and/or any contact form plugin like <a href="https://www.wpforms.com/?utm_source=wprepo&utm_medium=link&utm_campaign=fileuploadtypes&utm_content=readme" rel="friend" title="WPForms">WPForms</a>
+This way, you can accept any file type through your website and/or any contact form plugin like <a href="https://www.wpforms.com/?utm_source=wprepo&utm_medium=link&utm_campaign=fileuploadtypes&utm_content=readme" rel="friend" title="WPForms">WPForms</a>.
 
 = What file types can I upload to WordPress with this plugin? =
 
@@ -76,16 +76,11 @@ Visit <a href="http://www.wpbeginner.com/?utm_source=wprepo&utm_medium=link&utm_
 
 == Screenshots ==
 
-1.
-2.
-3.
-4.
-5.
-6.
+1. Settings Page
 
 == Changelog ==
 
-= 1.0.0 - 2019-01-XX =
+= 1.0.0 - 2020-02-12 =
 * Initial Release
 
 == Frequently Asked Questions ==

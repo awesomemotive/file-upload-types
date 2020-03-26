@@ -180,9 +180,9 @@ $secondary-color: #e17730;
 					font-size: 14px;
 					font-weight: 400;
 					line-height: 1;
-					color: #bbb;
+					color: #777777;
 					background: #fff;
-					border: 1px solid #ddd;
+					border: 1px solid #999999;
 					border-radius: 4px;
 				}
 
@@ -191,10 +191,10 @@ $secondary-color: #e17730;
 				}
 
 				input:focus {
-					color: #444;
+					color: #444444;
 					background: #fff;
-					border:1px solid #999;
-					box-shadow: none;
+					border: 1px solid #638699;
+					box-shadow: 0 0 0 1px #638699;
 					outline: none;
 				}
 

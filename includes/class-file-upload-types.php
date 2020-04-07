@@ -45,7 +45,7 @@ final class File_Upload_Types {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
-		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 3 );
+		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 5 );
 
 		$this->includes();
 	}
@@ -152,42 +152,32 @@ final class File_Upload_Types {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array  $file_data File data array containing 'ext', 'type', and 'proper_filename' keys.
-	 * @param string $file      Full path to the file.
-	 * @param string $filename  The name of the file (may differ from $file due to $file being in a tmp directory).
+	 * @param array       $file_data File data array containing 'ext', 'type', and 'proper_filename' keys.
+	 * @param string      $file      Full path to the file.
+	 * @param string      $filename  The name of the file (may differ from $file due to $file being in a tmp directory).
+	 * @param array       $mimes     Key is the file extension with value as the mime type.
+	 * @param string|bool $real_mime The actual mime type or false if the type cannot be determined.
 	 *
 	 * @return  array
 	 */
-	public function real_file_type( $file_data, $file, $filename ) {
-
-		$real_file_type = array(
-			'ext'             => '',
-			'type'            => '',
-			'proper_filename' => '',
-		);
-
-		foreach ( $file_data as $key => $value ) {
-			if ( ! empty( $value ) ) {
-				$real_file_type[ $key ] = $value;
-			}
-		}
-
-		if ( true === apply_filters( 'file_upload_types_strict_check', true ) ) {
-			return $real_file_type;
-		}
+	public function real_file_type( $file_data, $file, $filename, $mimes, $real_mime ) {
 
 		$parts     = explode( '.', $filename );
 		$extension = array_pop( $parts );
 		$extension = strtolower( $extension );
 
+		if ( apply_filters( 'file_upload_types_strict_check', true, $extension, $real_mime, $file_data ) ) {
+			return $file_data;
+		}
+
 		$enabled_types = $this->enabled_types();
 
 		if ( isset( $enabled_types[ $extension ] ) ) {
-			$real_file_type['ext']             = $extension;
-			$real_file_type['type']            = $enabled_types[ $extension ];
-			$real_file_type['proper_filename'] = $filename;
+			$file_data['ext']             = $extension;
+			$file_data['type']            = $enabled_types[ $extension ];
+			$file_data['proper_filename'] = $filename;
 		}
 
-		return $real_file_type;
+		return $file_data;
 	}
 }

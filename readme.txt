@@ -2,7 +2,7 @@
 Contributors: wpforms, smub, jaredatch, slaFFik, sanzeeb3
 Tags: files, upload, file upload, mime, attachments
 Requires at least: 4.9
-Tested up to: 5.3
+Tested up to: 5.4
 Stable tag: 1.0.0
 Requires PHP: 5.6
 
@@ -79,6 +79,10 @@ Visit <a href="http://www.wpbeginner.com/?utm_source=wprepo&utm_medium=link&utm_
 1. Settings Page
 
 == Changelog ==
+
+= 1.0.1 - 2020-xx-xx =
+* Add - Parameters to the strict check filter.
+* Enhancement - Custom types field color visisbility.
 
 = 1.0.0 - 2020-02-12 =
 * Initial Release

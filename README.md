@@ -7,7 +7,7 @@
 `master` branch is always stable and contains latest releases. Development occurs in the `develop` branch while large features/changes are contained in dedicated branches.
 
 ## Bugs ##
-If you find an bug or problem, please let us know by [creating an issue](https://github.com/awesomemotive/file-upload-types/issues?state=open)!
+If you find a bug or problem, please let us know by [creating an issue](https://github.com/awesomemotive/file-upload-types/issues?state=open)!
 
 ## Contributions ##
 Contributions to File Upload Types are welcome!

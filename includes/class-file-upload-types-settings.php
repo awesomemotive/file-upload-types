@@ -305,11 +305,9 @@ class File_Upload_Types_Settings {
 					<td width="40%"><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
 					<td width="15%"><input style="max-width: 100%" type="text" name="c_types[ext][]"
 							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>"></td>
-					<td width="10%">
-						<img class="file-upload-types-minus"
-							src="<?php echo esc_url( plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
-						<img class="file-upload-types-plus"
-							src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
+					<td width="10%" style="white-space: nowrap">
+						<img class="file-upload-types-plus" src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
+						<img class="file-upload-types-minus" src="<?php echo esc_url( plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
 					</td>
 				</tr>
 			</table>

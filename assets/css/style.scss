@@ -143,7 +143,6 @@ $secondary-color: #e17730;
 					border: 1px solid #e1e1e1;
 
 					img {
-						display: block;
 						height: 16px;
 						width: 16px;
 					}
@@ -371,7 +370,6 @@ $secondary-color: #e17730;
 
 .file-upload-types-plus,
 .file-upload-types-minus {
-	float: right;
 	cursor: pointer;
 }
 
@@ -381,5 +379,5 @@ $secondary-color: #e17730;
 }
 
 .file-upload-types-minus {
-	margin-left: 10px;
+	margin-left: 5px;
 }

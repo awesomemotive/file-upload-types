@@ -1,5 +1,7 @@
 <?php
 
+namespace File_Upload_Types;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -7,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-class File_Upload_Types_Settings {
+class Settings {
 
 	/**
 	 * Admin page slug.
@@ -550,4 +552,4 @@ class File_Upload_Types_Settings {
 	}
 }
 
-new File_Upload_Types_Settings();
+new \File_Upload_Types\Settings();

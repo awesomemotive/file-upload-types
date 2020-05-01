@@ -1,29 +1,31 @@
 <?php
 
+namespace File_Upload_Types;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Main File_Upload_Types Class.
+ * Main Core Class.
  *
  * @since 1.0.0
  */
-final class File_Upload_Types {
+final class Core {
 
 	/**
 	 * Instance of this class.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var null|File_Upload_Types
+	 * @var null|Core
 	 */
 	protected static $instance = null;
 
 	/**
-	 * Main File_Upload_Types Instance.
+	 * Main Core Instance.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return File_Upload_Types Main Instance.
+	 * @return Core Main Instance.
 	 */
 	public static function get_instance() {
 
@@ -36,7 +38,7 @@ final class File_Upload_Types {
 	}
 
 	/**
-	 * File_Upload_Types Constructor.
+	 * Core Constructor.
 	 *
 	 * @since 1.0.0
 	 */
@@ -46,8 +48,6 @@ final class File_Upload_Types {
 		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 5 );
-
-		$this->includes();
 	}
 
 	/**
@@ -76,20 +76,6 @@ final class File_Upload_Types {
 		);
 
 		return array_merge( $new_actions, $actions );
-	}
-
-	/**
-	 * Includes.
-	 *
-	 * @since 1.0.0
-	 */
-	private function includes() {
-
-		include_once dirname( __FILE__ ) . '/file-upload-types-functions.php';
-
-		if ( is_admin() ) {
-			include_once dirname( __FILE__ ) . '/class-file-upload-types-settings.php';
-		}
 	}
 
 	/**

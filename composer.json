@@ -17,5 +17,12 @@
     "phpcbf": [
       "phpcbf -p"
     ]
+  },
+  "autoload": {
+    "files": [
+      "includes/Core.php",
+      "includes/Settings.php",
+      "includes/Functions.php"
+    ]
   }
 }

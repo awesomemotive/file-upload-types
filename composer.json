@@ -20,9 +20,7 @@
   },
   "autoload": {
     "files": [
-      "includes/Core.php",
-      "includes/Settings.php",
-      "includes/Functions.php"
+      "src/functions.php"
     ]
   }
 }

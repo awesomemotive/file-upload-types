@@ -19,11 +19,11 @@ class Settings {
 	const SLUG = 'file-upload-types';
 
 	/**
-	 * Constructor.
+	 * Initialize.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	public function __construct() {
+	public function init() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'in_admin_header', array( $this, 'display_admin_header' ), 100 );
@@ -551,5 +551,3 @@ class Settings {
 		}
 	}
 }
-
-new \FileUploadTypes\Settings();

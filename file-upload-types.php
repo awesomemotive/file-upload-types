@@ -71,7 +71,10 @@ define( 'FILE_UPLOAD_TYPES_VERSION', '1.0.0' );
  */
 function file_upload_types() {
 
-	return \FileUploadTypes\Plugin::get_instance();
+	$instance = \FileUploadTypes\Plugin::get_instance();
+	$instance->init();
+
+	return $instance;
 }
 
 file_upload_types();

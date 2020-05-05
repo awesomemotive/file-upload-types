@@ -38,13 +38,14 @@ final class Plugin {
 	}
 
 	/**
-	 * Plugin Constructor.
+	 * Initialize.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	public function __construct() {
+	public function init() {
 
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'admin_init', array( $this, 'register_admin_area' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 5 );
@@ -58,6 +59,17 @@ final class Plugin {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain( 'file-upload-types', false, plugin_basename( dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) ) . '/languages' );
+	}
+
+	/**
+	 * Register admin area.
+	 *
+	 * @since 1.1.0
+	 */
+	public function register_admin_area() {
+
+		$settings = new Settings();
+		$settings->init();
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-namespace File_Upload_Types;
+namespace FileUploadTypes;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -552,4 +552,4 @@ class Settings {
 	}
 }
 
-new \File_Upload_Types\Settings();
+new \FileUploadTypes\Settings();

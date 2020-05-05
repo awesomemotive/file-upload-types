@@ -1,6 +1,6 @@
 <?php
 
-namespace File_Upload_Types;
+namespace FileUploadTypes;
 
 defined( 'ABSPATH' ) || exit;
 

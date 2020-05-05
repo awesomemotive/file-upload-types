@@ -71,7 +71,7 @@ define( 'FILE_UPLOAD_TYPES_VERSION', '1.0.0' );
  */
 function file_upload_types() {
 
-	return \File_Upload_Types\Core::get_instance();
+	return \FileUploadTypes\Core::get_instance();
 }
 
 file_upload_types();

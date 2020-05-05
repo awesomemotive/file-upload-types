@@ -63,15 +63,15 @@ define( 'FILE_UPLOAD_TYPES_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'FILE_UPLOAD_TYPES_VERSION', '1.0.0' );
 
 /**
- * Return the main instance of Core class.
+ * Return the main instance of Plugin class.
  *
  * @since 1.0.0
  *
- * @return Core
+ * @return Plugin
  */
 function file_upload_types() {
 
-	return \FileUploadTypes\Core::get_instance();
+	return \FileUploadTypes\Plugin::get_instance();
 }
 
 file_upload_types();

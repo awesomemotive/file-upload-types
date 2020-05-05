@@ -20,6 +20,9 @@
     ]
   },
   "autoload": {
+    "psr-4": {
+        "FileUploadTypes\\": "src/"
+    },
     "files": [
       "src/functions.php"
     ]

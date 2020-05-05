@@ -45,7 +45,7 @@ final class Plugin {
 	public function init() {
 
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-		add_action( 'admin_init', array( $this, 'register_admin_area' ) );
+		add_action( 'init', array( $this, 'register_admin_area' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 5 );

@@ -1,5 +1,7 @@
 <?php
 
+namespace FileUploadTypes;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -7,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-class File_Upload_Types_Settings {
+class Settings {
 
 	/**
 	 * Admin page slug.
@@ -17,11 +19,11 @@ class File_Upload_Types_Settings {
 	const SLUG = 'file-upload-types';
 
 	/**
-	 * Constructor.
+	 * Initialize.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	public function __construct() {
+	public function init() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'in_admin_header', array( $this, 'display_admin_header' ), 100 );
@@ -549,5 +551,3 @@ class File_Upload_Types_Settings {
 		}
 	}
 }
-
-new File_Upload_Types_Settings();

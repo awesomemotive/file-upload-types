@@ -1,29 +1,31 @@
 <?php
 
+namespace FileUploadTypes;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Main File_Upload_Types Class.
+ * Main Plugin Class.
  *
  * @since 1.0.0
  */
-final class File_Upload_Types {
+final class Plugin {
 
 	/**
 	 * Instance of this class.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var null|File_Upload_Types
+	 * @var null|Plugin
 	 */
 	protected static $instance = null;
 
 	/**
-	 * Main File_Upload_Types Instance.
+	 * Main Plugin Instance.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return File_Upload_Types Main Instance.
+	 * @return Plugin Main Instance.
 	 */
 	public static function get_instance() {
 
@@ -36,18 +38,17 @@ final class File_Upload_Types {
 	}
 
 	/**
-	 * File_Upload_Types Constructor.
+	 * Initialize.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	public function __construct() {
+	public function init() {
 
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'register_admin_area' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 10, 5 );
-
-		$this->includes();
 	}
 
 	/**
@@ -58,6 +59,17 @@ final class File_Upload_Types {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain( 'file-upload-types', false, plugin_basename( dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) ) . '/languages' );
+	}
+
+	/**
+	 * Register admin area.
+	 *
+	 * @since 1.1.0
+	 */
+	public function register_admin_area() {
+
+		$settings = new Settings();
+		$settings->init();
 	}
 
 	/**
@@ -76,20 +88,6 @@ final class File_Upload_Types {
 		);
 
 		return array_merge( $new_actions, $actions );
-	}
-
-	/**
-	 * Includes.
-	 *
-	 * @since 1.0.0
-	 */
-	private function includes() {
-
-		include_once dirname( __FILE__ ) . '/file-upload-types-functions.php';
-
-		if ( is_admin() ) {
-			include_once dirname( __FILE__ ) . '/class-file-upload-types-settings.php';
-		}
 	}
 
 	/**

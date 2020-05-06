@@ -53,6 +53,8 @@ if ( version_compare( PHP_VERSION, '5.6.0', '<' ) ) {
 	return;
 }
 
+require_once 'vendor/autoload.php';
+
 /**
  * Plugin constants.
  */
@@ -61,17 +63,18 @@ define( 'FILE_UPLOAD_TYPES_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'FILE_UPLOAD_TYPES_VERSION', '1.0.0' );
 
 /**
- * Return the main instance of File_Upload_Types.
+ * Return the main instance of Plugin class.
  *
  * @since 1.0.0
  *
- * @return File_Upload_Types
+ * @return \FileUploadTypes\Plugin
  */
 function file_upload_types() {
 
-	require_once dirname( __FILE__ ) . '/includes/class-file-upload-types.php';
+	$instance = \FileUploadTypes\Plugin::get_instance();
+	$instance->init();
 
-	return File_Upload_Types::get_instance();
+	return $instance;
 }
 
 file_upload_types();

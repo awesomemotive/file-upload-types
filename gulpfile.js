@@ -60,7 +60,8 @@ var plugin = {
 		'!**/*.lock',
 		'!**/gulpfile.js',
 		'!**/Makefile',
-		'!**/AUTHORS'
+		'!**/AUTHORS',
+		'!vendor/composer/installers/**'
 	],
 	php: [
 		'**/*.php',

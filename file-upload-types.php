@@ -67,7 +67,7 @@ define( 'FILE_UPLOAD_TYPES_VERSION', '1.0.0' );
  *
  * @since 1.0.0
  *
- * @return Plugin
+ * @return \FileUploadTypes\Plugin
  */
 function file_upload_types() {
 

@@ -142,7 +142,7 @@ final class Plugin {
 	 */
 	public function allowed_types( $mime_types ) {
 
-		return $mime_types + $this->enabled_types();
+		return array_replace( $mime_types, $this->enabled_types() );
 	}
 
 	/**

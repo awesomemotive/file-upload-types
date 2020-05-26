@@ -270,14 +270,20 @@ class Settings {
 				$wp_ext_mimes    = get_allowed_mime_types();
 
 				foreach ( $available_types as $key => $type ) {
-
 					if ( in_array( $type['ext'], $enabled_types, true ) ) {
 						continue;
 					}
 
 					// Ignore default WordPress already enabled extensions.
-					if ( array_key_exists( ltrim( $type['ext'], '.' ), $wp_ext_mimes ) ) {
-						continue;
+					foreach ( $wp_ext_mimes as $extension => $mime ) {
+
+						$extensions = explode( '|', $extension );
+						foreach( $extensions as $extension ) {
+
+							if ( $extension === ltrim( $type['ext'], '.' ) ) {
+								continue 3;
+							}
+						}
 					}
 
 					echo '<tr>';

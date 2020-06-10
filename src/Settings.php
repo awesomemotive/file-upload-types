@@ -437,6 +437,11 @@ class Settings {
 			if ( ! in_array( $value['ext'], $enabled_types, true ) ) {
 				unset( $stored_custom_types[ $key ] );
 			}
+
+			// Remove duplicate type of the same extension.
+			if ( in_array( $value['ext'], array_column( $custom_types, 'ext' ), true ) ) {
+				unset( $stored_custom_types[ $key ] );
+			}
 		}
 
 		$enabled_types = array_merge( $enabled_types, $available_types );

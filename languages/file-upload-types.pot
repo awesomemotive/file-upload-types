@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: File Upload Types 1.1.0\n"
+"Project-Id-Version: File Upload Types 1.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/file-upload-types\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-05-13T14:23:00+00:00\n"
+"POT-Creation-Date: 2020-07-02T14:25:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: file-upload-types\n"
@@ -23,7 +23,7 @@ msgid "Easily allow WordPress to accept and upload any file type extension or MI
 msgstr ""
 
 #. Author of the plugin
-#: src/Settings.php:469
+#: src/Settings.php:480
 msgid "WPForms"
 msgstr ""
 
@@ -79,12 +79,12 @@ msgid "Description"
 msgstr ""
 
 #: src/Settings.php:220
-#: src/Settings.php:307
+#: src/Settings.php:313
 msgid "MIME Type"
 msgstr ""
 
 #: src/Settings.php:221
-#: src/Settings.php:309
+#: src/Settings.php:315
 msgid "Extension"
 msgstr ""
 
@@ -96,65 +96,65 @@ msgstr ""
 msgid "AVAILABLE"
 msgstr ""
 
-#: src/Settings.php:297
+#: src/Settings.php:303
 msgid "ADD CUSTOM FILE TYPES"
 msgstr ""
 
-#: src/Settings.php:300
+#: src/Settings.php:306
 msgid "Add the custom file types to allow uploads"
 msgstr ""
 
-#: src/Settings.php:306
+#: src/Settings.php:312
 msgid "File Description"
 msgstr ""
 
-#: src/Settings.php:329
+#: src/Settings.php:335
 msgid "You might like our other products"
 msgstr ""
 
 #. translators: %s - wpforms.com link.
-#: src/Settings.php:335
+#: src/Settings.php:341
 msgid "File Upload Types is built by the team behind the most popular WordPress form plugin, <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">WPForms</a>. Check out some of our other plugins."
 msgstr ""
 
 #. translators: %1$s - Plugin URL; %2$s - Plugin Name; %3$s - Image source.
-#: src/Settings.php:366
+#: src/Settings.php:372
 msgid "<strong><a href=\"%1$s\" class=\"external-link\" target=\"_blank\" rel=\"noopener noreferrer\">Get %2$s</a></strong>"
 msgstr ""
 
-#: src/Settings.php:450
+#: src/Settings.php:461
 msgid "Your settings have been saved."
 msgstr ""
 
-#: src/Settings.php:470
+#: src/Settings.php:481
 msgid "The most beginner friendly WordPress contact form plugin."
 msgstr ""
 
-#: src/Settings.php:475
+#: src/Settings.php:486
 msgid "MonsterInsights"
 msgstr ""
 
-#: src/Settings.php:476
+#: src/Settings.php:487
 msgid "Effortlessly connect your WP site with Google Analytics."
 msgstr ""
 
-#: src/Settings.php:481
+#: src/Settings.php:492
 msgid "OptinMonster"
 msgstr ""
 
-#: src/Settings.php:482
+#: src/Settings.php:493
 msgid "Turn your traffic into leads, conversions and sales."
 msgstr ""
 
-#: src/Settings.php:487
+#: src/Settings.php:498
 msgid "SeedProd"
 msgstr ""
 
-#: src/Settings.php:488
+#: src/Settings.php:499
 msgid "Create beautiful coming soon pages, skyrocket your email list."
 msgstr ""
 
 #. translators: %1$s - WP.org link; %2$s - same WP.org link.
-#: src/Settings.php:513
+#: src/Settings.php:524
 msgid "Please rate <strong>File Upload Types</strong> <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">WordPress.org</a> to help us spread the word. Thank you from the File Upload Types team!"
 msgstr ""

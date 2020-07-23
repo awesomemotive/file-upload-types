@@ -360,10 +360,10 @@ class Settings {
 							<div class="details file-upload-types-clear">
 								<img src="<?php echo \esc_url( $plugin['icon'] ); ?>" alt="">
 								<h5 class="plugin-name">
-									<?php echo esc_html( $plugin['name'] ); ?>
+									<?php echo $plugin['name']; ?>
 								</h5>
 								<p class="plugin-desc">
-									<?php echo esc_html( $plugin['desc'] ); ?>
+									<?php echo $plugin['desc']; ?>
 								</p>
 								<p>
 									<?php
@@ -384,7 +384,7 @@ class Settings {
 											)
 										),
 										esc_url( $plugin['url'] ),
-										esc_html( $plugin['name'] ),
+										$plugin['name'],
 										esc_url( plugins_url( 'assets/images/external-link-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) )
 									);
 									?>

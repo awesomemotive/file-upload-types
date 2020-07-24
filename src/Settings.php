@@ -278,9 +278,9 @@ class Settings {
 					foreach ( $wp_ext_mimes as $extension => $mime ) {
 
 						$extensions = explode( '|', $extension );
-						foreach( $extensions as $extension ) {
+						foreach ( $extensions as $extension ) {
 
-							if ( $extension === ltrim( $type['ext'], '.' ) ) {
+							if ( ltrim( $type['ext'], '.' ) === $extension ) {
 								continue 3;
 							}
 						}

@@ -46,3 +46,14 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 
 	return $file_data;
 }
+
+/**
+ * Provide admin notice about the deprecated filter, if it's in use.
+ *
+ * @since 1.2.0 Deprecate the filter that is no longer needed.
+ *
+ */
+add_action( 'init', static function() {
+
+	apply_filters_deprecated( 'file_upload_types_strict_check', [ true ], '1.2.0', null, 'Please use MIME aliases whereever possible!' );
+});

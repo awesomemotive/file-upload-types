@@ -29,7 +29,7 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 
 	$file_data   = array();
 	$description = isset( $file_data_raw['desc'] ) ? array_map( 'sanitize_text_field', $file_data_raw['desc'] ) : array();
-	$mime_types  = isset( $file_data_raw['mime'] ) ? array_map( 'sanitize_mime_type', $file_data_raw['mime'] ) : array();
+	$mime_types  = isset( $file_data_raw['mime'] ) ? array_map( 'sanitize_text_field', $file_data_raw['mime'] ) : array();
 	$extentions  = isset( $file_data_raw['ext'] ) ? array_map( 'sanitize_text_field', $file_data_raw['ext'] ) : array();
 
 	foreach ( $description as $key => $desc ) {
@@ -48,7 +48,7 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 }
 
 /**
- * Provide admin notice about the deprecated filter, if it's in use.
+ * Notice about the deprecated filter, if it's in use.
  *
  * @since 1.2.0 Deprecate the filter that is no longer needed.
  *

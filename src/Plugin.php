@@ -160,20 +160,51 @@ final class Plugin {
 	 */
 	public function real_file_type( $file_data, $file, $filename, $mimes, $real_mime ) {
 
-		$parts     = explode( '.', $filename );
-		$extension = array_pop( $parts );
-		$extension = strtolower( $extension );
-
-		if ( apply_filters( 'file_upload_types_strict_check', true, $extension, $real_mime, $file_data ) ) {
-			return $file_data;
-		}
-
+		$extension     = pathinfo( $filename, PATHINFO_EXTENSION );
 		$enabled_types = $this->enabled_types();
 
-		if ( isset( $enabled_types[ $extension ] ) ) {
-			$file_data['ext']             = $extension;
-			$file_data['type']            = $enabled_types[ $extension ];
-			$file_data['proper_filename'] = $filename;
+		// We don't need to do anything if the mime type for this extension doesnot contain a comma.
+		if ( strpos( $enabled_types[ $extension ], ',' ) !== false ) {
+
+			return $file_data;
+
+		} elseif ( empty( $file_data['ext'] ) && empty( $file_data['type'] ) ) {
+
+				$mimes = explode( ',', $enabled_types[ $extension ] );
+				$mimes = array_map( 'trim', $mimes );
+				$mimes = array_map( 'sanitize_mime_type', $mimes );
+
+				// Primary mime will not need this extra behaviour.
+				unset( $mimes[0] );
+
+			foreach ( $mimes as $mime ) {
+
+				// Remove filter to avoid infinite redirection.
+				remove_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 999, 5 );
+
+				$mime_filter = static function( $mime_types ) use ( $mime, $extension ) {
+
+					$mime_types[ $extension ] = $mime;
+
+					return $mime_types;
+				};
+
+					// Add alias mime to the allowed mime types.
+					add_filter( 'upload_mimes', $mime_filter, 999 );
+
+					// Validate the new mime/extension pair.
+					$file_data = wp_check_filetype_and_ext( $file, $filename, array( $extension => $mime ) );
+
+					// Remove filter to add another mime type.
+					remove_filter( 'upload_mimes', $mime_filter, 999 );
+
+					// Continue the process.
+					add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 999, 5 );
+
+				if ( ! empty( $file_data['ext'] ) || ! empty( $file_data['type'] ) ) {
+					return $file_data;
+				}
+			}
 		}
 
 		return $file_data;

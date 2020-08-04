@@ -142,7 +142,15 @@ final class Plugin {
 	 */
 	public function allowed_types( $mime_types ) {
 
-		return array_replace( $mime_types, $this->enabled_types() );
+		// Only add primary mime type to the allowed list. Aliases will be dynamically added when required.
+		$enabled_types = array_map(
+			static function( $enabled_types ) {
+				return sanitize_mime_type( strstr( $enabled_types, ',', true ) );
+			},
+			$this->enabled_types()
+		);
+
+		return array_replace( $mime_types, $enabled_types );
 	}
 
 	/**

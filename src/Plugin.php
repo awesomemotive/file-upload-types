@@ -145,7 +145,7 @@ final class Plugin {
 		// Only add primary mime type to the allowed list. Aliases will be dynamically added when required.
 		$enabled_types = array_map(
 			function( $enabled_types ) {
-				return sanitize_mime_type( strstr( $enabled_types, ',', true ) );
+				return strpos( $enabled_types, ',' === false ) ? sanitize_mime_type( $enabled_types ) : sanitize_mime_type( strstr( $enabled_types, ',', true ) );
 			},
 			$this->enabled_types()
 		);

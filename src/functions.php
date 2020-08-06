@@ -41,7 +41,7 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 	}
 
 	foreach ( $extentions as $key => $extention ) {
-		$file_data[ $key ]['ext'] = $extention;
+		$file_data[ $key ]['ext'] = substr( $extention, 0, 1 ) !== '.' ? '.'. strtolower( $extention ) : strtolower( $extention );
 	}
 
 	return $file_data;

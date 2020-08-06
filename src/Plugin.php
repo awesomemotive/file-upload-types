@@ -170,7 +170,7 @@ final class Plugin {
 		$enabled_types = $this->enabled_types();
 
 		// We don't need to do anything if the mime type for this extension doesnot contain a comma.
-		if ( strpos( $enabled_types[ $extension ], ',' ) === false ) {
+		if ( isset( $enabled_types[ $extension ] ) && strpos( $enabled_types[ $extension ], ',' ) === false ) {
 
 			return $file_data;
 

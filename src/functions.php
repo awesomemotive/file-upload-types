@@ -41,19 +41,62 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 	}
 
 	foreach ( $extentions as $key => $extention ) {
-		$file_data[ $key ]['ext'] = substr( $extention, 0, 1 ) !== '.' ? '.'. strtolower( $extention ) : strtolower( $extention );
+		$file_data[ $key ]['ext'] = substr( $extention, 0, 1 ) !== '.' ? '.' . strtolower( $extention ) : strtolower( $extention );
 	}
 
 	return $file_data;
 }
 
 /**
+ * Helper function to format the file types when the multiple mime types for a single extension is entered via + icon interface.
+ *
+ * The extension with multiple mime types are merged and mime types are separated by comma.
+ *
+ * @param  $custom_types custom file types, may contain duplicate extensions.
+ *
+ * @since  1.2.0
+ *
+ * @return array
+ */
+function fut_format_multiple_file_types( $custom_types ) {
+
+	$result   = array();
+	$ext_mime = array();
+	$ext_desc = array();
+
+	foreach ( $custom_types as $types ) {
+
+		if ( ! array_key_exists( $types['ext'], $ext_mime ) ) {
+
+			$ext_mime[ $types['ext'] ] = $types['mime'];
+
+		} else {
+			$ext_mime[ $types['ext'] ] = $ext_mime[ $types['ext'] ] . ',' . $types['mime'];
+		}
+
+		$ext_desc[ $types['ext'] ] = $types['desc'];
+	}
+
+	foreach ( $ext_mime as $ext => $mime ) {
+		$result[] = array(
+			'desc' => $ext_desc[ $ext ],
+			'mime' => $mime,
+			'ext'  => $ext,
+		);
+	}
+
+	return $result;
+}
+
+/**
  * Notice about the deprecated filter, if it's in use.
  *
  * @since 1.2.0 Deprecate the filter that is no longer needed.
- *
  */
-add_action( 'init', static function() {
+add_action(
+	'init',
+	static function() {
 
-	apply_filters_deprecated( 'file_upload_types_strict_check', [ true ], '1.2.0', null, 'Please use MIME aliases whereever possible!' );
-});
+		apply_filters_deprecated( 'file_upload_types_strict_check', array( true ), '1.2.0', null, 'Please use MIME aliases whereever possible!' );
+	}
+);

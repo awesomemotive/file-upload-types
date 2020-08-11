@@ -37,7 +37,7 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 	}
 
 	foreach ( $mime_types as $key => $mime_type ) {
-		$file_data[ $key ]['mime'] = $mime_type;
+		$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : explode( ',', $mime_type );
 	}
 
 	foreach ( $extentions as $key => $extention ) {

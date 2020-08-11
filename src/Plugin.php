@@ -142,14 +142,14 @@ final class Plugin {
 	 */
 	public function allowed_types( $mime_types ) {
 
-		// Only add primary mime type to the allowed list. Aliases will be dynamically added when required.
+		// Only add first mime type to the allowed list. Aliases will be dynamically added when required.
 		$enabled_types = array_map(
 			function( $enabled_types ) {
-				return strpos( $enabled_types, ',' ) === false ? sanitize_mime_type( $enabled_types ) : sanitize_mime_type( strstr( $enabled_types, ',', true ) );
+				return sanitize_mime_type( ! is_array( $enabled_types ) ? $enabled_types : $enabled_types[0] );
 			},
 			$this->enabled_types()
 		);
-
+echo "<pre>"; print_r(get_option('file_upload_types')); echo "</pre>";
 		return array_replace( $mime_types, $enabled_types );
 	}
 
@@ -169,18 +169,17 @@ final class Plugin {
 		$extension     = pathinfo( $filename, PATHINFO_EXTENSION );
 		$enabled_types = $this->enabled_types();
 
-		// We don't need to do anything if the mime type for this extension doesnot contain a comma.
-		if ( isset( $enabled_types[ $extension ] ) && strpos( $enabled_types[ $extension ], ',' ) === false ) {
+		// We don't need to do anything if there's no multiple mimes for this extension.
+		if ( isset( $enabled_types[ $extension ] ) && ! is_array( $enabled_types[ $extension ]) ) {
 
 			return $file_data;
 
 		} elseif ( empty( $file_data['ext'] ) && empty( $file_data['type'] ) ) {
 
-				$mimes = explode( ',', $enabled_types[ $extension ] );
-				$mimes = array_map( 'trim', $mimes );
+				$mimes = array_map( 'trim', $enabled_types[ $extension ] );
 				$mimes = array_map( 'sanitize_mime_type', $mimes );
 
-				// Primary mime will not need this extra behaviour.
+				// First mime will not need this extra behaviour.
 				unset( $mimes[0] );
 
 			foreach ( $mimes as $mime ) {

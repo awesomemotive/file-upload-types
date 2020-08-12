@@ -149,7 +149,7 @@ final class Plugin {
 			},
 			$this->enabled_types()
 		);
-echo "<pre>"; print_r(get_option('file_upload_types')); echo "</pre>";
+
 		return array_replace( $mime_types, $enabled_types );
 	}
 
@@ -170,17 +170,16 @@ echo "<pre>"; print_r(get_option('file_upload_types')); echo "</pre>";
 		$enabled_types = $this->enabled_types();
 
 		// We don't need to do anything if there's no multiple mimes for this extension.
-		if ( isset( $enabled_types[ $extension ] ) && ! is_array( $enabled_types[ $extension ]) ) {
+		if ( isset( $enabled_types[ $extension ] ) && ! is_array( $enabled_types[ $extension ] ) ) {
 
 			return $file_data;
 
 		} elseif ( empty( $file_data['ext'] ) && empty( $file_data['type'] ) ) {
 
-				$mimes = array_map( 'trim', $enabled_types[ $extension ] );
-				$mimes = array_map( 'sanitize_mime_type', $mimes );
-
 				// First mime will not need this extra behaviour.
 				unset( $mimes[0] );
+
+				$mimes = array_map( 'sanitize_mime_type', $mimes );
 
 			foreach ( $mimes as $mime ) {
 

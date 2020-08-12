@@ -37,7 +37,7 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 	}
 
 	foreach ( $mime_types as $key => $mime_type ) {
-		$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : explode( ',', $mime_type );
+		$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : array_map( 'trim', explode( ',', $mime_type ) );
 	}
 
 	foreach ( $extentions as $key => $extention ) {
@@ -48,9 +48,9 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 }
 
 /**
- * Helper function to format the file types when the multiple mime types for a single extension is entered via + icon interface.
+ * Format the file types when the multiple mime types for a single extension is entered via + icon interface.
  *
- * The extension with multiple mime types are merged and mime types are separated by comma.
+ * Same extension with multiple mime types are merged and mime types are placed in an array.
  *
  * @param  $custom_types custom file types, may contain duplicate extensions.
  *

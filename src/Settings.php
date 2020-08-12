@@ -250,9 +250,13 @@ class Settings {
 							continue;
 						}
 
+						if ( is_array( $type['mime'] ) ) {
+							$type['mime'] = implode( '</br>', $type['mime'] );
+						}
+
 						echo '<tr>';
 						echo '<td width="35%">' . esc_html( $type['desc'] ) . '</td>';
-						echo '<td width="40%">' . esc_html( $type['mime'] ) . '</td>';
+						echo '<td width="40%">' . wp_kses( $type['mime'], array( 'br' => array() ) ) . '</td>';
 						echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
 						echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types[]" checked> </td>';
 						echo '</tr>';
@@ -376,9 +380,9 @@ class Settings {
 													'src' => true,
 												),
 												'a'      => array(
-													'alt'    => true,
-													'href'   => true,
-													'class'  => true,
+													'alt'  => true,
+													'href' => true,
+													'class' => true,
 													'target' => true,
 												),
 											)
@@ -420,7 +424,7 @@ class Settings {
 		$available_types  = isset( $_POST['a_types'] ) ? array_map( 'sanitize_text_field', $_POST['a_types'] ) : array();
 		$custom_types_raw = isset( $_POST['c_types'] ) ? $_POST['c_types'] : array();
 		$custom_types     = fut_format_raw_custom_types( $custom_types_raw );
-		$custom_types     = fut_format_multiple_file_types( $custom_types );
+		// $custom_types     = fut_format_multiple_file_types( $custom_types );
 
 		foreach ( $custom_types as $key => $type ) {
 

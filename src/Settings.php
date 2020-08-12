@@ -290,9 +290,13 @@ class Settings {
 						}
 					}
 
+					if ( is_array( $type['mime'] ) ) {
+						$type['mime'] = implode( '</br>', $type['mime'] );
+					}
+
 					echo '<tr>';
 					echo '<td width="35%">' . esc_html( $type['desc'] ) . '</td>';
-					echo '<td width="40%">' . esc_html( $type['mime'] ) . '</td>';
+					echo '<td width="40%">' . wp_kses( $type['mime'], array( 'br' => array() ) ) . '</td>';
 					echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
 					echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
 					echo '</tr>';

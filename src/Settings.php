@@ -29,6 +29,8 @@ class Settings {
 		add_action( 'in_admin_header', array( $this, 'display_admin_header' ), 100 );
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'admin_init', array( $this, 'save_settings' ) );
+		add_action( 'file_upload_types_settings_after_nav_bar', array( $this, 'display_multiple_mimes_support_notice' ) );
+		add_action( 'admin_init', array( $this, 'enable_multiple_mimes_support' ) );
 		add_filter( 'admin_footer_text', array( $this, 'get_admin_footer' ), 1, 2 );
 		add_action( 'admin_print_scripts', array( $this, 'remove_notices' ) );
 	}
@@ -472,6 +474,61 @@ class Settings {
 				<?php
 			}
 		);
+	}
+
+	/**
+	 * Display notice about multiple mime types support for old installs.
+	 *
+	 * @since  1.2.0
+	 */
+	public function display_multiple_mimes_support_notice() {
+
+		if ( ! get_option( 'file_upload_types' ) || 'enabled' === get_option( 'file_upload_types_multiple_mimes' ) ) {
+			return;
+		}
+
+		?>
+			<div class="notice notice-info file-upload-types-notice is-dismissible">
+				<p><strong>
+					<?php
+					printf(
+						wp_kses( /* translators: %1$s - Same page; %2$s - Documentation link for multiple types support. */
+							__( 'File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility! <br/><br/> <a href="%1$s">Enable multiple MIME type support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a>', 'file-upload-types' ),
+							array(
+								'br' => true,
+								'a'  => array(
+									'href'   => true,
+									'target' => true,
+									'rel'    => true,
+								),
+							)
+						),
+						esc_url( wp_nonce_url( admin_url( 'admin.php?page=file-upload-types&multiple_mimes=enabled' ), 'enable-multiple-mime-types-support' ) ),
+						'https://wpforms.com/docs/how-to-allow-additional-file-upload-types/'
+					)
+					?>
+			</strong></p>
+			</div>
+		<?php
+	}
+
+	/**
+	 * Enable mutliple mime types support for old installs.
+	 *
+	 * @since 1.2.0
+	 */
+	public function enable_multiple_mimes_support() {
+
+		if ( ! isset( $_GET['multiple_mimes'] ) || ( isset( $_GET['multiple_mimes'] ) && 'enabled' !== $_GET['multiple_mimes'] ) ) {
+			return;
+		}
+
+		check_admin_referer( 'enable-multiple-mime-types-support' );
+
+		update_option( 'file_upload_types_multiple_mimes', 'enabled' );
+
+		wp_safe_redirect( admin_url( 'admin.php?page=file-upload-types' ) );
+		exit();
 	}
 
 	/**

@@ -320,7 +320,7 @@ class Settings {
 
 				<tr class="repetitive-fields">
 					<td width="35%"><input type="text" name="c_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
-					<td width="40%"><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
+					<td width="40%"><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Types, comma separated', 'file-upload-types' ); ?>"></td>
 					<td width="15%"><input style="max-width: 100%" type="text" name="c_types[ext][]"
 							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>"></td>
 					<td width="10%" style="white-space: nowrap">

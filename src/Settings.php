@@ -426,6 +426,11 @@ class Settings {
 			return;
 		}
 
+		// All new installs since 1.2.0 will have multiple mime types support enabled by default.
+		if ( ! get_option( 'file_upload_types' ) ) {
+			update_option( 'file_upload_types_multiple_mimes', 'enabled' );
+		}
+
 		$enabled_types    = isset( $_POST['e_types'] ) ? array_map( 'sanitize_text_field', $_POST['e_types'] ) : array();
 		$available_types  = isset( $_POST['a_types'] ) ? array_map( 'sanitize_text_field', $_POST['a_types'] ) : array();
 		$custom_types_raw = isset( $_POST['c_types'] ) ? $_POST['c_types'] : array();
@@ -527,8 +532,16 @@ class Settings {
 
 		update_option( 'file_upload_types_multiple_mimes', 'enabled' );
 
-		wp_safe_redirect( admin_url( 'admin.php?page=file-upload-types' ) );
-		exit();
+		add_action(
+			'file_upload_types_settings_after_nav_bar',
+			static function () {
+				?>
+				<div class="notice notice-success file-upload-types-notice is-dismissible">
+					<p><strong><?php echo esc_html__( 'Support for multiple MIME types has been enabled.', 'file-upload-types' ); ?></strong></p>
+				</div>
+				<?php
+			}
+		);
 	}
 
 	/**

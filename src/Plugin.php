@@ -176,6 +176,8 @@ final class Plugin {
 
 		} elseif ( empty( $file_data['ext'] ) && empty( $file_data['type'] ) ) {
 
+				$mimes = $enabled_types[ $extension ];
+
 				// First mime will not need this extra behaviour.
 				unset( $mimes[0] );
 

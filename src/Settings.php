@@ -508,7 +508,7 @@ class Settings {
 								),
 							)
 						),
-						esc_url( wp_nonce_url( admin_url( 'admin.php?page=file-upload-types&multiple_mimes=enabled' ), 'enable-multiple-mime-types-support' ) ),
+						esc_url( wp_nonce_url( admin_url( 'options-general.php?page=file-upload-types&multiple_mimes=enabled' ), 'enable-multiple-mime-types-support' ) ),
 						'https://wpforms.com/docs/how-to-allow-additional-file-upload-types/'
 					)
 					?>

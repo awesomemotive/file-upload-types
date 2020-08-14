@@ -172,6 +172,11 @@ $secondary-color: #e17730;
 					padding: 15px 20px;
 					background: $primary-color;
 					max-width: 100px;
+					vertical-align: top;
+				}
+
+				tr.repetitive-fields td {
+					vertical-align: middle;
 				}
 
 				input {

@@ -11,7 +11,8 @@ defined( 'ABSPATH' ) || exit;
  */
 function fut_get_available_file_types() {
 
-	$file = get_option( 'file_upload_types' ) || 'enabled' === get_option( 'file_upload_types_multiple_mimes' ) ? 'file-types-list-v2' : 'file-types-list';
+	// Serve v2 for new installs, and for old installs having multiple mime types support enabled.
+	$file = ! get_option( 'file_upload_types' ) || 'enabled' === get_option( 'file_upload_types_multiple_mimes' ) ? 'file-types-list-v2' : 'file-types-list';
 
 	$mime_types_serialized = trim( file_get_contents( dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) . '/assets/' . $file . '.json' ) );
 

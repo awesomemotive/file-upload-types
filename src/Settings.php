@@ -498,7 +498,7 @@ class Settings {
 					<?php
 					printf(
 						wp_kses( /* translators: %1$s - Same page; %2$s - Documentation link for multiple types support. */
-							__( 'File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility! <br/><br/> <a href="%1$s">Enable multiple MIME type support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a>', 'file-upload-types' ),
+							__( 'File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility! <br/><br/> <a href="%1$s">Enable multiple MIME types support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a>', 'file-upload-types' ),
 							array(
 								'br' => true,
 								'a'  => array(

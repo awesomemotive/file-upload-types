@@ -435,7 +435,7 @@ class Settings {
 		$available_types  = isset( $_POST['a_types'] ) ? array_map( 'sanitize_text_field', $_POST['a_types'] ) : array();
 		$custom_types_raw = isset( $_POST['c_types'] ) ? $_POST['c_types'] : array();
 		$custom_types     = fut_format_raw_custom_types( $custom_types_raw );
-		// $custom_types     = fut_format_multiple_file_types( $custom_types );
+		$custom_types     = fut_format_multiple_file_types( $custom_types );
 
 		foreach ( $custom_types as $key => $type ) {
 
@@ -493,7 +493,7 @@ class Settings {
 		}
 
 		?>
-			<div class="notice notice-info file-upload-types-notice is-dismissible">
+			<div class="notice notice-info file-upload-types-notice">
 				<p><strong>
 					<?php
 					printf(

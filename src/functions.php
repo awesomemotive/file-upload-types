@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
  */
 function fut_get_available_file_types() {
 
-	$file = get_option( 'file_upload_types' ) && 'enabled' !== get_option( 'file_upload_types_multiple_mimes' ) ? 'file-types-list' : 'file-types-list-v2';
+	$file = get_option( 'file_upload_types' ) || 'enabled' === get_option( 'file_upload_types_multiple_mimes' ) ? 'file-types-list-v2' : 'file-types-list';
 
 	$mime_types_serialized = trim( file_get_contents( dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) . '/assets/' . $file . '.json' ) );
 
@@ -68,12 +68,16 @@ function fut_format_multiple_file_types( $custom_types ) {
 
 	foreach ( $custom_types as $types ) {
 
-		if ( ! array_key_exists( $types['ext'], $ext_mime ) ) {
+		if ( ! isset( $ext_mime[ $types['ext'] ] ) ) {
 
 			$ext_mime[ $types['ext'] ] = $types['mime'];
 
 		} else {
-			$ext_mime[ $types['ext'] ] = $ext_mime[ $types['ext'] ] . ',' . $types['mime'];
+			if ( is_array( $ext_mime[ $types['ext'] ] ) ) {
+				$ext_mime[ $types['ext'] ] = array_merge( $ext_mime[ $types['ext'] ], is_array( $types['mime'] ) ? $types['mime'] : array( $types['mime'] ) );
+			} else {
+				$ext_mime[ $types['ext'] ] = array_merge( array( $ext_mime[ $types['ext'] ] ), is_array( $types['mime'] ) ? $types['mime'] : array( $types['mime'] ) );
+			}
 		}
 
 		$ext_desc[ $types['ext'] ] = $types['desc'];

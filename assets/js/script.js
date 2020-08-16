@@ -32,6 +32,11 @@ jQuery( document ).ready( function ( $ ) {
 				return false;
 			}
 		} )
+		.on( 'click', '#add-custom-file-types', function( e ) {
+			e.preventDefault();
+
+			$( '.repetitive-fields input' ).first().focus();
+		} )
 		.on( 'input', '#file-upload-types-search', function ( e ) {
 			var value = $( this ).val().toLowerCase();
 

@@ -9,7 +9,8 @@ jQuery( document ).ready( function ( $ ) {
 
 			var closest = $( this ).closest( 'tr' );
 			var clone = closest.clone();
-			clone.find( 'input' ).attr( 'value', '' );
+
+			clone.find( 'input' ).val( '' );
 
 			closest.after( clone );
 		} )

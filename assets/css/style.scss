@@ -154,12 +154,24 @@ $border-color: #ccd0d4;
 					border-top: 1px solid #e1e1e1;
 				}
 
+				tr.heading {
+					border: none;
+				}
+
 				tr.heading td {
 					font-size: 14px;
 					font-weight: 700;
 					background: #7d8992;
 					border-color: #7d8992;
 					color: #ffffff;
+				}
+
+				tr.heading td:first-child {
+					border-radius: 4px 0px 0px 0px;
+				}
+
+				tr.heading td:last-child {
+					border-radius: 0px 4px 0px 0px;
 				}
 
 				tr.section td {
@@ -208,9 +220,12 @@ $border-color: #ccd0d4;
 				.file-upload-types-table-main tr.section:nth-of-type(1) {
 					border-top: 1px solid #f8f8f8;
 				}
-
 			}
-			
+
+			.table-container:nth-of-type(2) table {
+				border: none;
+				box-shadow: 0 1px 2px rgba( 125, 137, 146, .15 );
+			}
 		}
 
 		.file-upload-types-products {

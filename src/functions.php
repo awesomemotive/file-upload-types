@@ -57,7 +57,7 @@ function fut_format_raw_custom_types( $file_data_raw ) {
  *
  * @param array $custom_types Custom file types, may contain duplicate extensions.
  *
- * @since  1.2.0
+ * @since 1.2.0
  *
  * @return array
  */

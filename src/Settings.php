@@ -484,7 +484,7 @@ class Settings {
 	/**
 	 * Display notice about multiple mime types support for old installs.
 	 *
-	 * @since  1.2.0
+	 * @since 1.2.0
 	 */
 	public function display_multiple_mimes_support_notice() {
 

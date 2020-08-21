@@ -386,9 +386,9 @@ class Settings {
 													'src' => true,
 												),
 												'a'      => array(
-													'alt'  => true,
-													'href' => true,
-													'class' => true,
+													'alt'    => true,
+													'href'   => true,
+													'class'  => true,
 													'target' => true,
 												),
 											)

@@ -40,11 +40,11 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 	}
 
 	foreach ( $mime_types as $key => $mime_type ) {
-		$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : array_map( 'trim', explode( ',', $mime_type ) );
+		$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : array_filter( array_map( 'trim', explode( ',', $mime_type ) ) );
 	}
 
 	foreach ( $extentions as $key => $extention ) {
-		$file_data[ $key ]['ext'] = substr( $extention, 0, 1 ) !== '.' ? '.' . strtolower( $extention ) : strtolower( $extention );
+		$file_data[ $key ]['ext'] = '.' . strtolower( ltrim( $extention, '.' ) );
 	}
 
 	return $file_data;
@@ -55,7 +55,7 @@ function fut_format_raw_custom_types( $file_data_raw ) {
  *
  * Same extension with multiple mime types are merged and mime types are placed in an array.
  *
- * @param  $custom_types custom file types, may contain duplicate extensions.
+ * @param array $custom_types Custom file types, may contain duplicate extensions.
  *
  * @since  1.2.0
  *
@@ -75,9 +75,9 @@ function fut_format_multiple_file_types( $custom_types ) {
 
 		} else {
 			if ( is_array( $ext_mime[ $types['ext'] ] ) ) {
-				$ext_mime[ $types['ext'] ] = array_merge( $ext_mime[ $types['ext'] ], is_array( $types['mime'] ) ? $types['mime'] : array( $types['mime'] ) );
+				$ext_mime[ $types['ext'] ] = array_merge( $ext_mime[ $types['ext'] ], (array) $types['mime'] );
 			} else {
-				$ext_mime[ $types['ext'] ] = array_merge( array( $ext_mime[ $types['ext'] ] ), is_array( $types['mime'] ) ? $types['mime'] : array( $types['mime'] ) );
+				$ext_mime[ $types['ext'] ] = array_merge( array( $ext_mime[ $types['ext'] ] ), (array) $types['mime'] );
 			}
 		}
 

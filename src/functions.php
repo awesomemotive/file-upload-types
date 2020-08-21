@@ -70,17 +70,12 @@ function fut_format_multiple_file_types( $custom_types ) {
 	foreach ( $custom_types as $types ) {
 
 		if ( ! isset( $ext_mime[ $types['ext'] ] ) ) {
-
 			$ext_mime[ $types['ext'] ] = $types['mime'];
-
 		} else {
-			if ( is_array( $ext_mime[ $types['ext'] ] ) ) {
-				$ext_mime[ $types['ext'] ] = array_merge( $ext_mime[ $types['ext'] ], (array) $types['mime'] );
-			} else {
-				$ext_mime[ $types['ext'] ] = array_merge( array( $ext_mime[ $types['ext'] ] ), (array) $types['mime'] );
-			}
+			$ext_mime[ $types['ext'] ] = array_merge( (array) $ext_mime[ $types['ext'] ], (array) $types['mime'] );
 		}
 
+		// The last description will be used when several mimes for a single extensions are added using + in plugin admin area.
 		$ext_desc[ $types['ext'] ] = $types['desc'];
 	}
 

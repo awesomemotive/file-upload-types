@@ -29,6 +29,8 @@ class Settings {
 		add_action( 'in_admin_header', array( $this, 'display_admin_header' ), 100 );
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'admin_init', array( $this, 'save_settings' ) );
+		add_action( 'file_upload_types_settings_after_nav_bar', array( $this, 'display_multiple_mimes_support_notice' ) );
+		add_action( 'admin_init', array( $this, 'enable_multiple_mimes_support' ) );
 		add_filter( 'admin_footer_text', array( $this, 'get_admin_footer' ), 1, 2 );
 		add_action( 'admin_print_scripts', array( $this, 'remove_notices' ) );
 	}
@@ -251,9 +253,13 @@ class Settings {
 							continue;
 						}
 
+						if ( is_array( $type['mime'] ) ) {
+							$type['mime'] = implode( '</br>', $type['mime'] );
+						}
+
 						echo '<tr>';
 						echo '<td width="35%">' . esc_html( $type['desc'] ) . '</td>';
-						echo '<td width="40%">' . esc_html( $type['mime'] ) . '</td>';
+						echo '<td width="40%">' . wp_kses( $type['mime'], array( 'br' => array() ) ) . '</td>';
 						echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
 						echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types[]" checked> </td>';
 						echo '</tr>';
@@ -287,9 +293,13 @@ class Settings {
 						}
 					}
 
+					if ( is_array( $type['mime'] ) ) {
+						$type['mime'] = implode( '</br>', $type['mime'] );
+					}
+
 					echo '<tr>';
 					echo '<td width="35%">' . esc_html( $type['desc'] ) . '</td>';
-					echo '<td width="40%">' . esc_html( $type['mime'] ) . '</td>';
+					echo '<td width="40%">' . wp_kses( $type['mime'], array( 'br' => array() ) ) . '</td>';
 					echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
 					echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
 					echo '</tr>';
@@ -311,7 +321,7 @@ class Settings {
 
 				<tr class="repetitive-fields">
 					<td width="35%"><input type="text" name="c_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
-					<td width="40%"><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
+					<td width="40%"><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Types, comma separated', 'file-upload-types' ); ?>"></td>
 					<td width="15%"><input style="max-width: 100%" type="text" name="c_types[ext][]"
 							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>"></td>
 					<td width="10%" style="white-space: nowrap">
@@ -417,10 +427,16 @@ class Settings {
 			return;
 		}
 
+		// All new installs since 1.2.0 will have multiple mime types support enabled by default.
+		if ( ! get_option( 'file_upload_types' ) ) {
+			update_option( 'file_upload_types_multiple_mimes', 'enabled' );
+		}
+
 		$enabled_types    = isset( $_POST['e_types'] ) ? array_map( 'sanitize_text_field', $_POST['e_types'] ) : array();
 		$available_types  = isset( $_POST['a_types'] ) ? array_map( 'sanitize_text_field', $_POST['a_types'] ) : array();
 		$custom_types_raw = isset( $_POST['c_types'] ) ? $_POST['c_types'] : array();
 		$custom_types     = fut_format_raw_custom_types( $custom_types_raw );
+		$custom_types     = fut_format_multiple_file_types( $custom_types );
 
 		foreach ( $custom_types as $key => $type ) {
 
@@ -460,6 +476,69 @@ class Settings {
 				?>
 				<div class="notice notice-success file-upload-types-notice is-dismissible">
 					<p><strong><?php echo esc_html__( 'Your settings have been saved.', 'file-upload-types' ); ?></strong></p>
+				</div>
+				<?php
+			}
+		);
+	}
+
+	/**
+	 * Display notice about multiple mime types support for old installs.
+	 *
+	 * @since 1.2.0
+	 */
+	public function display_multiple_mimes_support_notice() {
+
+		if ( ! get_option( 'file_upload_types' ) || 'enabled' === get_option( 'file_upload_types_multiple_mimes' ) ) {
+			return;
+		}
+
+		?>
+			<div class="notice notice-info file-upload-types-notice">
+				<p><strong>
+					<?php
+					printf(
+						wp_kses( /* translators: %1$s - Same page; %2$s - Documentation link for multiple types support. */
+							__( 'File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility! <br/><br/> <a href="%1$s">Enable multiple MIME types support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a>', 'file-upload-types' ),
+							array(
+								'br' => true,
+								'a'  => array(
+									'href'   => true,
+									'target' => true,
+									'rel'    => true,
+								),
+							)
+						),
+						esc_url( wp_nonce_url( admin_url( 'options-general.php?page=file-upload-types&multiple_mimes=enabled' ), 'enable-multiple-mime-types-support' ) ),
+						'https://wpforms.com/docs/how-to-allow-additional-file-upload-types/'
+					)
+					?>
+			</strong></p>
+			</div>
+		<?php
+	}
+
+	/**
+	 * Enable mutliple mime types support for old installs.
+	 *
+	 * @since 1.2.0
+	 */
+	public function enable_multiple_mimes_support() {
+
+		if ( ! isset( $_GET['multiple_mimes'] ) || ( isset( $_GET['multiple_mimes'] ) && 'enabled' !== $_GET['multiple_mimes'] ) ) {
+			return;
+		}
+
+		check_admin_referer( 'enable-multiple-mime-types-support' );
+
+		update_option( 'file_upload_types_multiple_mimes', 'enabled' );
+
+		add_action(
+			'file_upload_types_settings_after_nav_bar',
+			static function () {
+				?>
+				<div class="notice notice-success file-upload-types-notice is-dismissible">
+					<p><strong><?php echo esc_html__( 'Support for multiple MIME types has been enabled.', 'file-upload-types' ); ?></strong></p>
 				</div>
 				<?php
 			}

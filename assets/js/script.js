@@ -9,7 +9,8 @@ jQuery( document ).ready( function ( $ ) {
 
 			var closest = $( this ).closest( 'tr' );
 			var clone = closest.clone();
-			clone.find( 'input' ).attr( 'value', '' );
+
+			clone.find( 'input' ).val( '' );
 
 			closest.after( clone );
 		} )
@@ -30,6 +31,11 @@ jQuery( document ).ready( function ( $ ) {
 				e.preventDefault();
 				return false;
 			}
+		} )
+		.on( 'click', '#add-custom-file-types', function( e ) {
+			e.preventDefault();
+
+			$( '.repetitive-fields input' ).first().focus();
 		} )
 		.on( 'input', '#file-upload-types-search', function ( e ) {
 			var value = $( this ).val().toLowerCase();

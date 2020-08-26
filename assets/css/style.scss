@@ -1,5 +1,6 @@
 $primary-color: #fff;
 $secondary-color: #e17730;
+$border-color: #ccd0d4;
 
 #wpcontent {
     padding-left: 0 !important;
@@ -143,8 +144,9 @@ $secondary-color: #e17730;
 					border: 1px solid #e1e1e1;
 
 					img {
-						height: 16px;
-						width: 16px;
+						width: 14px;
+						height: 14px;
+						margin-bottom: -2px;
 					}
 				}
 
@@ -152,10 +154,24 @@ $secondary-color: #e17730;
 					border-top: 1px solid #e1e1e1;
 				}
 
+				tr.heading {
+					border: none;
+				}
+
 				tr.heading td {
 					font-size: 14px;
 					font-weight: 700;
-					color: #777;
+					background: #7d8992;
+					border-color: #7d8992;
+					color: #ffffff;
+				}
+
+				tr.heading td:first-child {
+					border-radius: 4px 0px 0px 0px;
+				}
+
+				tr.heading td:last-child {
+					border-radius: 0px 4px 0px 0px;
 				}
 
 				tr.section td {
@@ -163,8 +179,8 @@ $secondary-color: #e17730;
 					font-size: 11px;
 					font-weight: 700;
 					text-transform: uppercase;
-					color: #777;
-					background: #f8f8f8;
+					color: #444444;
+					background: #e7e8e7;
 				}
 
 				td {
@@ -209,9 +225,12 @@ $secondary-color: #e17730;
 				.file-upload-types-table-main tr.section:nth-of-type(1) {
 					border-top: 1px solid #f8f8f8;
 				}
-
 			}
-			
+
+			.table-container:nth-of-type(2) table {
+				border: none;
+				box-shadow: 0 1px 2px rgba( 125, 137, 146, .15 );
+			}
 		}
 
 		.file-upload-types-products {
@@ -289,7 +308,7 @@ $secondary-color: #e17730;
 
 	.file-upload-types-btn.file-upload-types-btn-orange {
 		background-color: $secondary-color;
-		border-color: #f982d;
+		border-color: $border-color;
 		color: $primary-color;
 	}
 
@@ -297,12 +316,12 @@ $secondary-color: #e17730;
 	.file-upload-types-btn.file-upload-types-btn-orange:active,
 	.file-upload-types-btn.file-upload-types-btn-orange:focus {
 	    background-color: #c45e1b;
-	    border-color: #c45e1b;
+	    border-color: $border-color;
 	}
 
 	.file-upload-types-btn.file-upload-types-btn-blue {
 		background-color: #809eb0;
-		border-color: #809eb0;
+		border-color: $border-color;
 		color: $primary-color;
 	}
 
@@ -310,7 +329,7 @@ $secondary-color: #e17730;
 	.file-upload-types-btn.file-upload-types-btn-blue:active,
 	.file-upload-types-btn.file-upload-types-btn-blue:focus {
 	    background-color: #658699;
-	    border-color: #658699;
+	    border-color: $border-color;
 	}
 }
 
@@ -343,7 +362,7 @@ $secondary-color: #e17730;
  	.tooltiptext {
 		visibility: hidden;
 		width: 150px;
-		background: rgba(0, 0, 0, .8);
+		background: #21282c;
 		color: #fff;
 		text-align: center;
 		text-transform: none;

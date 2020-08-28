@@ -2,7 +2,7 @@
 Contributors: wpforms, smub, jaredatch, slaFFik, sanzeeb3
 Tags: files, upload, file upload, mime, attachments
 Requires at least: 4.9
-Tested up to: 5.4
+Tested up to: 5.5
 Stable tag: 1.1.1
 Requires PHP: 5.6
 

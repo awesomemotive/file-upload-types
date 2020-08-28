@@ -57,6 +57,7 @@ var plugin = {
 		'!**/*.dist',
 		'!**/*.json',
 		'assets/file-types-list.json',
+		'assets/file-types-list-v2.json',
 		'!**/*.lock',
 		'!**/gulpfile.js',
 		'!**/Makefile',

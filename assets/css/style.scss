@@ -131,8 +131,8 @@ $border-color: #ccd0d4;
 
 			.search-box input:focus {
 				color: #444;
-				border: 1px solid #bbb;
-				box-shadow: none;
+				border: 1px solid #638699;
+				box-shadow: 0 0 0 1px #638699;
 			}
 
 			.table-container {
@@ -141,7 +141,7 @@ $border-color: #ccd0d4;
 					width: 100%;
 					font-family: arial, sans-serif;
 					border-collapse: collapse;
-					border: 1px solid #e1e1e1;
+					border: 1px solid $border-color;
 
 					img {
 						width: 14px;
@@ -152,6 +152,7 @@ $border-color: #ccd0d4;
 
 				tr {
 					border-top: 1px solid #e1e1e1;
+					border: 1px solid $border-color;
 				}
 
 				tr.heading {
@@ -229,7 +230,8 @@ $border-color: #ccd0d4;
 
 			.table-container:nth-of-type(2) table {
 				border: none;
-				box-shadow: 0 1px 2px rgba( 125, 137, 146, .15 );
+				box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+				margin-bottom: -1px;
 			}
 		}
 
@@ -317,6 +319,7 @@ $border-color: #ccd0d4;
 	.file-upload-types-btn.file-upload-types-btn-orange:focus {
 	    background-color: #c45e1b;
 	    border-color: $border-color;
+		box-shadow: 0 0 0 1px #fff, 0 0 0 3px #c45e1b;
 	}
 
 	.file-upload-types-btn.file-upload-types-btn-blue {
@@ -330,6 +333,7 @@ $border-color: #ccd0d4;
 	.file-upload-types-btn.file-upload-types-btn-blue:focus {
 	    background-color: #658699;
 	    border-color: $border-color;
+		box-shadow: 0 0 0 1px #fff, 0 0 0 3px #658699;
 	}
 }
 
@@ -370,7 +374,7 @@ $border-color: #ccd0d4;
 		padding: 10px;
 		position: absolute;
 		z-index: 1;
-		margin: -35px 0 0 26px;
+		margin: -30px 0 0 10px;
 		font-size: 13px;
 		font-weight: 400;
 	}

@@ -314,7 +314,7 @@ class Settings {
 					<td colspan="4" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
 						<div class="file-upload-types-info" style="font-size: 14px;">
 							<img src="<?php echo esc_url( plugins_url( 'assets/images/question-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
-							<span class="tooltiptext"><?php echo esc_html__( 'Add the custom file types to allow uploads', 'file-upload-types' ); ?> </span>
+							<span class="tooltiptext"><?php echo esc_html__( 'Add custom file types to allow uploads', 'file-upload-types' ); ?> </span>
 						</div>
 					</td>
 				</tr>

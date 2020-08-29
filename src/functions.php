@@ -102,37 +102,3 @@ add_action(
 		apply_filters_deprecated( 'file_upload_types_strict_check', array( true ), '1.2.0', null, 'Please use MIME aliases whereever possible!' );
 	}
 );
-
-/**
- * Temporary function for building file-upload-types-v2.json list.
- *
- * Logs a json list.
- *
- * @return  void.
- */
-function building_list() {
-
-	include_once( 'media-mimes.php' );
-
-	$list 	 = fut_get_available_file_types();
-	$aliases = wp_get_mime_aliases();
-
-	foreach( $list as $key => $li ) {
-
-		$mimes = $aliases[ ltrim( $li['ext'], '.' ) ];
-
-		if( isset( $mimes ) && count( $mimes ) > 1 ) {
-
-			if ( ! in_array( $li['mime'], $mimes ) ) {
-				array_unshift( $mimes, $li['mime'] );
-			}
-
-			$list[ $key ][ 'mime'] = $mimes;
-		}
-	}
-
-	$v2 = json_encode( $list );
-
-	error_log( print_r($v2, true ));
-}
-add_action( 'admin_notices', 'building_list' );

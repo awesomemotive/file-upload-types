@@ -320,9 +320,9 @@ class Settings {
 				</tr>
 
 				<tr class="repetitive-fields">
-					<td width="35%"><input type="text" name="c_types[desc][]" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
-					<td width="40%"><input type="text" name="c_types[mime][]" placeholder="<?php esc_attr_e( 'MIME Types, comma separated', 'file-upload-types' ); ?>"></td>
-					<td width="15%"><input style="max-width: 100%" type="text" name="c_types[ext][]"
+					<td width="35%"><input type="text" name="c_types[desc][]" class="description" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
+					<td width="40%"><input type="text" name="c_types[mime][]" class="mime" placeholder="<?php esc_attr_e( 'MIME Types, comma separated', 'file-upload-types' ); ?>"></td>
+					<td width="15%"><input type="text" name="c_types[ext][]" class="extension"
 							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>"></td>
 					<td width="10%" style="white-space: nowrap">
 						<img class="file-upload-types-plus" src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">

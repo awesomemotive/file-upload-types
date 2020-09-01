@@ -211,6 +211,10 @@ $border-color: #ccd0d4;
 					width: 100%;
 				}
 
+				input.extension {
+					text-align: right;
+				}
+
 				input:focus {
 					color: #444444;
 					background: #fff;

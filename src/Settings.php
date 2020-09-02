@@ -111,7 +111,7 @@ class Settings {
 	public function add_settings_page() {
 
 		add_options_page(
-			esc_html__( 'Settings', 'file-upload-types' ),
+			esc_html__( 'File Upload Types', 'file-upload-types' ),
 			esc_html__( 'File Upload Types', 'file-upload-types' ),
 			'manage_options',
 			self::SLUG,

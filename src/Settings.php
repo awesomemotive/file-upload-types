@@ -324,7 +324,7 @@ class Settings {
 					<td width="40%"><input type="text" name="c_types[mime][]" class="mime" placeholder="<?php esc_attr_e( 'MIME Types, comma separated', 'file-upload-types' ); ?>"></td>
 					<td width="15%"><input type="text" name="c_types[ext][]" class="extension"
 							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>"></td>
-					<td width="10%" style="white-space: nowrap">
+					<td width="10%" class="icons">
 						<img class="file-upload-types-plus" src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
 						<img class="file-upload-types-minus" src="<?php echo esc_url( plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
 					</td>
@@ -499,7 +499,7 @@ class Settings {
 					<?php
 					printf(
 						wp_kses( /* translators: %1$s - Same page; %2$s - Documentation link for multiple types support. */
-							__( 'File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility! <br/><br/> <a href="%1$s">Enable multiple MIME types support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a>', 'file-upload-types' ),
+							__( 'File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility! <br> <a href="%1$s">Enable multiple MIME types support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a>', 'file-upload-types' ),
 							array(
 								'br' => true,
 								'a'  => array(

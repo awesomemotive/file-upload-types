@@ -495,25 +495,24 @@ class Settings {
 
 		?>
 			<div class="notice notice-info file-upload-types-notice">
-				<p><strong>
-					<?php
-					printf(
-						wp_kses( /* translators: %1$s - Same page; %2$s - Documentation link for multiple types support. */
-							__( 'File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility! <br> <a href="%1$s">Enable multiple MIME types support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a>', 'file-upload-types' ),
-							array(
-								'br' => true,
-								'a'  => array(
-									'href'   => true,
-									'target' => true,
-									'rel'    => true,
-								),
-							)
-						),
-						esc_url( wp_nonce_url( admin_url( 'options-general.php?page=file-upload-types&multiple_mimes=enabled' ), 'enable-multiple-mime-types-support' ) ),
-						'https://wpforms.com/docs/how-to-allow-additional-file-upload-types/'
-					)
-					?>
-			</strong></p>
+				<?php
+				printf(
+					wp_kses( /* translators: %1$s - Same page; %2$s - Documentation link for multiple types support. */
+						__( '<p><strong>File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility!</strong></p><p><strong> <a href="%1$s">Enable multiple MIME types support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a></strong></p>', 'file-upload-types' ),
+						array(
+							'p'      => true,
+							'strong' => true,
+							'a'  => array(
+								'href'   => true,
+								'target' => true,
+								'rel'    => true,
+							),
+						)
+					),
+					esc_url( wp_nonce_url( admin_url( 'options-general.php?page=file-upload-types&multiple_mimes=enabled' ), 'enable-multiple-mime-types-support' ) ),
+					'https://wpforms.com/docs/how-to-allow-additional-file-upload-types/'
+				)
+				?>
 			</div>
 		<?php
 	}

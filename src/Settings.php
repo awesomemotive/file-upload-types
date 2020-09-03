@@ -200,7 +200,7 @@ class Settings {
 									'href'   => array(),
 									'target' => array(),
 									'rel'    => array(),
-									'id'     => array(), 
+									'id'     => array(),
 								),
 							)
 						),
@@ -387,9 +387,9 @@ class Settings {
 													'src' => true,
 												),
 												'a'      => array(
-													'alt'    => true,
-													'href'   => true,
-													'class'  => true,
+													'alt'  => true,
+													'href' => true,
+													'class' => true,
 													'target' => true,
 												),
 											)
@@ -495,14 +495,15 @@ class Settings {
 
 		?>
 			<div class="notice notice-info file-upload-types-notice">
+			<p><strong>
 				<?php
 				printf(
 					wp_kses( /* translators: %1$s - Same page; %2$s - Documentation link for multiple types support. */
-						__( '<p><strong>File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility!</strong></p><p><strong> <a href="%1$s">Enable multiple MIME types support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a></strong></p>', 'file-upload-types' ),
+						__( 'File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility! <br/> <strong><a href="%1$s">Enable multiple MIME types support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a></strong>', 'file-upload-types' ),
 						array(
-							'p'      => true,
+							'br'     => true,
 							'strong' => true,
-							'a'  => array(
+							'a'      => array(
 								'href'   => true,
 								'target' => true,
 								'rel'    => true,
@@ -513,6 +514,7 @@ class Settings {
 					'https://wpforms.com/docs/how-to-allow-additional-file-upload-types/'
 				)
 				?>
+			</strong></p>
 			</div>
 		<?php
 	}

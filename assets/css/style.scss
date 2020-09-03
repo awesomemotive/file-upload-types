@@ -327,6 +327,9 @@ $border-color: #ccd0d4;
 	.file-upload-types-btn.file-upload-types-btn-orange:focus {
 	    background-color: #c45e1b;
 	    border-color: $border-color;
+	}
+
+	.file-upload-types-btn.file-upload-types-btn-orange:focus {
 		box-shadow: 0 0 0 1px #fff, 0 0 0 3px #c45e1b;
 	}
 
@@ -341,6 +344,9 @@ $border-color: #ccd0d4;
 	.file-upload-types-btn.file-upload-types-btn-blue:focus {
 	    background-color: #658699;
 	    border-color: $border-color;
+	}
+
+	.file-upload-types-btn.file-upload-types-btn-blue:focus {
 		box-shadow: 0 0 0 1px #fff, 0 0 0 3px #658699;
 	}
 }

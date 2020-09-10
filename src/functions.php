@@ -99,6 +99,6 @@ add_action(
 	'init',
 	static function() {
 
-		apply_filters_deprecated( 'file_upload_types_strict_check', array( true ), '1.2.0', null, 'Please use MIME aliases whereever possible!' );
+		apply_filters_deprecated( 'file_upload_types_strict_check', array( true ), '1.2.0', null, 'Please add multiple MIME types for the extension whereever possible!' );
 	}
 );

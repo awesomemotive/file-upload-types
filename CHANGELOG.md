@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
+## [1.2.0] - 2020-09-xx
+* Feature - Multiple MIME types support for a single extension.
+* Fix - WordPress 5.5 not clearing values for reptetitive fields.
+* Enhancement - Remove already allowed jpg,jpeg extension from the list.
+* Enhancement - Improve 'add your custom file types' link'.
+* Dev - Deprecate 'file_upload_types_strict_check' filter without any alternative.
+* Dev - Increase priority of 'wp_check_filetype_and_ext' filter to 999.
+
 ## [1.1.1] - 2020-07-02
 * Fix - Ignore file types that are already allowed by default.
 * Fix - Remove duplicate MIME types of the same extension that could create conflict.

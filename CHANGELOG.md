@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
-## [1.2.0] - 2020-09-xx
+## [1.2.0] - 2020-09-15
 * Feature - Multiple MIME types support for a single extension.
 * Fix - WordPress 5.5 not clearing values for reptetitive fields.
 * Enhancement - Remove already allowed jpg,jpeg extension from the list.

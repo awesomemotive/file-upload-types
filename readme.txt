@@ -80,6 +80,9 @@ Visit <a href="http://www.wpbeginner.com/?utm_source=wprepo&utm_medium=link&utm_
 
 == Changelog ==
 
+ = 1.2.1 - 2021-xx-xx =
+ * Fix - Correctly load composer autoload.
+
 = 1.2.0 - 2020-09-15 =
 * Feature - Multiple MIME types support for a single extension.
 * Fix - WordPress 5.5 not clearing values for reptetitive fields.

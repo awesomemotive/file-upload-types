@@ -53,14 +53,14 @@ if ( version_compare( PHP_VERSION, '5.6.0', '<' ) ) {
 	return;
 }
 
-require_once 'vendor/autoload.php';
-
 /**
  * Plugin constants.
  */
 define( 'FILE_UPLOAD_TYPES_PLUGIN_FILE', __FILE__ );
 define( 'FILE_UPLOAD_TYPES_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'FILE_UPLOAD_TYPES_VERSION', '1.2.0' );
+
+require_once __DIR__ . '/vendor/autoload.php';
 
 /**
  * Return the main instance of Plugin class.

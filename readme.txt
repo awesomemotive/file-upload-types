@@ -82,6 +82,7 @@ Visit <a href="http://www.wpbeginner.com/?utm_source=wprepo&utm_medium=link&utm_
 
  = 1.2.1 - 2021-xx-xx =
  * Fix - Correctly load composer autoload.
+ * Enhancement - Add 'application/pdf' mime type to .ai extension.
 
 = 1.2.0 - 2020-09-15 =
 * Feature - Multiple MIME types support for a single extension.

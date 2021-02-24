@@ -2,8 +2,10 @@
 
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
-## [1.2.1] - 2021-xx-xx
+## [1.2.1] - 2021-02-24
 * Fix - Correctly load composer autoload.
+* Enhancement - Add .eps extension to the default list.
+* Enhancement - Add 'application/pdf' mime type to .ai extension.
 
 ## [1.2.0] - 2020-09-15
 * Feature - Multiple MIME types support for a single extension.

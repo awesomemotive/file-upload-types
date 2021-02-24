@@ -1,7 +1,7 @@
 {
   "name": "file-upload-types",
   "description": "Manage the types of files that can be uploaded to your WordPress site.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "homepage": "",
   "repository": {
     "type": "git",

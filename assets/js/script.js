@@ -2,7 +2,7 @@
 
 'use strict';
 
-jQuery( document ).ready( function ( $ ) {
+jQuery( function ( $ ) {
 	$( document )
 		.on( 'click', '#file-upload-types .table-container .file-upload-types-plus', function ( e ) {
 			e.preventDefault();

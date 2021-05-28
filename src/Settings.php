@@ -183,7 +183,7 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function display_types_table() {
+	public function display_types_table() { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		?>
 
@@ -303,7 +303,7 @@ class Settings {
 					echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
 					echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
 					echo '</tr>';
-				}
+				}//end foreach
 				?>
 			</table>
 		</div>
@@ -371,10 +371,10 @@ class Settings {
 							<div class="details file-upload-types-clear">
 								<img src="<?php echo \esc_url( $plugin['icon'] ); ?>" alt="">
 								<h5 class="plugin-name">
-									<?php echo $plugin['name']; ?>
+									<?php echo $plugin['name']; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</h5>
 								<p class="plugin-desc">
-									<?php echo $plugin['desc']; ?>
+									<?php echo $plugin['desc']; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</p>
 								<p>
 									<?php
@@ -395,7 +395,7 @@ class Settings {
 											)
 										),
 										esc_url( $plugin['url'] ),
-										$plugin['name'],
+										$plugin['name'], //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 										esc_url( plugins_url( 'assets/images/external-link-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) )
 									);
 									?>
@@ -414,7 +414,7 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function save_settings() {
+	public function save_settings() { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		if ( ! isset( $_POST['file-upload-types-submit'] ) ) {
 			return;
@@ -422,7 +422,7 @@ class Settings {
 
 		if (
 			! isset( $_POST['file_upload_types_nonce_field'] ) ||
-			! wp_verify_nonce( $_POST['file_upload_types_nonce_field'], 'file_upload_types_settings_save' )
+			! wp_verify_nonce( sanitize_key( $_POST['file_upload_types_nonce_field'] ), 'file_upload_types_settings_save' )
 		) {
 			return;
 		}
@@ -432,9 +432,11 @@ class Settings {
 			update_option( 'file_upload_types_multiple_mimes', 'enabled' );
 		}
 
-		$enabled_types    = isset( $_POST['e_types'] ) ? array_map( 'sanitize_text_field', $_POST['e_types'] ) : array();
+		//phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		$enabled_types = isset( $_POST['e_types'] ) ? array_map( 'sanitize_text_field', $_POST['e_types'] ) : array();
+		//phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		$available_types  = isset( $_POST['a_types'] ) ? array_map( 'sanitize_text_field', $_POST['a_types'] ) : array();
-		$custom_types_raw = isset( $_POST['c_types'] ) ? $_POST['c_types'] : array();
+		$custom_types_raw = isset( $_POST['c_types'] ) ? $_POST['c_types'] : array(); //phpcs:ignore
 		$custom_types     = fut_format_raw_custom_types( $custom_types_raw );
 		$custom_types     = fut_format_multiple_file_types( $custom_types );
 
@@ -622,11 +624,11 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function remove_notices() {
+	public function remove_notices() { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		global $wp_filter;
 
-		if ( ! isset( $_REQUEST['page'] ) || self::SLUG !== $_REQUEST['page'] ) {
+		if ( ! isset( $_REQUEST['page'] ) || self::SLUG !== $_REQUEST['page'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 

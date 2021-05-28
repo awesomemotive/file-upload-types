@@ -9,6 +9,11 @@
   },
   "license": "GPL-2.0+",
   "main": "gulpfile.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "*.php": [
       "php -d display_errors=1 -l",
@@ -38,7 +43,9 @@
     "gulp-uglify": "^3.0.2",
     "gulp-watch": "^5.0.1",
     "gulp-zip": "^4.2.0",
-    "node-sass": "4.13.1"
+    "node-sass": "4.13.1",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0"
   },
   "engines": {
     "node": ">=8.9.3",

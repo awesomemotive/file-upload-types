@@ -169,19 +169,20 @@ final class Plugin {
 		$extension     = pathinfo( $filename, PATHINFO_EXTENSION );
 		$enabled_types = $this->enabled_types();
 
-		// We don't need to do anything if there's no multiple mimes for this extension.
-		if ( isset( $enabled_types[ $extension ] ) && ! is_array( $enabled_types[ $extension ] ) ) {
+		// We don't need to do anything if the file uploads normally.
+		if ( empty( $file_data['ext'] ) && empty( $file_data['type'] ) ) {
 
-			return $file_data;
+			// We don't need to do anything if there's no multiple mimes for this extension.
+			if ( empty( $enabled_types[ $extension ] ) || ! is_array( $enabled_types[ $extension ] ) ) {
+				return $file_data;
+			}
 
-		} elseif ( empty( $file_data['ext'] ) && empty( $file_data['type'] ) ) {
+			$mimes = $enabled_types[ $extension ];
 
-				$mimes = $enabled_types[ $extension ];
+			// First mime will not need this extra behaviour.
+			unset( $mimes[0] );
 
-				// First mime will not need this extra behaviour.
-				unset( $mimes[0] );
-
-				$mimes = array_map( 'sanitize_mime_type', $mimes );
+			$mimes = array_map( 'sanitize_mime_type', $mimes );
 
 			foreach ( $mimes as $mime ) {
 
@@ -195,17 +196,17 @@ final class Plugin {
 					return $mime_types;
 				};
 
-					// Add alias mime to the allowed mime types.
-					add_filter( 'upload_mimes', $mime_filter );
+				// Add alias mime to the allowed mime types.
+				add_filter( 'upload_mimes', $mime_filter );
 
-					// Validate the new mime/extension pair.
-					$file_data = wp_check_filetype_and_ext( $file, $filename, array( $extension => $mime ) );
+				// Validate the new mime/extension pair.
+				$file_data = wp_check_filetype_and_ext( $file, $filename, array( $extension => $mime ) );
 
-					// Remove filter to add another mime type.
-					remove_filter( 'upload_mimes', $mime_filter );
+				// Remove filter to add another mime type.
+				remove_filter( 'upload_mimes', $mime_filter );
 
-					// Continue the process.
-					add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 999, 3 );
+				// Continue the process.
+				add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 999, 3 );
 
 				if ( ! empty( $file_data['ext'] ) || ! empty( $file_data['type'] ) ) {
 					return $file_data;

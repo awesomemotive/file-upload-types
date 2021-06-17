@@ -3,7 +3,7 @@ Contributors: wpforms, smub, jaredatch, slaFFik, sanzeeb3
 Tags: files, upload, file upload, mime, attachments
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 Requires PHP: 5.6
 
 Easily allow WordPress to accept and upload any file type extension or MIME type, including custom file types.
@@ -80,10 +80,14 @@ Visit <a href="http://www.wpbeginner.com/?utm_source=wprepo&utm_medium=link&utm_
 
 == Changelog ==
 
- = 1.2.1 - 2021-02-24 =
- * Fix - Correctly load composer autoload.
- * Enhancement - Add .eps extension to the default list.
- * Enhancement - Add 'application/pdf' mime type to .ai extension.
+= 1.2.2 - 2021-06-17 =
+* Fix - PHP notices when invalid files are uploaded.
+* Enhancement - Replace jquery.ready with recommended syntax.
+
+= 1.2.1 - 2021-02-24 =
+* Fix - Correctly load composer autoload.
+* Enhancement - Add .eps extension to the default list.
+* Enhancement - Add 'application/pdf' mime type to .ai extension.
 
 = 1.2.0 - 2020-09-15 =
 * Feature - Multiple MIME types support for a single extension.

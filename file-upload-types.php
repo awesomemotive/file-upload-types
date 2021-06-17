@@ -2,7 +2,7 @@
 /**
  * Plugin Name: File Upload Types
  * Description: Easily allow WordPress to accept and upload any file type extension or MIME type, including custom file types.
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: WPForms
  * Author URI: https://wpforms.com
  * Text Domain: file-upload-types
@@ -59,7 +59,7 @@ if ( version_compare( PHP_VERSION, '5.6.0', '<' ) ) {
  */
 define( 'FILE_UPLOAD_TYPES_PLUGIN_FILE', __FILE__ );
 define( 'FILE_UPLOAD_TYPES_PLUGIN_PATH', dirname( __FILE__ ) );
-define( 'FILE_UPLOAD_TYPES_VERSION', '1.2.1' );
+define( 'FILE_UPLOAD_TYPES_VERSION', '1.2.2' );
 
 require_once __DIR__ . '/vendor/autoload.php';
 

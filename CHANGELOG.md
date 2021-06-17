@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
+## [1.2.2] - 2021-06-17
+* Fix - PHP notices when invalid files are uploaded.
+* Enhancement - Replace jquery.ready with recommended syntax.
+
 ## [1.2.1] - 2021-02-24
 * Fix - Correctly load composer autoload.
 * Enhancement - Add .eps extension to the default list.

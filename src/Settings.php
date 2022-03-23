@@ -232,6 +232,7 @@ class Settings {
 				$stored_types    = get_option( 'file_upload_types', array() );
 				$enabled_types   = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : array();
 				$custom_types    = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : array();
+				$native_types    = isset( $stored_types['native'] ) ? (array) $stored_types['native'] : array();
 				$available_types = fut_get_available_file_types();
 
 				$types      = array_merge( $custom_types, $available_types );
@@ -266,6 +267,8 @@ class Settings {
 					}
 
 				endif;
+
+					do_action( 'fileuploadtypes_settings_display_types_table_after_enabled_types' );
 				?>
 				<tr class="section">
 					<td colspan="4"><?php esc_html_e( 'AVAILABLE', 'file-upload-types' ); ?></td>

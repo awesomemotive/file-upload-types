@@ -75,6 +75,8 @@ function file_upload_types() {
 	$instance = \FileUploadTypes\Plugin::get_instance();
 	$instance->init();
 
+	(new \FileUploadTypes\Restrict\Native() )->init();
+
 	return $instance;
 }
 

@@ -26,5 +26,10 @@
     "files": [
       "src/functions.php"
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    }
   }
 }

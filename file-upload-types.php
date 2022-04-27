@@ -15,20 +15,21 @@ defined( 'ABSPATH' ) || exit;
 // Exit if accessed directly.
 
 /**
+ * Deactivate the plugin.
+ *
+ * @since 1.0.0
+ */
+function file_upload_types_deactivate() {
+
+	deactivate_plugins( plugin_basename( __FILE__ ) );
+}
+
+/**
  * The plugin requires PHP 5.6.0+.
  * It will self-deactivate on older PHP versions ad will notify an admin.
  */
-if ( version_compare( PHP_VERSION, '5.6.0', '<' ) ) {
+if ( PHP_VERSION_ID < 50600 ) {
 
-	/**
-	 * Deactivate the plugin.
-	 *
-	 * @since 1.0.0
-	 */
-	function file_upload_types_deactivate() {
-
-		deactivate_plugins( plugin_basename( __FILE__ ) );
-	}
 	add_action( 'admin_init', 'file_upload_types_deactivate' );
 
 	/**
@@ -55,6 +56,37 @@ if ( version_compare( PHP_VERSION, '5.6.0', '<' ) ) {
 
 	return;
 }//end if
+
+// We require WP version 5.2+ for the whole plugin to work.
+if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' ) ) {
+
+	add_action( 'admin_init', 'file_upload_types_deactivate' );
+
+	/**
+	 * Display a notice after deactivation.
+	 *
+	 * @since {VERSION}
+	 */
+	function file_upload_types_deactivate_msg_old_wp() {
+
+		// Display the message to admin only.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		echo '<div class="notice notice-error"><p>';
+		echo esc_html__( 'The File Upload Types plugin has been deactivated. Your site is running an outdated version of WordPress that is no longer supported and is not compatible with the File Upload Types plugin.', 'file-upload-types' );
+		echo '</p></div>';
+
+		if ( isset( $_GET['activate'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			unset( $_GET['activate'] ); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		}
+	}
+	add_action( 'admin_notices', 'file_upload_types_deactivate_msg_old_wp' );
+
+	// Do not process the plugin code further.
+	return;
+}
 
 /**
  * Plugin constants.

@@ -1,8 +1,8 @@
 === File Upload Types by WPForms ===
-Contributors: wpforms, smub, jaredatch, slaFFik, sanzeeb3
+Contributors: wpforms, smub, jaredatch, slaFFik, sanzeeb3, kkarpieszuk
 Tags: files, upload, file upload, mime, attachments
-Requires at least: 4.9
-Tested up to: 5.8
+Requires at least: 5.2
+Tested up to: 6.0
 Stable tag: 1.2.2
 Requires PHP: 5.6
 

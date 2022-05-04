@@ -163,7 +163,16 @@ class Settings {
 					</div>
 				</div>
 
-				<?php do_action( 'file_upload_types_settings_after_nav_bar' ); ?>
+				<?php
+				// phpcs:disable WPForms.PHP.ValidateHooks.InvalidHookName
+				/**
+				 * Action after nav bar on File Uplod Type plugin settings page.
+				 *
+				 * @since 1.2.0
+				 */
+				do_action( 'file_upload_types_settings_after_nav_bar' );
+				// phpcs:enable WPForms.PHP.ValidateHooks.InvalidHookName
+				?>
 
 				<form method="post" action="">
 					<div class="file-upload-types-content">
@@ -297,9 +306,10 @@ class Settings {
 					foreach ( $wp_ext_mimes as $extension => $mime ) {
 
 						$extensions = explode( '|', $extension );
-						foreach ( $extensions as $extension ) {
 
-							if ( ltrim( $type['ext'], '.' ) === $extension ) {
+						foreach ( $extensions as $ext ) {
+
+							if ( ltrim( $type['ext'], '.' ) === $ext ) {
 								continue 3;
 							}
 						}
@@ -381,7 +391,7 @@ class Settings {
 					<div class="plugin-container">
 						<div class="plugin-item">
 							<div class="details file-upload-types-clear">
-								<img src="<?php echo \esc_url( $plugin['icon'] ); ?>" alt="">
+								<img src="<?php echo esc_url( $plugin['icon'] ); ?>" alt="">
 								<h5 class="plugin-name">
 									<?php echo $plugin['name']; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</h5>
@@ -391,8 +401,8 @@ class Settings {
 								<p>
 									<?php
 									printf(
-										wp_kses( /* translators: %1$s - Plugin URL; %2$s - Plugin Name; %3$s - Image source. */
-											__( '<strong><a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">Get %2$s</a></strong>', 'file-upload-types' ),
+										wp_kses( /* translators: %2$s - Plugin Name. */
+											'<strong><a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">' . __( 'Get %2$s', 'file-upload-types' ) . '</a></strong>',
 											[
 												'strong' => true,
 												'img'    => [
@@ -407,8 +417,7 @@ class Settings {
 											]
 										),
 										esc_url( $plugin['url'] ),
-										$plugin['name'], //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-										esc_url( plugins_url( 'assets/images/external-link-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) )
+										$plugin['name'] //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 									);
 									?>
 								</p>
@@ -426,7 +435,7 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function save_settings() { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	public function save_settings() { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded, WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
 		if ( ! isset( $_POST['file-upload-types-submit'] ) ) {
 			return;
@@ -538,9 +547,9 @@ class Settings {
 	 *
 	 * @since 1.2.0
 	 */
-	public function enable_multiple_mimes_support() {
+	public function enable_multiple_mimes_support() { //phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
-		if ( ! isset( $_GET['multiple_mimes'] ) || ( isset( $_GET['multiple_mimes'] ) && 'enabled' !== $_GET['multiple_mimes'] ) ) {
+		if ( ! isset( $_GET['multiple_mimes'] ) || ( isset( $_GET['multiple_mimes'] ) && $_GET['multiple_mimes'] !== 'enabled' ) ) {
 			return;
 		}
 
@@ -572,26 +581,26 @@ class Settings {
 		return [
 			'wpf' => [
 				'icon' => plugins_url( 'assets/images/wpforms.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => \esc_html__( 'WPForms', 'file-upload-types' ),
-				'desc' => \esc_html__( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
+				'name' => esc_html__( 'WPForms', 'file-upload-types' ),
+				'desc' => esc_html__( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
 				'url'  => 'https://wpforms.com',
 			],
 			'mi'  => [
 				'icon' => plugins_url( 'assets/images/monsterinsights.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => \esc_html__( 'MonsterInsights', 'file-upload-types' ),
-				'desc' => \esc_html__( 'Effortlessly connect your WP site with Google Analytics.', 'file-upload-types' ),
+				'name' => esc_html__( 'MonsterInsights', 'file-upload-types' ),
+				'desc' => esc_html__( 'Effortlessly connect your WP site with Google Analytics.', 'file-upload-types' ),
 				'url'  => 'https://www.monsterinsights.com',
 			],
 			'om'  => [
 				'icon' => plugins_url( 'assets/images/optinmonster.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => \esc_html__( 'OptinMonster', 'file-upload-types' ),
-				'desc' => \esc_html__( 'Turn your traffic into leads, conversions and sales.', 'file-upload-types' ),
+				'name' => esc_html__( 'OptinMonster', 'file-upload-types' ),
+				'desc' => esc_html__( 'Turn your traffic into leads, conversions and sales.', 'file-upload-types' ),
 				'url'  => 'https://optinmonster.com',
 			],
 			'sp'  => [
 				'icon' => plugins_url( 'assets/images/seedprod.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => \esc_html__( 'SeedProd', 'file-upload-types' ),
-				'desc' => \esc_html__( 'Create beautiful coming soon pages, skyrocket your email list.', 'file-upload-types' ),
+				'name' => esc_html__( 'SeedProd', 'file-upload-types' ),
+				'desc' => esc_html__( 'Create beautiful coming soon pages, skyrocket your email list.', 'file-upload-types' ),
 				'url'  => 'https://seedprod.com',
 			],
 		];
@@ -640,7 +649,7 @@ class Settings {
 
 		global $wp_filter;
 
-		if ( ! isset( $_REQUEST['page'] ) || self::SLUG !== $_REQUEST['page'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! isset( $_REQUEST['page'] ) || $_REQUEST['page'] !== self::SLUG ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 

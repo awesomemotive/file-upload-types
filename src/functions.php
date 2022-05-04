@@ -30,22 +30,13 @@ if ( defined( 'ABSPATH' ) ) {
 	 */
 	function fut_format_raw_custom_types( $file_data_raw ) {
 
-		$file_data   = [];
 		$description = isset( $file_data_raw['desc'] ) ? array_map( 'sanitize_text_field', $file_data_raw['desc'] ) : [];
 		$mime_types  = isset( $file_data_raw['mime'] ) ? array_map( 'sanitize_text_field', $file_data_raw['mime'] ) : [];
 		$extentions  = isset( $file_data_raw['ext'] ) ? array_map( 'sanitize_text_field', $file_data_raw['ext'] ) : [];
 
-		foreach ( $description as $key => $desc ) {
-			$file_data[ $key ]['desc'] = $desc;
-		}
-
-		foreach ( $mime_types as $key => $mime_type ) {
-			$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : array_filter( array_map( 'trim', explode( ',', $mime_type ) ) );
-		}
-
-		foreach ( $extentions as $key => $extention ) {
-			$file_data[ $key ]['ext'] = '.' . strtolower( ltrim( $extention, '.' ) );
-		}
+		$file_data = _update_file_data_description( [], $description );
+		$file_data = _update_file_data_mime( $file_data, $mime_types );
+		$file_data = _update_file_data_extensions( $file_data, $extentions );
 
 		return $file_data;
 	}
@@ -93,13 +84,94 @@ if ( defined( 'ABSPATH' ) ) {
 	/**
 	 * Notice about the deprecated filter, if it's in use.
 	 *
-	 * @since 1.2.0 Deprecate the filter that is no longer needed.
+	 * @since 1.2.0
 	 */
 	add_action(
 		'init',
 		static function () {
 
+			/**
+			 * Filter value for the notice about the deprecated filter.
+			 *
+			 * @deprecated 1.2.0
+			 *
+			 * @since 1.2.0
+			 *
+			 * @param array  $deprecated  Boolean value about deprecate status.
+			 * @param string $version     Version number.
+			 * @param mixed  $replacement Replacement.
+			 * @param string $message     Message.
+			 */
 			apply_filters_deprecated( 'file_upload_types_strict_check', [ true ], '1.2.0', null, 'Please add multiple MIME types for the extension whereever possible!' );
 		}
 	);
+
+	/**
+	 * Update file data description.
+	 *
+	 * Use internally only.
+	 *
+	 * @see fut_format_raw_custom_types
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $file_data   File data.
+	 * @param array $description Descriptions.
+	 *
+	 * @return array
+	 */
+	function _update_file_data_description( $file_data = [], $description = [] ) {
+
+		foreach ( $description as $key => $desc ) {
+			$file_data[ $key ]['desc'] = $desc;
+		}
+
+		return $file_data;
+	}
+
+	/**
+	 * Update file data mime types.
+	 *
+	 * Use internally only.
+	 *
+	 * @see fut_format_raw_custom_types
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $file_data File data.
+	 * @param array $mime      Mime types.
+	 *
+	 * @return array
+	 */
+	function _update_file_data_mime( $file_data = [], $mime = [] ) {
+
+		foreach ( $mime as $key => $mime_type ) {
+			$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : array_filter( array_map( 'trim', explode( ',', $mime_type ) ) );
+		}
+
+		return $file_data;
+	}
+
+	/**
+	 * Update file data extensions.
+	 *
+	 * Use internally only.
+	 *
+	 * @see fut_format_raw_custom_types
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $file_data  File data.
+	 * @param array $extensions Extensions.
+	 *
+	 * @return array
+	 */
+	function _update_file_data_extensions( $file_data = [], $extensions = [] ) {
+
+		foreach ( $extensions as $key => $extension ) {
+			$file_data[ $key ]['ext'] = '.' . strtolower( ltrim( $extension, '.' ) );
+		}
+
+		return $file_data;
+	}
 }//end if

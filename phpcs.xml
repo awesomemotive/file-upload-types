@@ -27,7 +27,7 @@
 
 	<rule ref="WPForms.PHP.ValidateDomain">
 		<properties>
-			<property name="file-upload-types" value="src"/>
+			<property name="file-upload-types" value="/src"/>
 		</properties>
 	</rule>
 

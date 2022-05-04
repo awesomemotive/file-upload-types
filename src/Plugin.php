@@ -44,6 +44,19 @@ final class Plugin {
 	 */
 	public function init() {
 
+		return $this->hooks();
+
+	}
+
+	/**
+	 * Register hooks.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return void
+	 */
+	private function hooks() {
+
 		add_action( 'init', [ $this, 'load_plugin_textdomain' ] );
 		add_action( 'init', [ $this, 'register_admin_area' ] );
 		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), [ $this, 'plugin_action_links' ] );
@@ -69,6 +82,7 @@ final class Plugin {
 	public function register_admin_area() {
 
 		$settings = new Settings();
+
 		$settings->init();
 	}
 
@@ -84,7 +98,9 @@ final class Plugin {
 	public function plugin_action_links( $actions ) {
 
 		$new_actions = [
+			// phpcs:disable WPForms.PHP.ValidateDomain.InvalidDomain
 			'settings' => '<a href="' . admin_url( 'options-general.php?page=file-upload-types' ) . '" aria-label="' . esc_attr__( 'File Upload Types Settings', 'file-upload-types' ) . '">' . esc_html__( 'Settings', 'file-upload-types' ) . '</a>',
+			// phpcs:enable WPForms.PHP.ValidateDomain.InvalidDomain
 		];
 
 		return array_merge( $new_actions, $actions );
@@ -103,17 +119,7 @@ final class Plugin {
 		$enabled_types    = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
 		$custom_types_raw = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
 		$available_types  = fut_get_available_file_types();
-		$return_types     = [];
-
-		foreach ( $available_types as $type ) {
-			if ( in_array( $type['ext'], $enabled_types, true ) ) {
-
-				$ext = trim( $type['ext'], '.' );
-				$ext = str_replace( ',', '|', $ext );
-
-				$return_types[ $ext ] = $type['mime'];
-			}
-		}
+		$return_types     = $this->add_available_types( [], $available_types, $enabled_types );
 
 		foreach ( $custom_types_raw as $type ) {
 			if ( empty( $type['ext'] ) || empty( $type['mime'] ) ) {
@@ -124,6 +130,32 @@ final class Plugin {
 			$ext = str_replace( ',', '|', $ext );
 
 			$return_types[ $ext ] = $type['mime'];
+		}
+
+		return $return_types;
+	}
+
+	/**
+	 * Add available types to return types.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $return_types    Return types.
+	 * @param array $available_types Available types.
+	 * @param array $enabled_types   Enabled types.
+	 *
+	 * @return array
+	 */
+	private function add_available_types( $return_types, $available_types, $enabled_types ) {
+
+		foreach ( $available_types as $type ) {
+			if ( in_array( $type['ext'], $enabled_types, true ) ) {
+
+				$ext = trim( $type['ext'], '.' );
+				$ext = str_replace( ',', '|', $ext );
+
+				$return_types[ $ext ] = $type['mime'];
+			}
 		}
 
 		return $return_types;
@@ -162,9 +194,9 @@ final class Plugin {
 	 * @param string $file      Full path to the file.
 	 * @param string $filename  The name of the file (may differ from $file due to $file being in a tmp directory).
 	 *
-	 * @return  array
+	 * @return array
 	 */
-	public function real_file_type( $file_data, $file, $filename ) {
+	public function real_file_type( $file_data, $file, $filename ) { // phpcs:disable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
 		$extension     = pathinfo( $filename, PATHINFO_EXTENSION );
 		$enabled_types = $this->enabled_types();
@@ -215,5 +247,6 @@ final class Plugin {
 		}//end if
 
 		return $file_data;
+		// phpcs:enable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 	}
 }

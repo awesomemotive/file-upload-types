@@ -30,10 +30,10 @@ if ( defined( 'ABSPATH' ) ) {
 	 */
 	function fut_format_raw_custom_types( $file_data_raw ) {
 
-		$file_data   = array();
-		$description = isset( $file_data_raw['desc'] ) ? array_map( 'sanitize_text_field', $file_data_raw['desc'] ) : array();
-		$mime_types  = isset( $file_data_raw['mime'] ) ? array_map( 'sanitize_text_field', $file_data_raw['mime'] ) : array();
-		$extentions  = isset( $file_data_raw['ext'] ) ? array_map( 'sanitize_text_field', $file_data_raw['ext'] ) : array();
+		$file_data   = [];
+		$description = isset( $file_data_raw['desc'] ) ? array_map( 'sanitize_text_field', $file_data_raw['desc'] ) : [];
+		$mime_types  = isset( $file_data_raw['mime'] ) ? array_map( 'sanitize_text_field', $file_data_raw['mime'] ) : [];
+		$extentions  = isset( $file_data_raw['ext'] ) ? array_map( 'sanitize_text_field', $file_data_raw['ext'] ) : [];
 
 		foreach ( $description as $key => $desc ) {
 			$file_data[ $key ]['desc'] = $desc;
@@ -63,9 +63,9 @@ if ( defined( 'ABSPATH' ) ) {
 	 */
 	function fut_format_multiple_file_types( $custom_types ) {
 
-		$result   = array();
-		$ext_mime = array();
-		$ext_desc = array();
+		$result   = [];
+		$ext_mime = [];
+		$ext_desc = [];
 
 		foreach ( $custom_types as $types ) {
 
@@ -80,11 +80,11 @@ if ( defined( 'ABSPATH' ) ) {
 		}
 
 		foreach ( $ext_mime as $ext => $mime ) {
-			$result[] = array(
+			$result[] = [
 				'desc' => $ext_desc[ $ext ],
 				'mime' => $mime,
 				'ext'  => $ext,
-			);
+			];
 		}
 
 		return $result;
@@ -99,7 +99,7 @@ if ( defined( 'ABSPATH' ) ) {
 		'init',
 		static function () {
 
-			apply_filters_deprecated( 'file_upload_types_strict_check', array( true ), '1.2.0', null, 'Please add multiple MIME types for the extension whereever possible!' );
+			apply_filters_deprecated( 'file_upload_types_strict_check', [ true ], '1.2.0', null, 'Please add multiple MIME types for the extension whereever possible!' );
 		}
 	);
-}
+}//end if

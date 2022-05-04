@@ -25,6 +25,18 @@ class Settings {
 	 */
 	public function init() {
 
+		return $this->hooks();
+	}
+
+	/**
+	 * Register hooks.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return void
+	 */
+	private function hooks() {
+
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 		add_action( 'in_admin_header', [ $this, 'display_admin_header' ], 100 );
 		add_action( 'admin_menu', [ $this, 'add_settings_page' ] );
@@ -47,7 +59,7 @@ class Settings {
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
-		return 'settings_page_file-upload-types' === $screen_id;
+		return $screen_id === 'settings_page_file-upload-types';
 	}
 
 	/**

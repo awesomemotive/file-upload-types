@@ -98,9 +98,7 @@ final class Plugin {
 	public function plugin_action_links( $actions ) {
 
 		$new_actions = [
-			// phpcs:disable WPForms.PHP.ValidateDomain.InvalidDomain
 			'settings' => '<a href="' . admin_url( 'options-general.php?page=file-upload-types' ) . '" aria-label="' . esc_attr__( 'File Upload Types Settings', 'file-upload-types' ) . '">' . esc_html__( 'Settings', 'file-upload-types' ) . '</a>',
-			// phpcs:enable WPForms.PHP.ValidateDomain.InvalidDomain
 		];
 
 		return array_merge( $new_actions, $actions );

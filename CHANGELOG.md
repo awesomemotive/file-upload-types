@@ -1,6 +1,18 @@
 # Changelog
-
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
+
+## [UNRELEASED] - 2022-XX-XX
+### IMPORTANT
+- Support for WordPress 5.1 has been discontinued. If you are running WordPress 5.1, you MUST upgrade WordPress before installing File Upload Types 1.3.0. Failure to do that will disable File Upload Types core functionality.
+
+### Added
+- 
+
+### Changed
+- 
+
+### Fixed
+- 
 
 ## [1.2.2] - 2021-06-17
 * Fix - PHP notices when invalid files are uploaded.

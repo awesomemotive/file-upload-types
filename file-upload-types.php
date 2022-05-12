@@ -47,9 +47,7 @@ if ( PHP_VERSION_ID < 50600 ) {
 		}
 
 		echo '<div class="notice notice-error"><p>';
-		// phpcs:disable WPForms.PHP.ValidateDomain.InvalidDomain
 		echo esc_html__( 'The File Upload Types plugin has been deactivated. Your site is running an outdated version of PHP that is no longer supported and is not compatible with the File Upload Types plugin.', 'file-upload-types' );
-		// phpcs:enable WPForms.PHP.ValidateDomain.InvalidDomain
 		echo '</p></div>';
 
 		// In case this is on plugin activation.

@@ -18,7 +18,7 @@ final class Plugin {
 	 *
 	 * @var null|Plugin
 	 */
-	protected static $instance = null;
+	protected static $instance;
 
 	/**
 	 * Main Plugin Instance.
@@ -44,16 +44,13 @@ final class Plugin {
 	 */
 	public function init() {
 
-		return $this->hooks();
-
+		$this->hooks();
 	}
 
 	/**
 	 * Register hooks.
 	 *
 	 * @since {VERSION}
-	 *
-	 * @return void
 	 */
 	private function hooks() {
 
@@ -81,9 +78,7 @@ final class Plugin {
 	 */
 	public function register_admin_area() {
 
-		$settings = new Settings();
-
-		$settings->init();
+		( new Settings() )->init();
 	}
 
 	/**
@@ -91,14 +86,22 @@ final class Plugin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $actions Plugin Action links.
+	 * @param array  $actions     Plugin Action links.
+	 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
+	 * @param array  $plugin_data An array of plugin data. See `get_plugin_data()`.
+	 * @param string $context     The plugin context.
 	 *
 	 * @return array
 	 */
-	public function plugin_action_links( $actions ) {
+	public function plugin_action_links( $actions, $plugin_file, $plugin_data, $context ) {
 
 		$new_actions = [
-			'settings' => '<a href="' . admin_url( 'options-general.php?page=file-upload-types' ) . '" aria-label="' . esc_attr__( 'File Upload Types Settings', 'file-upload-types' ) . '">' . esc_html__( 'Settings', 'file-upload-types' ) . '</a>',
+			'settings' => sprintf(
+				'<a href="%s" aria-label="%s">%s</a>',
+				esc_url( admin_url( 'options-general.php?page=file-upload-types' ) ),
+				esc_attr__( 'File Upload Types Settings', 'file-upload-types' ),
+				esc_html__( 'Settings', 'file-upload-types' )
+			),
 		];
 
 		return array_merge( $new_actions, $actions );

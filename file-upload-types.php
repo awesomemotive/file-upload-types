@@ -105,7 +105,7 @@ if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' ) ) {
  * Plugin constants.
  */
 define( 'FILE_UPLOAD_TYPES_PLUGIN_FILE', __FILE__ );
-define( 'FILE_UPLOAD_TYPES_PLUGIN_PATH', dirname( __FILE__ ) );
+define( 'FILE_UPLOAD_TYPES_PLUGIN_PATH', __DIR__ );
 define( 'FILE_UPLOAD_TYPES_VERSION', '1.2.2' );
 
 require_once __DIR__ . '/vendor/autoload.php';

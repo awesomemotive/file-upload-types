@@ -11,8 +11,8 @@
  * Domain Path: /languages/
  */
 
-defined( 'ABSPATH' ) || exit;
 // Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Deactivate the plugin.
@@ -25,8 +25,8 @@ function file_upload_types_deactivate() {
 }
 
 /**
- * The plugin requires PHP 5.6.0+.
- * It will self-deactivate on older PHP versions ad will notify an admin.
+ * The plugin requires PHP version 5.6+.
+ * It will self-deactivate on older PHP versions and will notify an admin.
  */
 if ( PHP_VERSION_ID < 50600 ) {
 
@@ -48,16 +48,23 @@ if ( PHP_VERSION_ID < 50600 ) {
 		echo esc_html__( 'The File Upload Types plugin has been deactivated. Your site is running an outdated version of PHP that is no longer supported and is not compatible with the File Upload Types plugin.', 'file-upload-types' );
 		echo '</p></div>';
 
-		if ( isset( $_GET['activate'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			unset( $_GET['activate'] ); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		// In case this is on plugin activation.
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 	add_action( 'admin_notices', 'file_upload_types_deactivate_msg' );
 
+	// Do not process the plugin code further.
 	return;
-}//end if
+}
 
-// We require WP version 5.2+ for the whole plugin to work.
+/**
+ * The plugin requires WP version 5.2+.
+ * It will self-deactivate on older WP versions and will notify an admin.
+ */
 if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' ) ) {
 
 	add_action( 'admin_init', 'file_upload_types_deactivate' );
@@ -75,12 +82,18 @@ if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' ) ) {
 		}
 
 		echo '<div class="notice notice-error"><p>';
-		echo esc_html__( 'The File Upload Types plugin has been deactivated. Your site is running an outdated version of WordPress that is no longer supported and is not compatible with the File Upload Types plugin.', 'file-upload-types' );
+		printf( /* translators: %s - WordPress version. */
+			esc_html__( 'The File Upload Types plugin has been deactivated because it requires WordPress %s or greater.', 'file-upload-types' ),
+			'5.2'
+		);
 		echo '</p></div>';
 
-		if ( isset( $_GET['activate'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			unset( $_GET['activate'] ); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		// In case this is on plugin activation.
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 	add_action( 'admin_notices', 'file_upload_types_deactivate_msg_old_wp' );
 

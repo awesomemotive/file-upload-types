@@ -94,9 +94,8 @@ add_action(
 		/**
 		 * Filter value for the notice about the deprecated filter.
 		 *
-		 * @deprecated 1.2.0
-		 *
 		 * @since 1.2.0
+		 * @deprecated 1.2.0
 		 *
 		 * @param array  $deprecated  Boolean value about deprecate status.
 		 * @param string $version     Version number.

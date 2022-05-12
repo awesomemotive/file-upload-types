@@ -206,7 +206,6 @@ class Settings {
 	public function display_types_table() { // phpcs:ignore Generic.Metrics.NestingLevel.MaxExceeded, Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		?>
-
 		<div class="before-table">
 			<div class="file-upload-types-heading">
 				<h3><?php esc_html_e( 'Add File Upload Types', 'file-upload-types' ); ?></h3>
@@ -232,7 +231,9 @@ class Settings {
 			</div>
 
 			<div class="search-box">
-				<input type="search" id="file-upload-types-search" placeholder="<?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>">
+				<label for="file-upload-types-search">
+					<input type="search" id="file-upload-types-search" placeholder="<?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>">
+				</label>
 			</div>
 		</div>
 
@@ -297,7 +298,8 @@ class Settings {
 				$enabled_types   = isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : [];
 				$wp_ext_mimes    = get_allowed_mime_types();
 
-				foreach ( $available_types as $key => $type ) {
+				foreach ( $available_types as $type ) {
+
 					if ( in_array( $type['ext'], $enabled_types, true ) ) {
 						continue;
 					}
@@ -325,7 +327,7 @@ class Settings {
 					echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
 					echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
 					echo '</tr>';
-				}//end foreach
+				}
 				?>
 			</table>
 		</div>
@@ -335,7 +337,7 @@ class Settings {
 				<tr class="section" style="overflow-y:hidden">
 					<td colspan="4" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
 						<div class="file-upload-types-info" style="font-size: 14px;">
-							<img src="<?php echo esc_url( plugins_url( 'assets/images/question-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
+							<img src="<?php echo esc_url( plugins_url( 'assets/images/question-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Help', 'file-upload-types' ); ?>">
 							<span class="tooltiptext"><?php echo esc_html__( 'Enter the description, MIME type and extension of the file. Multiple MIME types for a single extension can be separated by a comma.', 'file-upload-types' ); ?> </span>
 						</div>
 					</td>
@@ -347,8 +349,8 @@ class Settings {
 					<td width="15%"><input type="text" name="c_types[ext][]" class="extension"
 							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>"></td>
 					<td width="10%" class="icons">
-						<img class="file-upload-types-plus" src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
-						<img class="file-upload-types-minus" src="<?php echo esc_url( plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>">
+						<img class="file-upload-types-plus" src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Add File Type', 'file-upload-types' ); ?>">
+						<img class="file-upload-types-minus" src="<?php echo esc_url( plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Remove File Type', 'file-upload-types' ); ?>">
 					</td>
 				</tr>
 			</table>
@@ -364,7 +366,6 @@ class Settings {
 	public function display_am_products() {
 
 		?>
-
 		<h3><?php esc_html_e( 'You might like our other products', 'file-upload-types' ); ?></h3>
 
 		<p>
@@ -387,16 +388,16 @@ class Settings {
 
 		<div class="file-upload-types-recommended-plugins">
 			<div class="plugins-container">
-				<?php foreach ( $this->get_am_plugins() as $key => $plugin ) : ?>
+				<?php foreach ( $this->get_am_plugins() as $plugin ) : ?>
 					<div class="plugin-container">
 						<div class="plugin-item">
 							<div class="details file-upload-types-clear">
 								<img src="<?php echo esc_url( $plugin['icon'] ); ?>" alt="">
 								<h5 class="plugin-name">
-									<?php echo $plugin['name']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+									<?php echo esc_html( $plugin['name'] ); ?>
 								</h5>
 								<p class="plugin-desc">
-									<?php echo $plugin['desc']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+									<?php echo esc_html( $plugin['desc'] ); ?>
 								</p>
 								<p>
 									<?php
@@ -404,20 +405,20 @@ class Settings {
 										wp_kses( /* translators: %2$s - Plugin Name. */
 											'<strong><a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">' . __( 'Get %2$s', 'file-upload-types' ) . '</a></strong>',
 											[
-												'strong' => true,
+												'strong' => [],
 												'img'    => [
-													'src' => true,
+													'src' => [],
 												],
 												'a'      => [
-													'alt'  => true,
-													'href' => true,
-													'class' => true,
-													'target' => true,
+													'alt'  => [],
+													'href' => [],
+													'class' => [],
+													'target' => [],
 												],
 											]
 										),
 										esc_url( $plugin['url'] ),
-										$plugin['name'] // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+										esc_html( $plugin['name'] )
 									);
 									?>
 								</p>
@@ -583,26 +584,26 @@ class Settings {
 		return [
 			'wpf' => [
 				'icon' => plugins_url( 'assets/images/wpforms.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => esc_html__( 'WPForms', 'file-upload-types' ),
-				'desc' => esc_html__( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
+				'name' => __( 'WPForms', 'file-upload-types' ),
+				'desc' => __( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
 				'url'  => 'https://wpforms.com',
 			],
 			'mi'  => [
 				'icon' => plugins_url( 'assets/images/monsterinsights.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => esc_html__( 'MonsterInsights', 'file-upload-types' ),
-				'desc' => esc_html__( 'Effortlessly connect your WP site with Google Analytics.', 'file-upload-types' ),
+				'name' => __( 'MonsterInsights', 'file-upload-types' ),
+				'desc' => __( 'Effortlessly connect your WP site with Google Analytics.', 'file-upload-types' ),
 				'url'  => 'https://www.monsterinsights.com',
 			],
 			'om'  => [
 				'icon' => plugins_url( 'assets/images/optinmonster.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => esc_html__( 'OptinMonster', 'file-upload-types' ),
-				'desc' => esc_html__( 'Turn your traffic into leads, conversions and sales.', 'file-upload-types' ),
+				'name' => __( 'OptinMonster', 'file-upload-types' ),
+				'desc' => __( 'Turn your traffic into leads, conversions and sales.', 'file-upload-types' ),
 				'url'  => 'https://optinmonster.com',
 			],
 			'sp'  => [
 				'icon' => plugins_url( 'assets/images/seedprod.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => esc_html__( 'SeedProd', 'file-upload-types' ),
-				'desc' => esc_html__( 'Create beautiful coming soon pages, skyrocket your email list.', 'file-upload-types' ),
+				'name' => __( 'SeedProd', 'file-upload-types' ),
+				'desc' => __( 'Create beautiful coming soon pages, skyrocket your email list.', 'file-upload-types' ),
 				'url'  => 'https://seedprod.com',
 			],
 		];

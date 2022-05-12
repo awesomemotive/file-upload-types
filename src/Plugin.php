@@ -56,9 +56,9 @@ final class Plugin {
 
 		add_action( 'init', [ $this, 'load_plugin_textdomain' ] );
 		add_action( 'init', [ $this, 'register_admin_area' ] );
-		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), [ $this, 'plugin_action_links' ] );
+		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), [ $this, 'plugin_action_links' ], 10, 4 );
 		add_filter( 'upload_mimes', [ $this, 'allowed_types' ] );
-		add_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 3 );
+		add_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 5 );
 	}
 
 	/**
@@ -123,6 +123,7 @@ final class Plugin {
 		$return_types     = $this->add_available_types( [], $available_types, $enabled_types );
 
 		foreach ( $custom_types_raw as $type ) {
+
 			if ( empty( $type['ext'] ) || empty( $type['mime'] ) ) {
 				continue;
 			}
@@ -177,7 +178,8 @@ final class Plugin {
 
 		// Only add first mime type to the allowed list. Aliases will be dynamically added when required.
 		$enabled_types = array_map(
-			function( $enabled_types ) {
+			static function( $enabled_types ) {
+
 				return sanitize_mime_type( ! is_array( $enabled_types ) ? $enabled_types : $enabled_types[0] );
 			},
 			$this->enabled_types()
@@ -186,18 +188,21 @@ final class Plugin {
 		return array_replace( $mime_types, $enabled_types );
 	}
 
+	// phpcs:disable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 	/**
 	 * Filters the "real" file type of the given file.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array  $file_data File data array containing 'ext', 'type', and 'proper_filename' keys.
-	 * @param string $file      Full path to the file.
-	 * @param string $filename  The name of the file (may differ from $file due to $file being in a tmp directory).
+	 * @param array       $file_data File data array containing 'ext', 'type', and 'proper_filename' keys.
+	 * @param string      $file      Full path to the file.
+	 * @param string      $filename  The name of the file (may differ from $file due to $file being in a tmp directory).
+	 * @param array       $mimes     Key is the file extension with value as the mime type.
+	 * @param string|bool $real_mime The actual mime type or false if the type cannot be determined.
 	 *
 	 * @return array
 	 */
-	public function real_file_type( $file_data, $file, $filename ) { // phpcs:disable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
+	public function real_file_type( $file_data, $file, $filename, $mimes, $real_mime ) {
 
 		$extension     = pathinfo( $filename, PATHINFO_EXTENSION );
 		$enabled_types = $this->enabled_types();
@@ -220,7 +225,7 @@ final class Plugin {
 			foreach ( $mimes as $mime ) {
 
 				// Remove filter to avoid infinite redirection.
-				remove_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 3 );
+				remove_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 5 );
 
 				$mime_filter = function( $mime_types ) use ( $mime, $extension ) {
 
@@ -239,15 +244,15 @@ final class Plugin {
 				remove_filter( 'upload_mimes', $mime_filter );
 
 				// Continue the process.
-				add_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 3 );
+				add_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 5 );
 
 				if ( ! empty( $file_data['ext'] ) || ! empty( $file_data['type'] ) ) {
 					return $file_data;
 				}
-			}//end foreach
-		}//end if
+			}
+		}
 
 		return $file_data;
-		// phpcs:enable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 	}
+	// phpcs:enable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 }

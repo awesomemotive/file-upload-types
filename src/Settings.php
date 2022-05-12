@@ -25,15 +25,13 @@ class Settings {
 	 */
 	public function init() {
 
-		return $this->hooks();
+		$this->hooks();
 	}
 
 	/**
 	 * Register hooks.
 	 *
 	 * @since {VERSION}
-	 *
-	 * @return void
 	 */
 	private function hooks() {
 
@@ -81,6 +79,7 @@ class Settings {
 			[],
 			FILE_UPLOAD_TYPES_VERSION
 		);
+
 		wp_enqueue_script(
 			'file-upload-types',
 			plugins_url( 'assets/js/script' . $suffix . '.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
@@ -89,6 +88,7 @@ class Settings {
 			true
 		);
 
+		// phpcs:ignore WPForms.PHP.ValidateDomain.InvalidDomain
 		$strings = [
 			'default_section' => esc_html__( 'Default section can not be deleted.', 'file-upload-types' ),
 		];
@@ -109,7 +109,7 @@ class Settings {
 
 		?>
 		<div id="file-upload-types-header">
-			<img src="<?php echo esc_url( plugins_url( 'assets/images/logo.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?> " alt="<?php esc_html_e( 'File Upload Types', 'file-upload-types' ); ?>" class="file-upload-types-header-logo" />
+			<img src="<?php echo esc_url( plugins_url( 'assets/images/logo.png', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?> " alt="<?php esc_attr_e( 'File Upload Types', 'file-upload-types' ); ?>" class="file-upload-types-header-logo">
 		</div>
 
 		<?php
@@ -138,7 +138,6 @@ class Settings {
 	 */
 	public function display() {
 
-		// Return if not file upload types screen.
 		if ( ! $this->is_admin_screen() ) {
 			return;
 		}
@@ -166,7 +165,7 @@ class Settings {
 				<?php
 				// phpcs:disable WPForms.PHP.ValidateHooks.InvalidHookName
 				/**
-				 * Action after nav bar on File Uplod Type plugin settings page.
+				 * Action after nav bar on File Upload Type plugin settings page.
 				 *
 				 * @since 1.2.0
 				 */
@@ -204,7 +203,7 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function display_types_table() { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	public function display_types_table() { // phpcs:ignore Generic.Metrics.NestingLevel.MaxExceeded, Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		?>
 
@@ -233,7 +232,7 @@ class Settings {
 			</div>
 
 			<div class="search-box">
-				<input type="search" id="file-upload-types-search" placeholder="<?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>" />
+				<input type="search" id="file-upload-types-search" placeholder="<?php esc_attr_e( 'Search File Types', 'file-upload-types' ); ?>">
 			</div>
 		</div>
 
@@ -266,7 +265,8 @@ class Settings {
 					</tr>
 
 					<?php
-					foreach ( $types as $key => $type ) {
+					foreach ( $types as $type ) {
+
 						if (
 							! in_array( $type['ext'], $enabled_types, true ) &&
 							! in_array( $type['ext'], array_column( $custom_types, 'ext' ), true )
@@ -393,10 +393,10 @@ class Settings {
 							<div class="details file-upload-types-clear">
 								<img src="<?php echo esc_url( $plugin['icon'] ); ?>" alt="">
 								<h5 class="plugin-name">
-									<?php echo $plugin['name']; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+									<?php echo $plugin['name']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</h5>
 								<p class="plugin-desc">
-									<?php echo $plugin['desc']; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+									<?php echo $plugin['desc']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</p>
 								<p>
 									<?php
@@ -417,7 +417,7 @@ class Settings {
 											]
 										),
 										esc_url( $plugin['url'] ),
-										$plugin['name'] //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+										$plugin['name'] // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 									);
 									?>
 								</p>
@@ -435,7 +435,7 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function save_settings() { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded, WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
+	public function save_settings() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded, WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks, Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		if ( ! isset( $_POST['file-upload-types-submit'] ) ) {
 			return;
@@ -453,13 +453,15 @@ class Settings {
 			update_option( 'file_upload_types_multiple_mimes', 'enabled' );
 		}
 
-		//phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-		$enabled_types = isset( $_POST['e_types'] ) ? array_map( 'sanitize_text_field', $_POST['e_types'] ) : [];
-		//phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-		$available_types  = isset( $_POST['a_types'] ) ? array_map( 'sanitize_text_field', $_POST['a_types'] ) : [];
-		$custom_types_raw = isset( $_POST['c_types'] ) ? $_POST['c_types'] : array(); //phpcs:ignore
-		$custom_types     = fut_format_raw_custom_types( $custom_types_raw );
-		$custom_types     = fut_format_multiple_file_types( $custom_types );
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+		$enabled_types   = isset( $_POST['e_types'] ) ? array_map( 'sanitize_text_field', $_POST['e_types'] ) : [];
+		$available_types = isset( $_POST['a_types'] ) ? array_map( 'sanitize_text_field', $_POST['a_types'] ) : [];
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$custom_types_raw = isset( $_POST['c_types'] ) ? $_POST['c_types'] : [];
+		// phpcs:enable WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+
+		$custom_types = fut_format_raw_custom_types( $custom_types_raw );
+		$custom_types = fut_format_multiple_file_types( $custom_types );
 
 		foreach ( $custom_types as $key => $type ) {
 
@@ -498,7 +500,7 @@ class Settings {
 			static function () {
 				?>
 				<div class="notice notice-success file-upload-types-notice is-dismissible">
-					<p><strong><?php echo esc_html__( 'Your settings have been saved.', 'file-upload-types' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'Your settings have been saved.', 'file-upload-types' ); ?></strong></p>
 				</div>
 				<?php
 			}
@@ -524,12 +526,12 @@ class Settings {
 					wp_kses( /* translators: %1$s - Same page; %2$s - Documentation link for multiple types support. */
 						__( 'File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility! <br/> <strong><a href="%1$s">Enable multiple MIME types support</a> | <a href="%2$s" target="_blank" rel="noopener noreferrer">Learn More</a></strong>', 'file-upload-types' ),
 						[
-							'br'     => true,
-							'strong' => true,
+							'br'     => [],
+							'strong' => [],
 							'a'      => [
-								'href'   => true,
-								'target' => true,
-								'rel'    => true,
+								'href'   => [],
+								'rel'    => [],
+								'target' => [],
 							],
 						]
 					),
@@ -543,11 +545,11 @@ class Settings {
 	}
 
 	/**
-	 * Enable mutliple mime types support for old installs.
+	 * Enable multiple mime types support for old installs.
 	 *
 	 * @since 1.2.0
 	 */
-	public function enable_multiple_mimes_support() { //phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
+	public function enable_multiple_mimes_support() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
 		if ( ! isset( $_GET['multiple_mimes'] ) || ( isset( $_GET['multiple_mimes'] ) && $_GET['multiple_mimes'] !== 'enabled' ) ) {
 			return;
@@ -562,7 +564,7 @@ class Settings {
 			static function () {
 				?>
 				<div class="notice notice-success file-upload-types-notice is-dismissible">
-					<p><strong><?php echo esc_html__( 'Support for multiple MIME types has been enabled.', 'file-upload-types' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'Support for multiple MIME types has been enabled.', 'file-upload-types' ); ?></strong></p>
 				</div>
 				<?php
 			}
@@ -624,18 +626,17 @@ class Settings {
 		$url = 'https://wordpress.org/support/plugin/file-upload-types/reviews/?filter=5#new-post';
 
 		return sprintf(
-			wp_kses( /* translators: %1$s - WP.org link; %2$s - same WP.org link. */
-				__( 'Please rate <strong>File Upload Types</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the File Upload Types team!', 'file-upload-types' ),
+			wp_kses( /* translators: %1$s - WP.org link. */
+				__( 'Please rate <strong>File Upload Types</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the File Upload Types team!', 'file-upload-types' ),
 				[
-					'strong' => true,
+					'strong' => [],
 					'a'      => [
-						'href'   => true,
-						'target' => true,
-						'rel'    => true,
+						'href'   => [],
+						'target' => [],
+						'rel'    => [],
 					],
 				]
 			),
-			$url,
 			$url
 		);
 	}
@@ -645,11 +646,12 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 */
-	public function remove_notices() { //phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	public function remove_notices() { // phpcs:ignore Generic.Metrics.NestingLevel.MaxExceeded
 
 		global $wp_filter;
 
-		if ( ! isset( $_REQUEST['page'] ) || $_REQUEST['page'] !== self::SLUG ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! isset( $_REQUEST['page'] ) || $_REQUEST['page'] !== self::SLUG ) {
 			return;
 		}
 

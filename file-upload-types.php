@@ -74,7 +74,7 @@ if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' ) ) {
 	 *
 	 * @since {VERSION}
 	 */
-	function file_upload_types_deactivate_msg_old_wp() {
+	function file_upload_types_wp_notice() {
 
 		// Display the message to admin only.
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -95,7 +95,7 @@ if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' ) ) {
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
-	add_action( 'admin_notices', 'file_upload_types_deactivate_msg_old_wp' );
+	add_action( 'admin_notices', 'file_upload_types_wp_notice' );
 
 	// Do not process the plugin code further.
 	return;

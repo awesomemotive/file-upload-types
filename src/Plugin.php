@@ -120,7 +120,7 @@ final class Plugin {
 		$enabled_types    = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
 		$custom_types_raw = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
 		$available_types  = fut_get_available_file_types();
-		$return_types     = $this->add_available_types( [], $available_types, $enabled_types );
+		$return_types     = $this->add_available_types( $available_types, $enabled_types );
 
 		foreach ( $custom_types_raw as $type ) {
 
@@ -142,13 +142,14 @@ final class Plugin {
 	 *
 	 * @since {VERSION}
 	 *
-	 * @param array $return_types    Return types.
 	 * @param array $available_types Available types.
 	 * @param array $enabled_types   Enabled types.
 	 *
 	 * @return array
 	 */
-	private function add_available_types( $return_types, $available_types, $enabled_types ) {
+	private function add_available_types( $available_types, $enabled_types ) {
+
+		$return_types = [];
 
 		foreach ( $available_types as $type ) {
 			if ( in_array( $type['ext'], $enabled_types, true ) ) {

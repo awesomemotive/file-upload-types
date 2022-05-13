@@ -35,9 +35,9 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 	$mime_types  = isset( $file_data_raw['mime'] ) ? array_map( 'sanitize_text_field', $file_data_raw['mime'] ) : [];
 	$extensions  = isset( $file_data_raw['ext'] ) ? array_map( 'sanitize_text_field', $file_data_raw['ext'] ) : [];
 
-	$file_data = _update_file_data_description( [], $description );
-	$file_data = _update_file_data_mime( $file_data, $mime_types );
-	$file_data = _update_file_data_extensions( $file_data, $extensions );
+	$file_data = _fut_update_file_data_description( [], $description );
+	$file_data = _fut_update_file_data_mime( $file_data, $mime_types );
+	$file_data = _fut_update_file_data_extensions( $file_data, $extensions );
 
 	return $file_data;
 }
@@ -106,71 +106,77 @@ add_action(
 	}
 );
 
-/**
- * Update file data description.
- *
- * Use internally only.
- *
- * @see fut_format_raw_custom_types
- *
- * @since {VERSION}
- *
- * @param array $file_data   File data.
- * @param array $description Descriptions.
- *
- * @return array
- */
-function _update_file_data_description( $file_data = [], $description = [] ) {
+if ( ! function_exists( '_fut_update_file_data_description' ) ) {
+	/**
+	 * Update file data description.
+	 *
+	 * Use internally only.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $file_data   File data.
+	 * @param array $description Descriptions.
+	 *
+	 * @return array
+	 * @see   fut_format_raw_custom_types
+	 *
+	 */
+	function _fut_update_file_data_description( $file_data = [], $description = [] ) {
 
-	foreach ( $description as $key => $desc ) {
-		$file_data[ $key ]['desc'] = $desc;
+		foreach ( $description as $key => $desc ) {
+			$file_data[ $key ]['desc'] = $desc;
+		}
+
+		return $file_data;
 	}
-
-	return $file_data;
 }
 
-/**
- * Update file data mime types.
- *
- * Use internally only.
- *
- * @see fut_format_raw_custom_types
- *
- * @since {VERSION}
- *
- * @param array $file_data File data.
- * @param array $mime      Mime types.
- *
- * @return array
- */
-function _update_file_data_mime( $file_data = [], $mime = [] ) {
+if ( ! function_exists( '_fut_update_file_data_mime' ) ) {
+	/**
+	 * Update file data mime types.
+	 *
+	 * Use internally only.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $file_data File data.
+	 * @param array $mime      Mime types.
+	 *
+	 * @return array
+	 * @see   fut_format_raw_custom_types
+	 *
+	 */
+	function _fut_update_file_data_mime( $file_data = [], $mime = [] ) {
 
-	foreach ( $mime as $key => $mime_type ) {
-		$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : array_filter( array_map( 'trim', explode( ',', $mime_type ) ) );
+		foreach ( $mime as $key => $mime_type ) {
+			$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : array_filter( array_map( 'trim', explode( ',', $mime_type ) ) );
+		}
+
+		return $file_data;
 	}
-
-	return $file_data;
 }
 
-/**
- * Update file data extensions.
- *
- * Use internally only.
- *
- * @see fut_format_raw_custom_types
- *
- * @since {VERSION}
- *
- * @param array $file_data  File data.
- * @param array $extensions Extensions.
- *
- * @return array
- */
-function _update_file_data_extensions( $file_data = [], $extensions = [] ) {
+if ( ! function_exists( '_fut_update_file_data_extensions')) {
+	/**
+	 * Update file data extensions.
+	 *
+	 * Use internally only.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $file_data  File data.
+	 * @param array $extensions Extensions.
+	 *
+	 * @return array
+	 * @see   fut_format_raw_custom_types
+	 *
+	 */
+	function _fut_update_file_data_extensions( $file_data = [], $extensions = [] ) {
 
-	foreach ( $extensions as $key => $extension ) {
-		$file_data[ $key ]['ext'] = '.' . strtolower( ltrim( $extension, '.' ) );
+		foreach ( $extensions as $key => $extension ) {
+			$file_data[ $key ]['ext'] = '.' . strtolower( ltrim( $extension, '.' ) );
+		}
+
+		return $file_data;
 	}
-
-	return $file_data;
 }

@@ -250,8 +250,8 @@ final class Plugin {
 				if ( ! empty( $file_data['ext'] ) || ! empty( $file_data['type'] ) ) {
 					return $file_data;
 				}
-			}
-		}
+			}//end foreach
+		}//end if
 
 		return $file_data;
 	}

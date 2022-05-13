@@ -41,7 +41,7 @@ class Settings {
 		add_action( 'admin_init', [ $this, 'save_settings' ] );
 		add_action( 'file_upload_types_settings_after_nav_bar', [ $this, 'display_multiple_mimes_support_notice' ] );
 		add_action( 'admin_init', [ $this, 'enable_multiple_mimes_support' ] );
-		add_filter( 'admin_footer_text', [ $this, 'get_admin_footer' ], 1, 2 );
+		add_filter( 'admin_footer_text', [ $this, 'get_admin_footer' ], 1 );
 		add_action( 'admin_print_scripts', [ $this, 'remove_notices' ] );
 	}
 
@@ -64,8 +64,10 @@ class Settings {
 	 * Enqueue all assets.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $hook_suffix The current admin page.
 	 */
-	public function enqueue_assets() {
+	public function enqueue_assets( $hook_suffix ) {
 
 		if ( ! $this->is_admin_screen() ) {
 			return;

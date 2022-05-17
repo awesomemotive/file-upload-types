@@ -11,6 +11,8 @@
  * Domain Path: /languages/
  */
 
+use FileUploadTypes\Plugin as PluginAlias;
+
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
@@ -45,7 +47,9 @@ if ( PHP_VERSION_ID < 50600 ) {
 		}
 
 		echo '<div class="notice notice-error"><p>';
+		// phpcs:disable WPForms.PHP.ValidateDomain.InvalidDomain
 		echo esc_html__( 'The File Upload Types plugin has been deactivated. Your site is running an outdated version of PHP that is no longer supported and is not compatible with the File Upload Types plugin.', 'file-upload-types' );
+		// phpcs:enable WPForms.PHP.ValidateDomain.InvalidDomain
 		echo '</p></div>';
 
 		// In case this is on plugin activation.
@@ -82,10 +86,12 @@ if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' ) ) {
 		}
 
 		echo '<div class="notice notice-error"><p>';
+		// phpcs:disable WPForms.PHP.ValidateDomain.InvalidDomain
 		printf( /* translators: %s - WordPress version. */
 			esc_html__( 'The File Upload Types plugin has been deactivated because it requires WordPress %s or greater.', 'file-upload-types' ),
 			'5.2'
 		);
+		// phpcs:enable WPForms.PHP.ValidateDomain.InvalidDomain
 		echo '</p></div>';
 
 		// In case this is on plugin activation.
@@ -102,10 +108,24 @@ if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' ) ) {
 }
 
 /**
- * Plugin constants.
+ * Plugin file.
+ *
+ * @since 1.0.0
  */
 define( 'FILE_UPLOAD_TYPES_PLUGIN_FILE', __FILE__ );
+
+/**
+ * Plugin path.
+ *
+ * @since 1.0.0
+ */
 define( 'FILE_UPLOAD_TYPES_PLUGIN_PATH', __DIR__ );
+
+/**
+ * Plugin version.
+ *
+ * @since {VERSION}
+ */
 define( 'FILE_UPLOAD_TYPES_VERSION', '1.2.2' );
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -115,11 +135,12 @@ require_once __DIR__ . '/vendor/autoload.php';
  *
  * @since 1.0.0
  *
- * @return \FileUploadTypes\Plugin
+ * @return PluginAlias
  */
 function file_upload_types() {
 
-	$instance = \FileUploadTypes\Plugin::get_instance();
+	$instance = PluginAlias::get_instance();
+
 	$instance->init();
 
 	return $instance;

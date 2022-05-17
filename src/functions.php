@@ -119,7 +119,9 @@ if ( ! function_exists( '_fut_update_file_data_description' ) ) {
 	 * @return array
 	 * @see   fut_format_raw_custom_types
 	 */
-	function _fut_update_file_data_description( $descriptions = [] ) {
+	function _fut_update_file_data_description( $descriptions ) {
+
+		$file_data = [];
 
 		foreach ( $descriptions as $key => $desc ) {
 			$file_data[ $key ]['desc'] = $desc;
@@ -143,7 +145,7 @@ if ( ! function_exists( '_fut_update_file_data_mime' ) ) {
 	 * @return array
 	 * @see   fut_format_raw_custom_types
 	 */
-	function _fut_update_file_data_mime( $file_data = [], $mime = [] ) {
+	function _fut_update_file_data_mime( $file_data, $mime ) {
 
 		foreach ( $mime as $key => $mime_type ) {
 			$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : array_filter( array_map( 'trim', explode( ',', $mime_type ) ) );
@@ -167,7 +169,7 @@ if ( ! function_exists( '_fut_update_file_data_extensions' ) ) {
 	 * @return array
 	 * @see   fut_format_raw_custom_types
 	 */
-	function _fut_update_file_data_extensions( $file_data = [], $extensions = [] ) {
+	function _fut_update_file_data_extensions( $file_data, $extensions ) {
 
 		foreach ( $extensions as $key => $extension ) {
 			$file_data[ $key ]['ext'] = '.' . strtolower( ltrim( $extension, '.' ) );

@@ -128,7 +128,7 @@ if ( defined( 'ABSPATH' ) ) {
 
 			return $file_data;
 		}
-	}//end if
+	}
 
 	if ( ! function_exists( '_fut_update_file_data_mime' ) ) {
 		/**
@@ -152,7 +152,7 @@ if ( defined( 'ABSPATH' ) ) {
 
 			return $file_data;
 		}
-	}//end if
+	}
 
 	if ( ! function_exists( '_fut_update_file_data_extensions' ) ) {
 		/**
@@ -176,5 +176,5 @@ if ( defined( 'ABSPATH' ) ) {
 
 			return $file_data;
 		}
-	}//end if
-}//end if
+	}
+}

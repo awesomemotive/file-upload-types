@@ -331,7 +331,7 @@ class Settings {
 					echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
 					echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
 					echo '</tr>';
-				}//end foreach
+				}
 				?>
 			</table>
 		</div>

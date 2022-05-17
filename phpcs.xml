@@ -44,8 +44,7 @@
 		</properties>
 	</rule>
 
-	<rule ref="Squiz.Commenting">
-		<exclude name="Squiz.Commenting.FileComment.Missing" />
-		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag" />
+	<rule ref="Squiz.Commenting.FunctionComment.EmptyThrows">
+		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
 </ruleset>

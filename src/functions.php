@@ -35,7 +35,7 @@ if ( defined( 'ABSPATH' ) ) {
 		$mime_types  = isset( $file_data_raw['mime'] ) ? array_map( 'sanitize_text_field', $file_data_raw['mime'] ) : [];
 		$extensions  = isset( $file_data_raw['ext'] ) ? array_map( 'sanitize_text_field', $file_data_raw['ext'] ) : [];
 
-		$file_data = _fut_update_file_data_description( [], $description );
+		$file_data = _fut_update_file_data_description( $description );
 		$file_data = _fut_update_file_data_mime( $file_data, $mime_types );
 		$file_data = _fut_update_file_data_extensions( $file_data, $extensions );
 
@@ -115,15 +115,14 @@ if ( defined( 'ABSPATH' ) ) {
 		 *
 		 * @since {VERSION}
 		 *
-		 * @param array $file_data   File data.
-		 * @param array $description Descriptions.
+		 * @param array $descriptions Descriptions.
 		 *
 		 * @return array
 		 * @see   fut_format_raw_custom_types
 		 */
-		function _fut_update_file_data_description( $file_data = [], $description = [] ) {
+		function _fut_update_file_data_description( $descriptions = [] ) {
 
-			foreach ( $description as $key => $desc ) {
+			foreach ( $descriptions as $key => $desc ) {
 				$file_data[ $key ]['desc'] = $desc;
 			}
 

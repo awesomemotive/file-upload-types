@@ -63,7 +63,7 @@ if ( PHP_VERSION_ID < 50600 ) {
 
 	// Do not process the plugin code further.
 	return;
-}
+}//end if
 
 /**
  * The plugin requires WP version 5.2+.
@@ -105,7 +105,7 @@ if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' ) ) {
 
 	// Do not process the plugin code further.
 	return;
-}
+}//end if
 
 /**
  * Plugin file.

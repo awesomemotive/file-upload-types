@@ -2,8 +2,6 @@
 
 namespace FileUploadTypes;
 
-defined( 'ABSPATH' ) || exit;
-
 /**
  * File Upload Types Settings.
  *

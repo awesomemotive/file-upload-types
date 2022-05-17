@@ -2,8 +2,6 @@
 
 namespace FileUploadTypes;
 
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Main Plugin Class.
  *

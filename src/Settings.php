@@ -121,8 +121,10 @@ class Settings {
 	 * Add File Upload Types submenu under Settings menu.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $context Menu context.
 	 */
-	public function add_settings_page() {
+	public function add_settings_page( $context ) {
 
 		add_options_page(
 			esc_html__( 'File Upload Types', 'file-upload-types' ),

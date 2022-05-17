@@ -16,7 +16,7 @@ final class Plugin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var null|Plugin
+	 * @var Plugin
 	 */
 	protected static $instance;
 

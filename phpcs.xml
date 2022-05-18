@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
-<ruleset name="CS">
+<ruleset name="File Upload Type Plugin">
 	<description>File Upload Types Coding Standards.</description>
+
+	<!-- What to scan -->
+	<file>.</file>
 
 	<exclude-pattern>vendor/*</exclude-pattern>
 	<exclude-pattern>node_modues/*</exclude-pattern>
@@ -18,6 +21,16 @@
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
 	</rule>
 
+	<!-- Rules: WPForms Coding Standards -->
+	<config name="multi_domains" value="true"/>
+	<rule ref="WPForms"/>
+
+	<rule ref="WPForms.PHP.ValidateDomain">
+		<properties>
+			<property name="file-upload-types" value="src"/>
+		</properties>
+	</rule>
+
 	<rule ref="Generic.Metrics.CyclomaticComplexity">
 		<properties>
 			<property name="complexity" value="5"/>
@@ -31,8 +44,7 @@
 		</properties>
 	</rule>
 
-	<rule ref="Squiz.Commenting">
-		<exclude name="Squiz.Commenting.FileComment.Missing" />
-		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag" />
+	<rule ref="Squiz.Commenting.FunctionComment.EmptyThrows">
+		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
 </ruleset>

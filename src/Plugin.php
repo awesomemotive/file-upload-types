@@ -2,8 +2,6 @@
 
 namespace FileUploadTypes;
 
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Main Plugin Class.
  *
@@ -16,9 +14,9 @@ final class Plugin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var null|Plugin
+	 * @var Plugin
 	 */
-	protected static $instance = null;
+	protected static $instance;
 
 	/**
 	 * Main Plugin Instance.
@@ -44,11 +42,21 @@ final class Plugin {
 	 */
 	public function init() {
 
-		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-		add_action( 'init', array( $this, 'register_admin_area' ) );
-		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
-		add_filter( 'upload_mimes', array( $this, 'allowed_types' ) );
-		add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 999, 3 );
+		$this->hooks();
+	}
+
+	/**
+	 * Register hooks.
+	 *
+	 * @since {VERSION}
+	 */
+	private function hooks() {
+
+		add_action( 'init', [ $this, 'load_plugin_textdomain' ] );
+		add_action( 'init', [ $this, 'register_admin_area' ] );
+		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), [ $this, 'plugin_action_links' ], 10, 4 );
+		add_filter( 'upload_mimes', [ $this, 'allowed_types' ] );
+		add_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 5 );
 	}
 
 	/**
@@ -68,8 +76,7 @@ final class Plugin {
 	 */
 	public function register_admin_area() {
 
-		$settings = new Settings();
-		$settings->init();
+		( new Settings() )->init();
 	}
 
 	/**
@@ -77,15 +84,23 @@ final class Plugin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $actions Plugin Action links.
+	 * @param array  $actions     Plugin Action links.
+	 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
+	 * @param array  $plugin_data An array of plugin data. See `get_plugin_data()`.
+	 * @param string $context     The plugin context.
 	 *
 	 * @return array
 	 */
-	public function plugin_action_links( $actions ) {
+	public function plugin_action_links( $actions, $plugin_file, $plugin_data, $context ) {
 
-		$new_actions = array(
-			'settings' => '<a href="' . admin_url( 'options-general.php?page=file-upload-types' ) . '" aria-label="' . esc_attr__( 'File Upload Types Settings', 'file-upload-types' ) . '">' . esc_html__( 'Settings', 'file-upload-types' ) . '</a>',
-		);
+		$new_actions = [
+			'settings' => sprintf(
+				'<a href="%s" aria-label="%s">%s</a>',
+				esc_url( admin_url( 'options-general.php?page=file-upload-types' ) ),
+				esc_attr__( 'File Upload Types Settings', 'file-upload-types' ),
+				esc_html__( 'Settings', 'file-upload-types' )
+			),
+		];
 
 		return array_merge( $new_actions, $actions );
 	}
@@ -99,11 +114,40 @@ final class Plugin {
 	 */
 	public function enabled_types() {
 
-		$stored_types     = get_option( 'file_upload_types', array() );
-		$enabled_types    = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : array();
-		$custom_types_raw = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : array();
+		$stored_types     = get_option( 'file_upload_types', [] );
+		$enabled_types    = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
+		$custom_types_raw = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
 		$available_types  = fut_get_available_file_types();
-		$return_types     = array();
+		$return_types     = $this->add_available_types( $available_types, $enabled_types );
+
+		foreach ( $custom_types_raw as $type ) {
+
+			if ( empty( $type['ext'] ) || empty( $type['mime'] ) ) {
+				continue;
+			}
+
+			$ext = trim( $type['ext'], '.' );
+			$ext = str_replace( ',', '|', $ext );
+
+			$return_types[ $ext ] = $type['mime'];
+		}
+
+		return $return_types;
+	}
+
+	/**
+	 * Add available types to return types.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $available_types Available types.
+	 * @param array $enabled_types   Enabled types.
+	 *
+	 * @return array
+	 */
+	private function add_available_types( $available_types, $enabled_types ) {
+
+		$return_types = [];
 
 		foreach ( $available_types as $type ) {
 			if ( in_array( $type['ext'], $enabled_types, true ) ) {
@@ -113,17 +157,6 @@ final class Plugin {
 
 				$return_types[ $ext ] = $type['mime'];
 			}
-		}
-
-		foreach ( $custom_types_raw as $type ) {
-			if ( empty( $type['ext'] ) || empty( $type['mime'] ) ) {
-				continue;
-			}
-
-			$ext = trim( $type['ext'], '.' );
-			$ext = str_replace( ',', '|', $ext );
-
-			$return_types[ $ext ] = $type['mime'];
 		}
 
 		return $return_types;
@@ -144,7 +177,8 @@ final class Plugin {
 
 		// Only add first mime type to the allowed list. Aliases will be dynamically added when required.
 		$enabled_types = array_map(
-			function( $enabled_types ) {
+			static function( $enabled_types ) {
+
 				return sanitize_mime_type( ! is_array( $enabled_types ) ? $enabled_types : $enabled_types[0] );
 			},
 			$this->enabled_types()
@@ -153,18 +187,21 @@ final class Plugin {
 		return array_replace( $mime_types, $enabled_types );
 	}
 
+	// phpcs:disable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 	/**
 	 * Filters the "real" file type of the given file.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array  $file_data File data array containing 'ext', 'type', and 'proper_filename' keys.
-	 * @param string $file      Full path to the file.
-	 * @param string $filename  The name of the file (may differ from $file due to $file being in a tmp directory).
+	 * @param array       $file_data File data array containing 'ext', 'type', and 'proper_filename' keys.
+	 * @param string      $file      Full path to the file.
+	 * @param string      $filename  The name of the file (may differ from $file due to $file being in a tmp directory).
+	 * @param array       $mimes     Key is the file extension with value as the mime type.
+	 * @param string|bool $real_mime The actual mime type or false if the type cannot be determined.
 	 *
-	 * @return  array
+	 * @return array
 	 */
-	public function real_file_type( $file_data, $file, $filename ) {
+	public function real_file_type( $file_data, $file, $filename, $mimes, $real_mime ) {
 
 		$extension     = pathinfo( $filename, PATHINFO_EXTENSION );
 		$enabled_types = $this->enabled_types();
@@ -187,7 +224,7 @@ final class Plugin {
 			foreach ( $mimes as $mime ) {
 
 				// Remove filter to avoid infinite redirection.
-				remove_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 999, 3 );
+				remove_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 5 );
 
 				$mime_filter = function( $mime_types ) use ( $mime, $extension ) {
 
@@ -200,20 +237,21 @@ final class Plugin {
 				add_filter( 'upload_mimes', $mime_filter );
 
 				// Validate the new mime/extension pair.
-				$file_data = wp_check_filetype_and_ext( $file, $filename, array( $extension => $mime ) );
+				$file_data = wp_check_filetype_and_ext( $file, $filename, [ $extension => $mime ] );
 
 				// Remove filter to add another mime type.
 				remove_filter( 'upload_mimes', $mime_filter );
 
 				// Continue the process.
-				add_filter( 'wp_check_filetype_and_ext', array( $this, 'real_file_type' ), 999, 3 );
+				add_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 5 );
 
 				if ( ! empty( $file_data['ext'] ) || ! empty( $file_data['type'] ) ) {
 					return $file_data;
 				}
-			}//end foreach
-		}//end if
+			}
+		}
 
 		return $file_data;
 	}
+	// phpcs:enable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 }

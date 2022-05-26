@@ -54,7 +54,7 @@ class Native {
 
 				// @todo replace with some template shared with Settings class.
 				echo '<tr>';
-				echo '<td width="35%">' . wp_kses( $this->get_native_file_description() ) . '</td>';
+				echo '<td width="35%">' . wp_kses( $this->get_native_file_description(), [] ) . '</td>';
 				echo '<td width="40%">' . wp_kses( $this->get_mime_for_type( $type ), [ 'br' => [] ] ) . '</td>';
 				echo '<td width="15%">' . esc_html( $type ) . '</td>';
 				echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type ) . '" name="e_types[]"> </td>';
@@ -132,9 +132,13 @@ class Native {
 			$extensions = explode( '|', $extensions );
 
 			foreach ( $extensions as $extension ) {
-				$stored_types['native'][] = sprintf( '.%s', $extension );
+				$stored_types['native'][]  = sprintf( '.%s', $extension );
+				$stored_types['enabled'][] = sprintf( '.%s', $extension );
 			}
 		}
+
+		$stored_types['native']  = array_unique( $stored_types['native'] );
+		$stored_types['enabled'] = array_unique( $stored_types['enabled'] );
 
 		return update_option( 'file_upload_types', $stored_types );
 

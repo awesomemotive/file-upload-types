@@ -54,7 +54,7 @@ class Dispatcher {
 	private function get_migrations_list() {
 
 		return [
-			'add_native_file_upload_types' => [ ( new Native() ), 'register_native_file_upload_types' ], // @todo replace new Natvie
+			'add_native_file_upload_types' => [ ( new Native() ), 'register_native_file_upload_types' ], // @todo replace new Native
 		];
 	}
 }

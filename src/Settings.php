@@ -216,15 +216,16 @@ class Settings {
 				<p>
 					<?php
 					printf(
-						wp_kses( /* translators: %1$s - URL to WordPress Codex page, %2$s - anchor link. */
-							__( 'Below is the list of files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank">files WordPress allows by default</a>. <br>Don\'t see what you need? No problem, <a href="%2$s" id="add-custom-file-types" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
+						wp_kses( /* translators: %1$s - anchor link. */
+							__( 'Below is the list of files types that can be enabled. <br>Don\'t see what you need? No problem, <a href="%1$s" id="add-custom-file-types" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
 							[
-								'a' => [
+								'a'  => [
 									'href'   => [],
 									'target' => [],
 									'rel'    => [],
 									'id'     => [],
 								],
+								'br' => [],
 							]
 						),
 						'https://codex.wordpress.org/Uploading_Files#About_Uploading_Files_on_Dashboard',

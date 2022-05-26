@@ -13,6 +13,7 @@
 
 use FileUploadTypes\Plugin as PluginAlias;
 use FileUploadTypes\Restrict\Native;
+use FileUploadTypes\Migrations\Dispatcher;
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
@@ -144,7 +145,8 @@ function file_upload_types() {
 
 	$instance->init();
 
-	( new Native() )->init();
+	( new Native() )->hooks();
+	( new Dispatcher() )->hooks();
 
 	return $instance;
 }

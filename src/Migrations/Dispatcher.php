@@ -4,13 +4,32 @@ namespace FileUploadTypes\Migrations;
 
 use FileUploadTypes\Restrict\Native;
 
+/**
+ * Various logic dispatcher class.
+ *
+ * @since {VERSION}
+ */
 class Dispatcher {
 
-	public function init() {
+	/**
+	 * Register hooks.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return void
+	 */
+	public function hooks() {
 
 		add_action( 'init', [ $this, 'run_migrations' ] );
 	}
 
+	/**
+	 * Run all migration logics.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return void
+	 */
 	public function run_migrations() {
 
 		$already_run    = get_option( 'fut_migrations_done', [] );
@@ -25,9 +44,17 @@ class Dispatcher {
 		update_option( 'fut_migrations_done', $already_run );
 	}
 
+	/**
+	 * Get available migrations.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return array[]
+	 */
 	private function get_migrations_list() {
+
 		return [
-			'add_native_file_upload_types' => [ ( new Native() ), 'register_native_file_upload_types' ],
+			'add_native_file_upload_types' => [ ( new Native() ), 'register_native_file_upload_types' ], // @todo replace new Natvie
 		];
 	}
 }

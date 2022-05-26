@@ -2,6 +2,8 @@
 
 namespace FileUploadTypes;
 
+use FileUploadTypes\Restrict\Native;
+
 /**
  * File Upload Types Settings.
  *
@@ -254,11 +256,11 @@ class Settings {
 				<?php
 				$stored_types    = get_option( 'file_upload_types', [] );
 				$enabled_types   = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
+				$native_types    = isset( $stored_types['native'] ) ? (array) array_map( [ new Native(), 'get_upload_type' ], $stored_types['native'] ) : []; // @todo change all `new Native()` into filters.
 				$custom_types    = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
-				$native_types    = isset( $stored_types['native'] ) ? (array) $stored_types['native'] : [];
 				$available_types = fut_get_available_file_types();
 
-				$types      = array_merge( $custom_types, $available_types );
+				$types      = array_merge( $custom_types, $available_types, $native_types );
 				$temp_types = array_unique( array_column( $types, 'ext' ) );
 				$types      = array_intersect_key( $types, $temp_types );
 
@@ -499,6 +501,7 @@ class Settings {
 		$file_upload_types = [
 			'enabled' => $enabled_types,
 			'custom'  => array_merge( $custom_types, $stored_custom_types ),
+			'native'  => isset( $types['native'] ) ? $types['native'] : [],
 		];
 
 		update_option( 'file_upload_types', $file_upload_types );

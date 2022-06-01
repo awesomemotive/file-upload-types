@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file, formatted v
 - 
 
 ### Fixed
-- 
+- Microsoft Office MIME type didn't support properly.
 
 ## [1.2.2] - 2021-06-17
 * Fix - PHP notices when invalid files are uploaded.

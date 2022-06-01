@@ -75,12 +75,14 @@ class Allowed {
 	/**
 	 * Process each extension from pipeline separated extensions.
 	 *
+	 * If extension is not allowed, remove it from mime types.
+	 *
 	 * @since {VERSION}
 	 *
 	 * @param array $extensions Allowed extensions, exploded on | sign.
 	 * @param array $mime_types WordPress allowed mime types.
 	 *
-	 * @return array
+	 * @return array Filtered WordPress allowed mime types.
 	 */
 	private function process_multiple_extensions( $extensions, $mime_types ) {
 

@@ -12,9 +12,6 @@
  */
 
 use FileUploadTypes\Plugin;
-use FileUploadTypes\Allowed;
-use FileUploadTypes\Restrict\Native\Admin;
-use FileUploadTypes\Migrations\Dispatcher;
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
@@ -145,10 +142,6 @@ function file_upload_types() {
 	$instance = Plugin::get_instance();
 
 	$instance->init();
-
-	( new Admin() )->hooks();
-	( new Allowed() )->hooks();
-	( new Dispatcher() )->hooks();
 
 	return $instance;
 }

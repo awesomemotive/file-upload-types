@@ -2,6 +2,9 @@
 
 namespace FileUploadTypes;
 
+use FileUploadTypes\Restrict\Native\Admin;
+use FileUploadTypes\Migrations\Dispatcher;
+
 /**
  * Main Plugin Class.
  *
@@ -41,6 +44,10 @@ final class Plugin {
 	 * @since 1.1.0
 	 */
 	public function init() {
+
+		( new Admin() )->hooks();
+		( new Allowed() )->hooks();
+		( new Dispatcher() )->hooks();
 
 		$this->hooks();
 	}

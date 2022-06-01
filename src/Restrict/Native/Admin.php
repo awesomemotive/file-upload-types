@@ -1,6 +1,6 @@
 <?php
 
-namespace FileUploadTypes\Restrict;
+namespace FileUploadTypes\Restrict\Native;
 
 use FileUploadTypes\Plugin;
 
@@ -9,7 +9,7 @@ use FileUploadTypes\Plugin;
  *
  * @since {VERSION}
  */
-class Native {
+class Admin {
 
 	/**
 	 * Register hooks.

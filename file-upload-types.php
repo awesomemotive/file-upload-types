@@ -11,8 +11,9 @@
  * Domain Path: /languages/
  */
 
-use FileUploadTypes\Plugin as PluginAlias;
-use FileUploadTypes\Restrict\Native;
+use FileUploadTypes\Plugin;
+use FileUploadTypes\Allowed;
+use FileUploadTypes\Restrict\Native\Admin;
 use FileUploadTypes\Migrations\Dispatcher;
 
 // Exit if accessed directly.
@@ -137,15 +138,16 @@ require_once __DIR__ . '/vendor/autoload.php';
  *
  * @since 1.0.0
  *
- * @return PluginAlias
+ * @return Plugin
  */
 function file_upload_types() {
 
-	$instance = PluginAlias::get_instance();
+	$instance = Plugin::get_instance();
 
 	$instance->init();
 
-	( new Native() )->hooks();
+	( new Admin() )->hooks();
+	( new Allowed() )->hooks();
 	( new Dispatcher() )->hooks();
 
 	return $instance;

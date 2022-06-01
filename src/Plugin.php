@@ -55,7 +55,6 @@ final class Plugin {
 		add_action( 'init', [ $this, 'load_plugin_textdomain' ] );
 		add_action( 'init', [ $this, 'register_admin_area' ] );
 		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), [ $this, 'plugin_action_links' ], 10, 4 );
-		add_filter( 'upload_mimes', [ $this, 'allowed_types' ] );
 		add_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 5 );
 	}
 
@@ -168,6 +167,7 @@ final class Plugin {
 	 * @link https://developer.wordpress.org/reference/functions/wp_get_mime_types/
 	 *
 	 * @since 1.0.0
+	 * @deprecated {VERSION}
 	 *
 	 * @param array $mime_types List of all allowed in WordPress mime types.
 	 *
@@ -175,16 +175,9 @@ final class Plugin {
 	 */
 	public function allowed_types( $mime_types ) {
 
-		// Only add first mime type to the allowed list. Aliases will be dynamically added when required.
-		$enabled_types = array_map(
-			static function( $enabled_types ) {
+		_deprecated_function( __METHOD__, '{VERSION}', '\FileUploadTypes\Allowed::allowed_types' );
 
-				return sanitize_mime_type( ! is_array( $enabled_types ) ? $enabled_types : $enabled_types[0] );
-			},
-			$this->enabled_types()
-		);
-
-		return array_replace( $mime_types, $enabled_types );
+		return ( new Allowed() )->allowed_types( $mime_types ); // @todo replace Allowed() call.
 	}
 
 	// phpcs:disable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks

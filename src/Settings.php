@@ -2,7 +2,7 @@
 
 namespace FileUploadTypes;
 
-use FileUploadTypes\Restrict\Native;
+use FileUploadTypes\Restrict\Native\Admin;
 
 /**
  * File Upload Types Settings.
@@ -257,7 +257,7 @@ class Settings {
 				<?php
 				$stored_types    = get_option( 'file_upload_types', [] );
 				$enabled_types   = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
-				$native_types    = isset( $stored_types['native'] ) ? (array) array_map( [ new Native(), 'get_upload_type' ], $stored_types['native'] ) : []; // @todo change all `new Native()` into filters.
+				$native_types    = isset( $stored_types['native'] ) ? (array) array_map( [ new Admin(), 'get_upload_type' ], $stored_types['native'] ) : []; // @todo change all `new Native()` into filters.
 				$custom_types    = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
 				$available_types = fut_get_available_file_types();
 

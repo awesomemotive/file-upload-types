@@ -30,6 +30,7 @@ class Admin {
 	public function hooks() {
 
 		add_action( 'fileuploadtypes_settings_display_types_table_after_enabled_types', [ $this, 'table_rows_with_native_types' ] );
+		add_filter( 'fileuploadtypes_migrations_dispatcher_add_native_file_upload_types_callback', [ $this, 'dispatcher_get_migrations_list' ] );
 	}
 
 	// phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
@@ -114,6 +115,20 @@ class Admin {
 			'mime' => $this->get_mime_for_type( $ext ),
 			'desc' => $this->get_native_file_description(),
 		];
+	}
+
+	/**
+	 * Return callback function to run migration.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param mixed $callback Callback.
+	 *
+	 * @return array
+	 */
+	public function dispatcher_get_migrations_list( $callback ) {
+
+		return [ $this, 'register_native_file_upload_types' ];
 	}
 
 	/**

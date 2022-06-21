@@ -61,7 +61,6 @@ class Admin {
 					continue;
 				}
 
-				// @todo replace with some template shared with Settings class.
 				echo '<tr>';
 				echo '<td width="35%">' . wp_kses( $this->get_native_file_description(), [] ) . '</td>';
 				echo '<td width="40%">' . wp_kses( $this->get_mime_for_type( $type ), [ 'br' => [] ] ) . '</td>';

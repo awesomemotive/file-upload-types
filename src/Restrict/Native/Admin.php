@@ -174,7 +174,6 @@ class Admin {
 			add_filter( 'upload_mimes', [ Plugin::get_instance(), 'allowed_types' ] );
 		}
 
-
 		return self::$unfiltered_types;
 	}
 	// phpcs:enable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks

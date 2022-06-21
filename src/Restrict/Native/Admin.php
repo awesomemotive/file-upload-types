@@ -31,6 +31,7 @@ class Admin {
 
 		add_action( 'fileuploadtypes_settings_display_types_table_after_enabled_types', [ $this, 'table_rows_with_native_types' ] );
 		add_filter( 'fileuploadtypes_migrations_dispatcher_add_native_file_upload_types_callback', [ $this, 'dispatcher_get_migrations_list' ] );
+		add_filter( 'fileuploadtypes_settings_transform_native_type', [ $this, 'get_upload_type' ] );
 	}
 
 	// phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh

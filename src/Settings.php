@@ -2,8 +2,6 @@
 
 namespace FileUploadTypes;
 
-use FileUploadTypes\Restrict\Native\Admin;
-
 /**
  * File Upload Types Settings.
  *
@@ -257,7 +255,7 @@ class Settings {
 				<?php
 				$stored_types    = get_option( 'file_upload_types', [] );
 				$enabled_types   = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
-				$native_types    = isset( $stored_types['native'] ) ? (array) array_map( [ new Admin(), 'get_upload_type' ], $stored_types['native'] ) : []; // @todo change all `new Native()` into filters.
+				$native_types    = isset( $stored_types['native'] ) ? array_map( [ $this, 'transform_native_type' ], $stored_types['native'] ) : [];
 				$custom_types    = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
 				$available_types = fut_get_available_file_types();
 
@@ -366,6 +364,27 @@ class Settings {
 			</table>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Transform native type from extension to array.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $type_extension File type extension.
+	 *
+	 * @return array Upload type array.
+	 */
+	public function transform_native_type( $type_extension ) {
+
+		/**
+		 * Filter native type extension to transform into array.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param string $type_extension Type extension.
+		 */
+		return (array) apply_filters( 'fileuploadtypes_settings_transform_native_type', $type_extension );
 	}
 
 	/**

@@ -2,6 +2,8 @@
 
 namespace FileUploadTypes;
 
+use FileUploadTypes\Plugin;
+
 /**
  * Logic related to filtering wp_get_mime_types results, mostlyon front end.
  *
@@ -17,6 +19,27 @@ class Allowed {
 	 * @var array
 	 */
 	private static $enabled_types;
+
+	/**
+	 * Plugin object reference.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var Plugin
+	 */
+	private $plugin;
+
+	/**
+	 * Class contructor.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param Plugin $plugin Plugin object reference.
+	 */
+	public function __construct( Plugin $plugin ) {
+
+		$this->plugin = $plugin;
+	}
 
 	/**
 	 * Register hooks.
@@ -119,7 +142,7 @@ class Allowed {
 
 					return sanitize_mime_type( ! is_array( $enabled_types ) ? $enabled_types : $enabled_types[0] );
 				},
-				( new Plugin() )->enabled_types() // @todo remove Plugin call.
+				$this->plugin->enabled_types()
 			);
 		}
 

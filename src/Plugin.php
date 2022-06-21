@@ -4,6 +4,7 @@ namespace FileUploadTypes;
 
 use FileUploadTypes\Restrict\Native\Admin;
 use FileUploadTypes\Migrations\Dispatcher;
+use FileUploadTypes\Allowed;
 
 /**
  * Main Plugin Class.
@@ -20,6 +21,15 @@ final class Plugin {
 	 * @var Plugin
 	 */
 	protected static $instance;
+
+	/**
+	 * Allowed object reference.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var Allowed;
+	 */
+	private $allowed;
 
 	/**
 	 * Main Plugin Instance.
@@ -45,8 +55,10 @@ final class Plugin {
 	 */
 	public function init() {
 
+		$this->allowed = new Allowed( $this );
+
 		( new Admin() )->hooks();
-		( new Allowed() )->hooks();
+		$this->allowed->hooks();
 		( new Dispatcher() )->hooks();
 
 		$this->hooks();
@@ -184,7 +196,7 @@ final class Plugin {
 
 		_deprecated_function( __METHOD__, '{VERSION}', '\FileUploadTypes\Allowed::allowed_types' );
 
-		return ( new Allowed() )->allowed_types( $mime_types ); // @todo replace Allowed() call.
+		return $this->allowed->allowed_types( $mime_types );
 	}
 
 	// phpcs:disable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks

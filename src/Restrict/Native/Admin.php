@@ -12,6 +12,15 @@ use FileUploadTypes\Plugin;
 class Admin {
 
 	/**
+	 * Unflitered WP types.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var string[]
+	 */
+	private static $unfiltered_types;
+
+	/**
 	 * Register hooks.
 	 *
 	 * @since {VERSION}
@@ -156,15 +165,17 @@ class Admin {
 	 */
 	private function get_types() {
 
-		// @todo make it run once
+		if ( ! self::$unfiltered_types ) {
 
-		remove_filter( 'upload_mimes', [ Plugin::get_instance(), 'allowed_types' ] );
+			remove_filter( 'upload_mimes', [ Plugin::get_instance(), 'allowed_types' ] );
 
-		$types = get_allowed_mime_types();
+			self::$unfiltered_types = get_allowed_mime_types();
 
-		add_filter( 'upload_mimes', [ Plugin::get_instance(), 'allowed_types' ] );
+			add_filter( 'upload_mimes', [ Plugin::get_instance(), 'allowed_types' ] );
+		}
 
-		return $types;
+
+		return self::$unfiltered_types;
 	}
 	// phpcs:enable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 

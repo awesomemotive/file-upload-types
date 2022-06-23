@@ -32,6 +32,24 @@ final class Plugin {
 	private $allowed;
 
 	/**
+	 * Admin object.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var Admin
+	 */
+	private $admin;
+
+	/**
+	 * Dispatcher object.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var Dispatcher
+	 */
+	private $dispatcher;
+
+	/**
 	 * Main Plugin Instance.
 	 *
 	 * @since 1.0.0
@@ -55,11 +73,13 @@ final class Plugin {
 	 */
 	public function init() {
 
-		$this->allowed = new Allowed( $this );
+		$this->allowed    = new Allowed( $this );
+		$this->admin      = new Admin( $this->allowed );
+		$this->dispatcher = new Dispatcher();
 
-		( new Admin() )->hooks();
+		$this->admin->hooks();
 		$this->allowed->hooks();
-		( new Dispatcher() )->hooks();
+		$this->dispatcher->hooks();
 
 		$this->hooks();
 	}

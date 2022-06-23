@@ -2,7 +2,7 @@
 
 namespace FileUploadTypes\Restrict\Native;
 
-use FileUploadTypes\Plugin;
+use FileUploadTypes\Allowed;
 
 /**
  * Native file types.
@@ -19,6 +19,27 @@ class Admin {
 	 * @var string[]
 	 */
 	private static $unfiltered_types;
+
+	/**
+	 * Allowed object.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var Allowed
+	 */
+	private $allowed;
+
+	/**
+	 * The constructor.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param Allowed $allowed Allowed object.
+	 */
+	public function __construct( Allowed $allowed ) {
+
+		$this->allowed = $allowed;
+	}
 
 	/**
 	 * Register hooks.
@@ -141,8 +162,6 @@ class Admin {
 	 */
 	public function register_native_file_upload_types() {
 
-		// @todo additionally add types to ennabled array.
-
 		$already_run = get_option( 'fut_migrations_done', [] );
 
 		if ( isset( $already_run[ __FUNCTION__ ] ) ) {
@@ -182,11 +201,11 @@ class Admin {
 
 		if ( ! self::$unfiltered_types ) {
 
-			remove_filter( 'upload_mimes', [ Plugin::get_instance(), 'allowed_types' ] );
+			remove_filter( 'upload_mimes', [ $this->allowed, 'allowed_types' ] );
 
 			self::$unfiltered_types = get_allowed_mime_types();
 
-			add_filter( 'upload_mimes', [ Plugin::get_instance(), 'allowed_types' ] );
+			add_filter( 'upload_mimes', [ $this->allowed, 'allowed_types' ] );
 		}
 
 		return self::$unfiltered_types;

@@ -538,7 +538,18 @@ class Settings {
 							],
 						]
 					),
-					esc_url( wp_nonce_url( admin_url( 'options-general.php?page=file-upload-types&multiple_mimes=enabled' ), 'enable-multiple-mime-types-support' ) ),
+					esc_url(
+						wp_nonce_url(
+							add_query_arg(
+								[
+									'page'           => self::SLUG,
+									'multiple_mimes' => 'enabled',
+								],
+								admin_url( 'options-general.php' )
+							),
+							'enable-multiple-mime-types-support'
+						)
+					),
 					'https://wpforms.com/docs/how-to-allow-additional-file-upload-types/#multiple-mime-types'
 				)
 				?>
@@ -554,7 +565,7 @@ class Settings {
 	 */
 	public function enable_multiple_mimes_support() { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
-		if ( ! isset( $_GET['multiple_mimes'] ) || ( isset( $_GET['multiple_mimes'] ) && $_GET['multiple_mimes'] !== 'enabled' ) ) {
+		if ( ! isset( $_GET['multiple_mimes'] ) || ( $_GET['multiple_mimes'] !== 'enabled' ) ) {
 			return;
 		}
 
@@ -626,8 +637,6 @@ class Settings {
 			return $text;
 		}
 
-		$url = 'https://wordpress.org/support/plugin/file-upload-types/reviews/?filter=5#new-post';
-
 		return sprintf(
 			wp_kses( /* translators: %1$s - WP.org link. */
 				__( 'Please rate <strong>File Upload Types</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the File Upload Types team!', 'file-upload-types' ),
@@ -640,7 +649,7 @@ class Settings {
 					],
 				]
 			),
-			$url
+			'https://wordpress.org/support/plugin/file-upload-types/reviews/?filter=5#new-post'
 		);
 	}
 

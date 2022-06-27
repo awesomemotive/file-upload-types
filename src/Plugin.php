@@ -4,7 +4,6 @@ namespace FileUploadTypes;
 
 use FileUploadTypes\Restrict\Native\Admin;
 use FileUploadTypes\Migrations\Dispatcher;
-use FileUploadTypes\Allowed;
 
 /**
  * Main Plugin Class.
@@ -73,7 +72,7 @@ final class Plugin {
 	 */
 	public function init() {
 
-		$this->allowed    = new Allowed( $this );
+		$this->allowed    = new Allowed();
 		$this->admin      = new Admin( $this->allowed );
 		$this->dispatcher = new Dispatcher();
 

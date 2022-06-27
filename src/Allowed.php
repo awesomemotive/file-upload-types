@@ -2,10 +2,8 @@
 
 namespace FileUploadTypes;
 
-use FileUploadTypes\Plugin;
-
 /**
- * Logic related to filtering wp_get_mime_types results, mostlyon front end.
+ * Logic related to filtering wp_get_mime_types results, mostly on front end.
  *
  * @since {VERSION}
  */
@@ -18,28 +16,7 @@ class Allowed {
 	 *
 	 * @var array
 	 */
-	private static $enabled_types;
-
-	/**
-	 * Plugin object reference.
-	 *
-	 * @since {VERSION}
-	 *
-	 * @var Plugin
-	 */
-	private $plugin;
-
-	/**
-	 * Class contructor.
-	 *
-	 * @since {VERSION}
-	 *
-	 * @param Plugin $plugin Plugin object reference.
-	 */
-	public function __construct( Plugin $plugin ) {
-
-		$this->plugin = $plugin;
-	}
+	private $enabled_types;
 
 	/**
 	 * Register hooks.
@@ -58,7 +35,7 @@ class Allowed {
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/wp_get_mime_types/
 	 *
-	 * @since 1.0.0
+	 * @since {VERSION}
 	 *
 	 * @param array $mime_types List of all allowed in WordPress mime types.
 	 *
@@ -127,7 +104,7 @@ class Allowed {
 	}
 
 	/**
-	 * Get statically stored FUT enabled types.
+	 * Get stored FUT enabled types.
 	 *
 	 * @since {VERSION}
 	 *
@@ -135,18 +112,18 @@ class Allowed {
 	 */
 	private function get_enabled_types() {
 
-		if ( ! self::$enabled_types ) {
+		if ( ! $this->enabled_types ) {
 
 			// Only add first mime type to the allowed list. Aliases will be dynamically added when required.
-			self::$enabled_types = array_map(
+			$this->enabled_types = array_map(
 				static function( $enabled_types ) {
 
 					return sanitize_mime_type( ! is_array( $enabled_types ) ? $enabled_types : $enabled_types[0] );
 				},
-				$this->plugin->enabled_types()
+				( Plugin::get_instance() )->enabled_types()
 			);
 		}
 
-		return self::$enabled_types;
+		return $this->enabled_types;
 	}
 }

@@ -30,16 +30,20 @@ class Dispatcher {
 	 */
 	public function run_migrations() {
 
-		$already_run    = get_option( 'fut_migrations_done', [] );
+		$already_run    = get_option( 'file_upload_types_migrations_done', [] );
 		$all_migrations = $this->get_migrations_list();
+		$option_changed = false;
 
 		foreach ( $all_migrations as $name => $callback ) {
 			if ( ! isset( $already_run[ $name ] ) && is_callable( $callback ) && $callback() ) {
 					$already_run[ $name ] = 1;
+					$option_changed       = true;
 			}
 		}
 
-		update_option( 'fut_migrations_done', $already_run );
+		if ( $option_changed ) {
+			update_option( 'file_upload_types_migrations_done', $already_run );
+		}
 	}
 
 	/**

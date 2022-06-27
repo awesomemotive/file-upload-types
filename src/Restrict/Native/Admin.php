@@ -162,7 +162,7 @@ class Admin {
 	 */
 	public function register_native_file_upload_types() {
 
-		$already_run = get_option( 'fut_migrations_done', [] );
+		$already_run = get_option( 'file_upload_types_migrations_done', [] );
 
 		if ( isset( $already_run[ __FUNCTION__ ] ) ) {
 			return false;

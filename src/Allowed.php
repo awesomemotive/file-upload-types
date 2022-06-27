@@ -112,6 +112,8 @@ class Allowed {
 		$concatenated_extensions = implode( '|', $extensions );
 		$mime                    = $mime_types[ $concatenated_extensions ];
 
+		unset( $mime_types[ $concatenated_extensions ] );
+
 		foreach ( $extensions as $index => $extension ) {
 			if ( ! array_key_exists( $extension, $this->get_enabled_types() ) ) {
 				unset( $extensions[ $index ] );
@@ -120,7 +122,6 @@ class Allowed {
 		if ( ! empty( $extensions ) ) {
 			$mime_types[ implode( '|', $extensions ) ] = $mime;
 		}
-		unset( $mime_types[ $concatenated_extensions ] );
 
 		return $mime_types;
 	}

@@ -85,6 +85,18 @@ final class Plugin {
 	}
 
 	/**
+	 * Get WordPress allowed mime types.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return string[]
+	 */
+	public function get_native_types() {
+
+		return $this->admin->get_types();
+	}
+
+	/**
 	 * Register hooks.
 	 *
 	 * @since {VERSION}
@@ -155,7 +167,7 @@ final class Plugin {
 		$stored_types     = get_option( 'file_upload_types', [] );
 		$enabled_types    = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
 		$custom_types_raw = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
-		$available_types  = fut_get_available_file_types();
+		$available_types  = array_merge( fut_get_available_file_types(), fut_get_native_file_types() );
 		$return_types     = $this->add_available_types( $available_types, $enabled_types );
 
 		foreach ( $custom_types_raw as $type ) {

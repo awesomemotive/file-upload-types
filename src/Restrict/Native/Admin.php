@@ -85,7 +85,7 @@ class Admin {
 				}
 
 				echo '<tr>';
-				echo '<td width="35%">' . wp_kses( $this->get_native_file_description(), [] ) . '</td>';
+				echo '<td width="35%">' . wp_kses( fut_get_native_file_description(), [] ) . '</td>';
 				echo '<td width="40%">' . wp_kses( $this->get_mime_for_type( $type ), [ 'br' => [] ] ) . '</td>';
 				echo '<td width="15%">' . esc_html( $type ) . '</td>';
 				echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type ) . '" name="e_types[]"> </td>';
@@ -135,7 +135,7 @@ class Admin {
 		return [
 			'ext'  => $ext,
 			'mime' => $this->get_mime_for_type( $ext ),
-			'desc' => $this->get_native_file_description(),
+			'desc' => fut_get_native_file_description(),
 		];
 	}
 
@@ -197,7 +197,7 @@ class Admin {
 	 *
 	 * @return string[]
 	 */
-	private function get_types() {
+	public function get_types() {
 
 		if ( ! self::$unfiltered_types ) {
 
@@ -211,16 +211,4 @@ class Admin {
 		return self::$unfiltered_types;
 	}
 	// phpcs:enable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
-
-	/**
-	 * Get native file description.
-	 *
-	 * @since {VERSION}
-	 *
-	 * @return string
-	 */
-	private function get_native_file_description() {
-
-		return esc_html__( 'WordPress natively registered type', 'file-upload-types' );
-	}
 }

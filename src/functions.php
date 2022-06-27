@@ -1,5 +1,7 @@
 <?php
 
+use FileUploadTypes\Plugin;
+
 /**
  * Additional available file types.
  *
@@ -15,6 +17,45 @@ function fut_get_available_file_types() {
 	$mime_types_serialized = trim( file_get_contents( dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) . '/assets/' . $file . '.json' ) );
 
 	return json_decode( $mime_types_serialized, true );
+}
+
+/**
+ * Get native files types in array format compatible with fut_get_available_file_types().
+ *
+ * @since {VERSION}
+ *
+ * @return array
+ */
+function fut_get_native_file_types() {
+
+	$native  = ( Plugin::get_instance() )->get_native_types();
+	$natives = [];
+
+	foreach ( $native as $extensions => $mime ) {
+		$extensions = explode( '|', $extensions );
+
+		foreach ( $extensions as $extension ) {
+			$natives[] = [
+				'desc' => fut_get_native_file_description(),
+				'mime' => [ $mime ],
+				'ext'  => '.' . $extension,
+			];
+		}
+	}
+
+	return $natives;
+}
+
+/**
+ * Get file description for natively supported file types.
+ *
+ * @since {VERSION}
+ *
+ * @return string
+ */
+function fut_get_native_file_description() {
+
+	return esc_html__( 'WordPress natively registered type', 'file-upload-types' );
 }
 
 /**

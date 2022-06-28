@@ -28,7 +28,8 @@ function fut_get_available_file_types() {
  */
 function fut_get_native_file_types() {
 
-	$native  = ( Plugin::get_instance() )->get_native_types();
+	$plugin  = Plugin::get_instance();
+	$native  = $plugin->get_native_types();
 	$natives = [];
 
 	foreach ( $native as $extensions => $mime ) {

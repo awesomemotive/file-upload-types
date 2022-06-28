@@ -114,13 +114,15 @@ class Allowed {
 
 		if ( ! $this->enabled_types ) {
 
+			$plugin = Plugin::get_instance();
+
 			// Only add first mime type to the allowed list. Aliases will be dynamically added when required.
 			$this->enabled_types = array_map(
 				static function( $enabled_types ) {
 
 					return sanitize_mime_type( ! is_array( $enabled_types ) ? $enabled_types : $enabled_types[0] );
 				},
-				( Plugin::get_instance() )->enabled_types()
+				$plugin->enabled_types()
 			);
 		}
 

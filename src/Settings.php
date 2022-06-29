@@ -253,17 +253,15 @@ class Settings {
 		<div style="overflow-y:scroll; overflow-x:hidden; height:500px;" class="table-container">
 			<table class="file-upload-types-table-main">
 				<?php
-				$stored_types    = get_option( 'file_upload_types', [] );
-				$enabled_types   = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
-				$native_types    = isset( $stored_types['native'] ) ? array_map( [ $this, 'transform_native_type' ], $stored_types['native'] ) : [];
-				$custom_types    = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
+				$stored_types    = new StoredTypes();
+				$native_types    = array_map( [ $this, 'transform_native_type' ], $stored_types->native );
 				$available_types = fut_get_available_file_types();
 
-				$types      = array_merge( $custom_types, $available_types, $native_types );
+				$types      = array_merge( $stored_types->custom, $available_types, $native_types );
 				$temp_types = array_unique( array_column( $types, 'ext' ) );
 				$types      = array_intersect_key( $types, $temp_types );
 
-				if ( ! empty( $enabled_types ) || ! empty( $custom_types ) ) :
+				if ( ! empty( $stored_types->enabled ) || ! empty( $stored_types->custom ) ) :
 					?>
 					<tr class="section">
 						<td colspan="4"><?php esc_html_e( 'ENABLED', 'file-upload-types' ); ?></td>
@@ -273,8 +271,8 @@ class Settings {
 					foreach ( $types as $type ) {
 
 						if (
-							! in_array( $type['ext'], $enabled_types, true ) &&
-							! in_array( $type['ext'], array_column( $custom_types, 'ext' ), true )
+							! in_array( $type['ext'], $stored_types->enabled, true ) &&
+							! in_array( $type['ext'], array_column( $stored_types->custom, 'ext' ), true )
 						) {
 							continue;
 						}
@@ -302,13 +300,11 @@ class Settings {
 				</tr>
 				<?php
 				$available_types = fut_get_available_file_types();
-				$stored_types    = get_option( 'file_upload_types', [] );
-				$enabled_types   = isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : [];
 				$wp_ext_mimes    = get_allowed_mime_types();
 
 				foreach ( $available_types as $type ) {
 
-					if ( in_array( $type['ext'], $enabled_types, true ) ) {
+					if ( in_array( $type['ext'], $stored_types->enabled, true ) ) {
 						continue;
 					}
 

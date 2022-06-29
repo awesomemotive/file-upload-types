@@ -163,13 +163,11 @@ final class Plugin {
 	 */
 	public function enabled_types() {
 
-		$stored_types     = get_option( 'file_upload_types', [] );
-		$enabled_types    = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
-		$custom_types_raw = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
-		$available_types  = array_merge( fut_get_available_file_types(), fut_get_native_file_types() );
-		$return_types     = $this->add_available_types( $available_types, $enabled_types );
+		$stored_types    = new StoredTypes();
+		$available_types = array_merge( fut_get_available_file_types(), fut_get_native_file_types() );
+		$return_types    = $this->add_available_types( $available_types, $stored_types->enabled );
 
-		foreach ( $custom_types_raw as $type ) {
+		foreach ( $stored_types->custom as $type ) {
 
 			if ( empty( $type['ext'] ) || empty( $type['mime'] ) ) {
 				continue;

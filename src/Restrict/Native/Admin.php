@@ -3,6 +3,7 @@
 namespace FileUploadTypes\Restrict\Native;
 
 use FileUploadTypes\Allowed;
+use FileUploadTypes\StoredTypes;
 
 /**
  * Native file types.
@@ -65,21 +66,19 @@ class Admin {
 	 */
 	public function table_rows_with_native_types() {
 
-		$stored_types  = get_option( 'file_upload_types', [] );
-		$native_types  = isset( $stored_types['native'] ) ? (array) $stored_types['native'] : [];
-		$enabled_types = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
+		$stored_types = new StoredTypes();
 
-		if ( ! empty( $native_types ) ) :
+		if ( ! empty( $stored_types->native ) ) :
 
 		?>
 		<tr class="section">
 			<td colspan="4"><?php esc_html_e( 'NATIVE', 'file-upload-types' ); ?></td>
 		</tr>
 		<?php
-			foreach ( $native_types as $type ) {
+			foreach ( $stored_types->native as $type ) {
 
 				if (
-					in_array( $type, $enabled_types, true )
+					in_array( $type, $stored_types->enabled, true )
 				) {
 					continue;
 				}

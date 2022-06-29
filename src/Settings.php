@@ -291,9 +291,9 @@ class Settings {
 
 				endif;
 
-					// phpcs:disable WPForms.Comments.PHPDocHooks.RequiredHookDocumentation
-					do_action( 'fileuploadtypes_settings_display_types_table_after_enabled_types' );
-					// phpcs:enable WPForms.Comments.PHPDocHooks.RequiredHookDocumentation
+					// phpcs:disable WPForms.Comments.PHPDocHooks.RequiredHookDocumentation, WPForms.PHP.ValidateHooks.InvalidHookName
+					do_action( 'file_upload_types_settings_display_types_table_after_enabled_types' );
+					// phpcs:enable WPForms.Comments.PHPDocHooks.RequiredHookDocumentation, WPForms.PHP.ValidateHooks.InvalidHookName
 				?>
 				<tr class="section">
 					<td colspan="4"><?php esc_html_e( 'AVAILABLE', 'file-upload-types' ); ?></td>
@@ -373,6 +373,7 @@ class Settings {
 	 */
 	public function transform_native_type( $type_extension ) {
 
+		// phpcs:disable WPForms.PHP.ValidateHooks.InvalidHookName
 		/**
 		 * Filter native type extension to transform into array.
 		 *
@@ -380,7 +381,8 @@ class Settings {
 		 *
 		 * @param string $type_extension Type extension.
 		 */
-		return (array) apply_filters( 'fileuploadtypes_settings_transform_native_type', $type_extension );
+		return (array) apply_filters( 'file_upload_types_settings_transform_native_type', $type_extension );
+		// phpcs:enable WPForms.PHP.ValidateHooks.InvalidHookName
 	}
 
 	/**

@@ -51,6 +51,7 @@ class Dispatcher {
 	 */
 	private function get_migrations_list() {
 
+		// phpcs:disable WPForms.PHP.ValidateHooks.InvalidHookName
 		return [
 			/**
 			 * Get callback method for add_native_file_upload_types migration.
@@ -59,7 +60,8 @@ class Dispatcher {
 			 *
 			 * @param callable $callback Callback.
 			 */
-			'add_native_file_upload_types' => apply_filters( 'fileuploadtypes_migrations_dispatcher_add_native_file_upload_types_callback', null ),
+			'add_native_file_upload_types' => apply_filters( 'file_upload_types_migrations_dispatcher_add_native_file_upload_types_callback', null ),
 		];
+		// phpcs:enable WPForms.PHP.ValidateHooks.InvalidHookName
 	}
 }

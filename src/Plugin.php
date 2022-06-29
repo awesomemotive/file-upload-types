@@ -52,21 +52,10 @@ final class Plugin {
 	 */
 	private function hooks() {
 
-		add_action( 'init', [ $this, 'load_plugin_textdomain' ] );
 		add_action( 'init', [ $this, 'register_admin_area' ] );
 		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), [ $this, 'plugin_action_links' ], 10, 4 );
 		add_filter( 'upload_mimes', [ $this, 'allowed_types' ] );
 		add_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 5 );
-	}
-
-	/**
-	 * Load translation files.
-	 *
-	 * @since 1.0.0
-	 */
-	public function load_plugin_textdomain() {
-
-		load_plugin_textdomain( 'file-upload-types', false, plugin_basename( dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) ) . '/languages' );
 	}
 
 	/**

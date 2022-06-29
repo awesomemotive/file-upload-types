@@ -13,31 +13,27 @@ class Dispatcher {
 	 * Register hooks.
 	 *
 	 * @since {VERSION}
-	 *
-	 * @return void
 	 */
 	public function hooks() {
 
-		add_action( 'init', [ $this, 'run_migrations' ] );
+		add_action( 'init', [ $this, 'run' ] );
 	}
 
 	/**
 	 * Run all migration logics.
 	 *
 	 * @since {VERSION}
-	 *
-	 * @return void
 	 */
-	public function run_migrations() {
+	public function run() {
 
 		$already_run    = get_option( 'file_upload_types_migrations_done', [] );
-		$all_migrations = $this->get_migrations_list();
 		$option_changed = false;
 
-		foreach ( $all_migrations as $name => $callback ) {
+		foreach ( $this->get_migrations_list() as $name => $callback ) {
+
 			if ( ! isset( $already_run[ $name ] ) && is_callable( $callback ) && $callback() ) {
-					$already_run[ $name ] = 1;
-					$option_changed       = true;
+				$already_run[ $name ] = 1;
+				$option_changed       = true;
 			}
 		}
 

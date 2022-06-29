@@ -16,7 +16,7 @@ class Allowed {
 	 *
 	 * @var array
 	 */
-	private $enabled_types;
+	private $enabled_types = [];
 
 	/**
 	 * Register hooks.

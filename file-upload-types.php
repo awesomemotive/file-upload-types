@@ -8,7 +8,7 @@
  * Author: WPForms
  * Author URI: https://wpforms.com
  * Text Domain: file-upload-types
- * Domain Path: /languages/
+ * Domain Path: languages
  */
 
 use FileUploadTypes\Plugin as PluginAlias;

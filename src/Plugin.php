@@ -209,7 +209,7 @@ final class Plugin {
 		// We don't need to do anything if the file uploads normally.
 		if ( empty( $file_data['ext'] ) && empty( $file_data['type'] ) ) {
 
-			// We don't need to do anything if there's extension in enabled types.
+			// We don't need to do anything if extension is not in enabled types.
 			if ( empty( $enabled_types[ $extension ] ) ) {
 				return $file_data;
 			}

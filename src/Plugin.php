@@ -209,15 +209,17 @@ final class Plugin {
 		// We don't need to do anything if the file uploads normally.
 		if ( empty( $file_data['ext'] ) && empty( $file_data['type'] ) ) {
 
-			// We don't need to do anything if there's no multiple mimes for this extension.
-			if ( empty( $enabled_types[ $extension ] ) || ! is_array( $enabled_types[ $extension ] ) ) {
+			// We don't need to do anything if there's extension in enabled types.
+			if ( empty( $enabled_types[ $extension ] ) ) {
 				return $file_data;
 			}
 
-			$mimes = $enabled_types[ $extension ];
+			$mimes = (array) $enabled_types[ $extension ];
 
 			// First mime will not need this extra behaviour.
-			unset( $mimes[0] );
+			if ( count( $mimes ) > 1 ) {
+				unset( $mimes[0] );
+			}
 
 			$mimes = array_map( 'sanitize_mime_type', $mimes );
 

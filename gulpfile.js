@@ -3,7 +3,7 @@
  */
 var gulp = require( 'gulp' ),
 	cached = require( 'gulp-cached' ),
-	sass = require( 'gulp-sass' ),
+	sass = require( 'gulp-sass' )(require('sass')),
 	sourcemaps = require( 'gulp-sourcemaps' ),
 	rename = require( 'gulp-rename' ),
 	debug = require( 'gulp-debug' ),

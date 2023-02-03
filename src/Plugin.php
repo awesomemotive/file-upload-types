@@ -176,7 +176,6 @@ final class Plugin {
 		return array_replace( $mime_types, $enabled_types );
 	}
 
-	// phpcs:disable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 	/**
 	 * Filters the "real" file type of the given file.
 	 *
@@ -190,7 +189,7 @@ final class Plugin {
 	 *
 	 * @return array
 	 */
-	public function real_file_type( $file_data, $file, $filename, $mimes, $real_mime ) {
+	public function real_file_type( $file_data, $file, $filename, $mimes, $real_mime ) { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 
 		$extension     = pathinfo( $filename, PATHINFO_EXTENSION );
 		$enabled_types = $this->enabled_types();
@@ -242,5 +241,4 @@ final class Plugin {
 
 		return $file_data;
 	}
-	// phpcs:enable WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
 }

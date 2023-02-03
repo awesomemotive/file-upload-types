@@ -11,7 +11,7 @@
  * Domain Path: /languages/
  */
 
-use FileUploadTypes\Plugin as PluginAlias;
+use FileUploadTypes\Plugin;
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
@@ -135,11 +135,11 @@ require_once __DIR__ . '/vendor/autoload.php';
  *
  * @since 1.0.0
  *
- * @return PluginAlias
+ * @return Plugin
  */
 function file_upload_types() {
 
-	$instance = PluginAlias::get_instance();
+	$instance = Plugin::get_instance();
 
 	$instance->init();
 

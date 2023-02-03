@@ -2,6 +2,9 @@
 
 namespace FileUploadTypes;
 
+use FileUploadTypes\Restrict\Native\Admin;
+use FileUploadTypes\Migrations\Dispatcher;
+
 /**
  * Main Plugin Class.
  *
@@ -17,6 +20,33 @@ final class Plugin {
 	 * @var Plugin
 	 */
 	protected static $instance;
+
+	/**
+	 * Allowed object reference.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var Allowed;
+	 */
+	private $allowed;
+
+	/**
+	 * Admin object.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var Admin
+	 */
+	private $admin;
+
+	/**
+	 * Dispatcher object.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @var Dispatcher
+	 */
+	private $dispatcher;
 
 	/**
 	 * Main Plugin Instance.
@@ -42,7 +72,27 @@ final class Plugin {
 	 */
 	public function init() {
 
+		$this->allowed    = new Allowed();
+		$this->admin      = new Admin( $this->allowed );
+		$this->dispatcher = new Dispatcher();
+
+		$this->admin->hooks();
+		$this->allowed->hooks();
+		$this->dispatcher->hooks();
+
 		$this->hooks();
+	}
+
+	/**
+	 * Get WordPress allowed mime types.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return string[]
+	 */
+	public function get_native_types() {
+
+		return $this->admin->get_types();
 	}
 
 	/**
@@ -54,7 +104,6 @@ final class Plugin {
 
 		add_action( 'init', [ $this, 'register_admin_area' ] );
 		add_filter( 'plugin_action_links_' . plugin_basename( FILE_UPLOAD_TYPES_PLUGIN_FILE ), [ $this, 'plugin_action_links' ], 10, 4 );
-		add_filter( 'upload_mimes', [ $this, 'allowed_types' ] );
 		add_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 5 );
 	}
 
@@ -103,13 +152,11 @@ final class Plugin {
 	 */
 	public function enabled_types() {
 
-		$stored_types     = get_option( 'file_upload_types', [] );
-		$enabled_types    = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
-		$custom_types_raw = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
-		$available_types  = fut_get_available_file_types();
-		$return_types     = $this->add_available_types( $available_types, $enabled_types );
+		$stored_types    = new StoredTypes();
+		$available_types = array_merge( fut_get_available_file_types(), fut_get_native_file_types() );
+		$return_types    = $this->add_available_types( $available_types, $stored_types->enabled );
 
-		foreach ( $custom_types_raw as $type ) {
+		foreach ( $stored_types->custom as $type ) {
 
 			if ( empty( $type['ext'] ) || empty( $type['mime'] ) ) {
 				continue;
@@ -157,6 +204,7 @@ final class Plugin {
 	 * @link https://developer.wordpress.org/reference/functions/wp_get_mime_types/
 	 *
 	 * @since 1.0.0
+	 * @deprecated {VERSION}
 	 *
 	 * @param array $mime_types List of all allowed in WordPress mime types.
 	 *
@@ -164,16 +212,9 @@ final class Plugin {
 	 */
 	public function allowed_types( $mime_types ) {
 
-		// Only add first mime type to the allowed list. Aliases will be dynamically added when required.
-		$enabled_types = array_map(
-			static function( $enabled_types ) {
+		_deprecated_function( __METHOD__, '{VERSION}', '\FileUploadTypes\Allowed::allowed_types' );
 
-				return sanitize_mime_type( ! is_array( $enabled_types ) ? $enabled_types : $enabled_types[0] );
-			},
-			$this->enabled_types()
-		);
-
-		return array_replace( $mime_types, $enabled_types );
+		return $this->allowed->allowed_types( $mime_types );
 	}
 
 	/**

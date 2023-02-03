@@ -214,15 +214,16 @@ class Settings {
 				<p>
 					<?php
 					printf(
-						wp_kses( /* translators: %1$s - URL to WordPress Codex page, %2$s - anchor link. */
-							__( 'Below is the list of files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank">files WordPress allows by default</a>. <br>Don\'t see what you need? No problem, <a href="%2$s" id="add-custom-file-types" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
+						wp_kses( /* translators: %1$s - anchor link. */
+							__( 'Below is the list of files types that can be enabled. <br>Don\'t see what you need? No problem, <a href="%1$s" id="add-custom-file-types" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
 							[
-								'a' => [
+								'a'  => [
 									'href'   => [],
 									'target' => [],
 									'rel'    => [],
 									'id'     => [],
 								],
+								'br' => [],
 							]
 						),
 						'https://codex.wordpress.org/Uploading_Files#About_Uploading_Files_on_Dashboard',
@@ -252,16 +253,15 @@ class Settings {
 		<div style="overflow-y:scroll; overflow-x:hidden; height:500px;" class="table-container">
 			<table class="file-upload-types-table-main">
 				<?php
-				$stored_types    = get_option( 'file_upload_types', [] );
-				$enabled_types   = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
-				$custom_types    = isset( $stored_types['custom'] ) ? (array) $stored_types['custom'] : [];
+				$stored_types    = new StoredTypes();
+				$native_types    = array_map( [ $this, 'transform_native_type' ], $stored_types->native );
 				$available_types = fut_get_available_file_types();
 
-				$types      = array_merge( $custom_types, $available_types );
+				$types      = array_merge( $stored_types->custom, $available_types, $native_types );
 				$temp_types = array_unique( array_column( $types, 'ext' ) );
 				$types      = array_intersect_key( $types, $temp_types );
 
-				if ( ! empty( $enabled_types ) || ! empty( $custom_types ) ) :
+				if ( ! empty( $stored_types->enabled ) || ! empty( $stored_types->custom ) ) :
 					?>
 					<tr class="section">
 						<td colspan="4"><?php esc_html_e( 'ENABLED', 'file-upload-types' ); ?></td>
@@ -271,8 +271,8 @@ class Settings {
 					foreach ( $types as $type ) {
 
 						if (
-							! in_array( $type['ext'], $enabled_types, true ) &&
-							! in_array( $type['ext'], array_column( $custom_types, 'ext' ), true )
+							! in_array( $type['ext'], $stored_types->enabled, true ) &&
+							! in_array( $type['ext'], array_column( $stored_types->custom, 'ext' ), true )
 						) {
 							continue;
 						}
@@ -290,19 +290,21 @@ class Settings {
 					}
 
 				endif;
+
+					// phpcs:disable WPForms.Comments.PHPDocHooks.RequiredHookDocumentation, WPForms.PHP.ValidateHooks.InvalidHookName
+					do_action( 'file_upload_types_settings_display_types_table_after_enabled_types' );
+					// phpcs:enable WPForms.Comments.PHPDocHooks.RequiredHookDocumentation, WPForms.PHP.ValidateHooks.InvalidHookName
 				?>
 				<tr class="section">
 					<td colspan="4"><?php esc_html_e( 'AVAILABLE', 'file-upload-types' ); ?></td>
 				</tr>
 				<?php
 				$available_types = fut_get_available_file_types();
-				$stored_types    = get_option( 'file_upload_types', [] );
-				$enabled_types   = isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : [];
 				$wp_ext_mimes    = get_allowed_mime_types();
 
 				foreach ( $available_types as $type ) {
 
-					if ( in_array( $type['ext'], $enabled_types, true ) ) {
+					if ( in_array( $type['ext'], $stored_types->enabled, true ) ) {
 						continue;
 					}
 
@@ -358,6 +360,29 @@ class Settings {
 			</table>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Transform native type from extension to array.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $type_extension File type extension.
+	 *
+	 * @return array Upload type array.
+	 */
+	public function transform_native_type( $type_extension ) {
+
+		// phpcs:disable WPForms.PHP.ValidateHooks.InvalidHookName
+		/**
+		 * Filter native type extension to transform into array.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param string $type_extension Type extension.
+		 */
+		return (array) apply_filters( 'file_upload_types_settings_transform_native_type', $type_extension );
+		// phpcs:enable WPForms.PHP.ValidateHooks.InvalidHookName
 	}
 
 	/**
@@ -494,6 +519,7 @@ class Settings {
 		$file_upload_types = [
 			'enabled' => $enabled_types,
 			'custom'  => array_merge( $custom_types, $stored_custom_types ),
+			'native'  => isset( $types['native'] ) ? $types['native'] : [],
 		];
 
 		update_option( 'file_upload_types', $file_upload_types );

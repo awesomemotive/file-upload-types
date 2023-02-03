@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file, formatted v
 - 
 
 ### Changed
-- 
+- Do not load plugin textdomain locally, since it is not needed from WP 4.6.
 
 ### Fixed
 - Microsoft Office MIME type didn't support properly.

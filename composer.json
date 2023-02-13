@@ -40,7 +40,6 @@
     }
   },
   "require-dev": {
-    "awesomemotive/wpforms-phpcs": "^1.0",
-    "wp-coding-standards/wpcs": "^2.3"
+    "awesomemotive/wpforms-phpcs": "^1.0.6"
   }
 }

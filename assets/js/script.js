@@ -51,5 +51,44 @@ jQuery( function ( $ ) {
 					}
 				}
 			} );
-		} );
+		} ).on(
+			'change', '#c_types_file_sample', function () {
+
+				let data = new FormData( $( '#file-upload-types form' )[0] );
+				data.append( 'action', 'file_upload_types_check_sample' );
+
+				$( '#c_types_file_sample_button' ).val( 'Checking...' );
+
+				$.ajax(
+					{
+						url: ajaxurl,
+						type: 'POST',
+						processData: false,
+						contentType: false,
+						data: data,
+						success: function( response ) {
+							console.log( response );
+							if ( response.data.extension ) {
+								$( '#c_types_file_extension' ).val( response.data.extension );
+								$( '#c_types_file_description' ).val( response.data.extension.toUpperCase() + ' file' );
+							}
+							if ( response.data.mime_type ) {
+								$( '#c_types_file_mime_type' ).val( response.data.mime_type );
+							}
+							$( '#c_types_file_sample_button' ).val( 'Sample' );
+						},
+					}
+				);
+
+				// reset the value of the file input
+				$( this ).val( '' );
+			}
+		).on(
+			'click',
+		'#c_types_file_sample_button',
+		function( e ) {
+			e.preventDefault();
+			$( '#c_types_file_sample' ).trigger( 'click' );
+		}
+	);
 } );

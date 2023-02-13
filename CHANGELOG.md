@@ -2,11 +2,10 @@
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
 ## [UNRELEASED] - 2023-XX-XX
-- IMPORTANT - Support for WordPress 5.1 has been discontinued. If you are running WordPress 5.1, you MUST upgrade WordPress before installing File
-- Upload Types 1.3.0. Failure to do that will disable File Upload Types core functionality. 
-- Enhancement - Add `.world` and `.heif` extensions to the default list. 
-- Enhancement - The list of mime types was extended with `.json`, `.otf`, and `.ttf` file extensions. 
-- Enhancement - Do not load the plugin textdomain locally, since it is not needed starting from WP 4.6. 
+- IMPORTANT - Support for WordPress 5.1 has been discontinued. If you are running WordPress 5.1, you MUST upgrade WordPress before installing File Upload Types 1.3.0. Failure to do that will disable File Upload Types core functionality.
+- Enhancement - Add `.world` and `.heif` extensions to the default list.
+- Enhancement - The list of mime types was extended with `.json`, `.otf`, and `.ttf` file extensions.
+- Enhancement - Do not load the plugin textdomain locally, since it is not needed starting from WP 4.6.
 - Fix - Microsoft Office MIME type wasn't properly supported.
 
 ## [1.2.2] - 2021-06-17

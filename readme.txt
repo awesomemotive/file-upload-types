@@ -3,7 +3,7 @@ Contributors: wpforms, smub, jaredatch, slaFFik, kkarpieszuk
 Tags: files, upload, file upload, mime, attachments
 Requires at least: 5.2
 Tested up to: 6.1
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 Requires PHP: 5.6
 
 Easily allow WordPress to accept and upload any file type extension or MIME type, including custom file types.
@@ -79,6 +79,13 @@ Visit <a href="http://www.wpbeginner.com/?utm_source=wprepo&utm_medium=link&utm_
 1. Settings Page
 
 == Changelog ==
+
+= 1.3.0 - 2023-02-15 =
+* IMPORTANT - Support for WordPress 5.1 has been discontinued. If you are running WordPress 5.1, you MUST upgrade WordPress before installing File Upload Types 1.3.0. Failure to do that will disable File Upload Types core functionality.
+* Enhancement - Add `.world` and `.heif` extensions to the default list.
+* Enhancement - The list of mime types was extended with `.json`, `.otf`, and `.ttf` file extensions.
+* Enhancement - Do not load the plugin textdomain locally, since it is not needed starting from WP 4.6.
+* Fix - Microsoft Office MIME type wasn't properly supported.
 
 = 1.2.2 - 2021-06-17 =
 * Fix - PHP notices when invalid files are uploaded.

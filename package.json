@@ -26,6 +26,7 @@
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-cached": "^1.1.1",
+    "gulp-composer": "^0.4.5",
     "gulp-debug": "^4.0.0",
     "gulp-imagemin": "^7.0.0",
     "gulp-include": "^2.4.1",

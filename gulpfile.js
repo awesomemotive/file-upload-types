@@ -11,6 +11,7 @@ var gulp = require( 'gulp' ),
 	imagemin = require( 'gulp-imagemin' ),
 	zip = require( 'gulp-zip' ),
 	packageJSON = require( './package.json' ),
+	composer = require( 'gulp-composer' ),
 	exec = require( 'child_process' ).exec;
 
 var plugin = {
@@ -155,9 +156,16 @@ gulp.task( 'zip', function () {
 } );
 
 /**
+ * Run composer with no dev dependencies.
+ */
+gulp.task( 'composer', function () {
+	return composer( { 'no-dev': true } );
+} );
+
+/**
  * Task: build.
  */
-gulp.task( 'build', gulp.series( gulp.parallel( 'css', 'js', 'img', 'pot' ), 'zip' ) );
+gulp.task( 'build', gulp.series( gulp.parallel( 'css', 'js', 'img', 'pot', 'composer' ), 'zip' ) );
 
 /**
  * Look out for relevant sass/js changes.

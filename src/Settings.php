@@ -41,6 +41,8 @@ class Settings {
 		add_action( 'admin_init', [ $this, 'enable_multiple_mimes_support' ] );
 		add_filter( 'admin_footer_text', [ $this, 'get_admin_footer' ], 1 );
 		add_action( 'admin_print_scripts', [ $this, 'remove_notices' ] );
+		// define ajax callback for file_upload_types_check_sample
+		add_action( 'wp_ajax_file_upload_types_check_sample', [ $this, 'check_sample' ] );
 	}
 
 	/**
@@ -346,10 +348,19 @@ class Settings {
 				</tr>
 
 				<tr class="repetitive-fields">
-					<td width="35%"><input type="text" name="c_types[desc][]" class="description" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
-					<td width="40%"><input type="text" name="c_types[mime][]" class="mime" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
-					<td width="15%"><input type="text" name="c_types[ext][]" class="extension"
-							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>"></td>
+					<td width="35%">
+						<input type="button" name="c_types_file_sample_button" id="c_types_file_sample_button" style="display: inline-block; background-color: #0073aa; border-color: #0073aa; color: #fff;"
+							class="button button-primary" value="<?php esc_attr_e( 'Sample', 'file-upload-types' ); ?>" >
+						<input type="text" name="c_types[desc][]" class="description" id="c_types_file_description"  style="display: inline-block; max-width: 80%; width: auto;"
+							placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
+					<td width="40%"><input type="text" name="c_types[mime][]" class="mime" id="c_types_file_mime_type"
+							placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
+					<td width="15%">
+						<input type="text" name="c_types[ext][]" class="extension" id="c_types_file_extension"
+							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>">
+						<input type="file" name="c_types_file_sample" id="c_types_file_sample" style="display:none;"
+							class="file" >
+					</td>
 					<td width="10%" class="icons">
 						<img class="file-upload-types-plus" src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Add File Type', 'file-upload-types' ); ?>">
 						<img class="file-upload-types-minus" src="<?php echo esc_url( plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Remove File Type', 'file-upload-types' ); ?>">
@@ -675,6 +686,24 @@ class Settings {
 					}
 				}
 			}
+		}
+	}
+
+	public function check_sample() {
+
+		if ( isset( $_FILES['c_types_file_sample'] ) ) {
+			$sample = $_FILES['c_types_file_sample'];
+			$var = 'foo';
+			$finfo     = finfo_open( FILEINFO_MIME_TYPE );
+			$mime_type = finfo_file( $finfo, $sample['tmp_name'] );
+			$extension = pathinfo( $sample['name'], PATHINFO_EXTENSION );
+			finfo_close( $finfo );
+			wp_send_json_success(
+				[
+					'mime_type' => $mime_type,
+					'extension' => $extension,
+				]
+			);
 		}
 	}
 }

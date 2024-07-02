@@ -8,7 +8,6 @@
     "url": "https://github.com/awesomemotive/file-upload-types.git"
   },
   "license": "GPL-2.0+",
-  "main": "gulpfile.js",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -21,30 +20,29 @@
     ]
   },
   "scripts": {
-    "gulp": "node ./node_modules/gulp/bin/gulp.js"
+    "gulp": "cross-env-shell gulp --gulpfile $INIT_CWD/gulpfile.js"
   },
+  "type": "module",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "gulp": "^4.0.2",
     "gulp-cached": "^1.1.1",
-    "gulp-debug": "^4.0.0",
-    "gulp-imagemin": "^7.0.0",
+    "gulp-debug": "^5.0.1",
+    "gulp-imagemin": "^9.1.0",
     "gulp-include": "^2.4.1",
-    "gulp-rename": "^1.4.0",
+    "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
-    "gulp-sourcemaps": "^2.6.5",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-watch": "^5.0.1",
-    "gulp-zip": "^4.2.0",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
-    "node-sass": "^8.0.0",
-    "sass": "^1.57.0"
+    "gulp-zip": "^6.0.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^11.2.6",
+    "node-sass": "^9.0.0",
+    "sass": "^1.77.6"
   },
   "engines": {
-    "node": ">=18.12.1",
-    "npm": ">=8.19.2"
-  },
-  "dependencies": {
-    "lint-staged": "^9.5.0"
+    "node": ">=18.18.0",
+    "npm": ">=9.8.1"
   }
 }

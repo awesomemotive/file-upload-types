@@ -146,8 +146,8 @@ if ( ! function_exists( '_fut_update_file_data_mime' ) ) {
 	 *
 	 * @see   fut_format_raw_custom_types
 	 *
-	 * @param array $mime      Mime types.
 	 * @param array $file_data File data.
+	 * @param array $mime Mime types.
 	 *
 	 * @return array
 	 */
@@ -171,8 +171,8 @@ if ( ! function_exists( '_fut_update_file_data_extensions' ) ) {
 	 *
 	 * @see   fut_format_raw_custom_types
 	 *
-	 * @param array $extensions Extensions.
 	 * @param array $file_data  File data.
+	 * @param array $extensions Extensions.
 	 *
 	 * @return array
 	 */

@@ -62,12 +62,8 @@ class Settings {
 	 * Enqueue all assets.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @param string $hook_suffix The current admin page.
-	 *
-	 * @noinspection PhpUnusedParameterInspection
 	 */
-	public function enqueue_assets( string $hook_suffix ) {
+	public function enqueue_assets() {
 
 		if ( ! $this->is_admin_screen() ) {
 			return;
@@ -121,12 +117,8 @@ class Settings {
 	 * Add File Upload Types submenu under Settings menu.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @param string $context Menu context.
-	 *
-	 * @noinspection PhpUnusedParameterInspection
 	 */
-	public function add_settings_page( string $context ) {
+	public function add_settings_page() {
 
 		add_options_page(
 			esc_html__( 'File Upload Types', 'file-upload-types' ),
@@ -208,6 +200,7 @@ class Settings {
 	 * Displays table contents.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @noinspection HtmlUnknownTarget
 	 */
 	public function display_types_table() { // phpcs:ignore Generic.Metrics.NestingLevel.MaxExceeded, Generic.Metrics.CyclomaticComplexity.MaxExceeded
@@ -369,6 +362,7 @@ class Settings {
 	 * Displays recommended products section.
 	 *
 	 * @since 1.0.0
+	 *
 	 * @noinspection HtmlUnknownTarget
 	 */
 	public function display_am_products() {
@@ -520,6 +514,7 @@ class Settings {
 	 * Display notice about multiple mime types support for old installations.
 	 *
 	 * @since 1.2.0
+	 *
 	 * @noinspection HtmlUnknownTarget
 	 */
 	public function display_multiple_mimes_support_notice() {

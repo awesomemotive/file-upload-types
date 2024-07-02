@@ -77,7 +77,7 @@ final class Plugin {
 	 * @since        1.0.0
 	 *
 	 * @param array|mixed $actions     Plugin Action links.
-	 * @param string      $plugin_file Path to the plugin file relative to the plugins directory.
+	 * @param string      $plugin_file Path to the plugin file relative to the plugins' directory.
 	 * @param array       $plugin_data An array of plugin data. See `get_plugin_data()`.
 	 * @param string      $context     The plugin context.
 	 *
@@ -158,21 +158,23 @@ final class Plugin {
 	}
 
 	/**
-	 * File types allowed to upload.
+	 * File types allowed uploading.
 	 *
 	 * @link https://developer.wordpress.org/reference/functions/wp_get_mime_types/
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $mime_types List of all allowed in WordPress mime types.
+	 * @param array|mixed $mime_types List of all allowed in WordPress mime types.
 	 *
 	 * @return array
 	 */
-	public function allowed_types( $mime_types ) {
+	public function allowed_types( $mime_types ): array {
 
-		// Only add first mime type to the allowed list. Aliases will be dynamically added when required.
+		$mime_types = (array) $mime_types;
+
+		// Only add the first mime type to the allowed list. Aliases will be dynamically added when required.
 		$enabled_types = array_map(
-			static function( $enabled_types ) {
+			static function ( $enabled_types ) {
 
 				return sanitize_mime_type( ! is_array( $enabled_types ) ? $enabled_types : $enabled_types[0] );
 			},
@@ -187,16 +189,21 @@ final class Plugin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array       $file_data File data array containing 'ext', 'type', and 'proper_filename' keys.
-	 * @param string      $file      Full path to the file.
-	 * @param string      $filename  The name of the file (may differ from $file due to $file being in a tmp directory).
-	 * @param array       $mimes     Key is the file extension with value as the mime type.
-	 * @param string|bool $real_mime The actual mime type or false if the type cannot be determined.
+	 * @param array|mixed   $file_data File data array containing 'ext', 'type', and 'proper_filename' keys.
+	 * @param string        $file      Full path to the file.
+	 * @param string        $filename  The name of the file
+	 *                                 (may differ from $file due to $file being in a tmp directory).
+	 * @param string[]|null $mimes     Key is the file extension with value as the mime type.
+	 * @param string|false  $real_mime The actual mime type or false if the type cannot be determined.
 	 *
 	 * @return array
+	 * @noinspection PhpUnusedParameterInspection
+	 * @noinspection PhpMissingParamTypeInspection
+	 * @noinspection DisconnectedForeachInstructionInspection
 	 */
-	public function real_file_type( $file_data, $file, $filename, $mimes, $real_mime ) { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks
+	public function real_file_type( $file_data, $file, $filename, $mimes, $real_mime ): array { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks, Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
+		$file_data     = (array) $file_data;
 		$extension     = pathinfo( $filename, PATHINFO_EXTENSION );
 		$enabled_types = $this->enabled_types();
 
@@ -210,17 +217,16 @@ final class Plugin {
 
 			$mimes = $enabled_types[ $extension ];
 
-			// First mime will not need this extra behaviour.
+			// First mime will not need this extra behavior.
 			unset( $mimes[0] );
 
 			$mimes = array_map( 'sanitize_mime_type', $mimes );
 
 			foreach ( $mimes as $mime ) {
-
 				// Remove filter to avoid infinite redirection.
-				remove_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999, 5 );
+				remove_filter( 'wp_check_filetype_and_ext', [ $this, 'real_file_type' ], 999 );
 
-				$mime_filter = function( $mime_types ) use ( $mime, $extension ) {
+				$mime_filter = static function ( $mime_types ) use ( $mime, $extension ) {
 
 					$mime_types[ $extension ] = $mime;
 

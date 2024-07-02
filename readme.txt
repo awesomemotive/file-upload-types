@@ -3,9 +3,9 @@ Contributors: wpforms, smub, jaredatch, slaFFik, kkarpieszuk
 Tags: files, upload, file upload, mime, attachments
 Requires at least: 5.5
 Tested up to: 6.5
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 Requires PHP: 7.0
-License: GPLv2 or later
+License: GNU General Public License v2.0 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Easily allow WordPress to accept and upload any file type extension or MIME type, including custom file types.
@@ -81,6 +81,10 @@ Visit <a href="http://www.wpbeginner.com/?utm_source=wprepo&utm_medium=link&utm_
 1. Settings Page
 
 == Changelog ==
+
+= 1.4.0 - 2024-07-03 =
+- Changed: The minimum required PHP version is now 7.0.
+- Changed: The minimum required WordPress version is now 5.5.
 
 = 1.3.0 - 2023-02-15 =
 * IMPORTANT - Support for WordPress 5.1 has been discontinued. If you are running WordPress 5.1, you MUST upgrade WordPress before installing File Upload Types 1.3.0. Failure to do that will disable File Upload Types core functionality.

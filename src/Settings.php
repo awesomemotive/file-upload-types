@@ -50,10 +50,10 @@ class Settings {
 	 *
 	 * @return bool
 	 */
-	public function is_admin_screen() {
+	public function is_admin_screen(): bool {
 
 		$screen    = get_current_screen();
-		$screen_id = $screen ? $screen->id : '';
+		$screen_id = $screen->id ?? '';
 
 		return $screen_id === 'settings_page_file-upload-types';
 	}
@@ -64,8 +64,10 @@ class Settings {
 	 * @since 1.0.0
 	 *
 	 * @param string $hook_suffix The current admin page.
+	 *
+	 * @noinspection PhpUnusedParameterInspection
 	 */
-	public function enqueue_assets( $hook_suffix ) {
+	public function enqueue_assets( string $hook_suffix ) {
 
 		if ( ! $this->is_admin_screen() ) {
 			return;
@@ -121,8 +123,10 @@ class Settings {
 	 * @since 1.0.0
 	 *
 	 * @param string $context Menu context.
+	 *
+	 * @noinspection PhpUnusedParameterInspection
 	 */
-	public function add_settings_page( $context ) {
+	public function add_settings_page( string $context ) {
 
 		add_options_page(
 			esc_html__( 'File Upload Types', 'file-upload-types' ),
@@ -204,6 +208,7 @@ class Settings {
 	 * Displays table contents.
 	 *
 	 * @since 1.0.0
+	 * @noinspection HtmlUnknownTarget
 	 */
 	public function display_types_table() { // phpcs:ignore Generic.Metrics.NestingLevel.MaxExceeded, Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
@@ -242,10 +247,10 @@ class Settings {
 		<div class="table-container">
 			<table>
 				<tr class="heading">
-					<td width="35%"><?php esc_html_e( 'Description', 'file-upload-types' ); ?></td>
-					<td width="40%"><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></td>
-					<td width="15%"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></td>
-					<td width="10%">&nbsp;</td>
+					<td style="width: 35%;"><?php esc_html_e( 'Description', 'file-upload-types' ); ?></td>
+					<td style="width: 40%;"><?php esc_html_e( 'MIME Type', 'file-upload-types' ); ?></td>
+					<td style="width: 15%;"><?php esc_html_e( 'Extension', 'file-upload-types' ); ?></td>
+					<td style="width: 10%;">&nbsp;</td>
 				</tr>
 			</table>
 		</div>
@@ -282,10 +287,10 @@ class Settings {
 						}
 
 						echo '<tr>';
-						echo '<td width="35%">' . esc_html( $type['desc'] ) . '</td>';
-						echo '<td width="40%">' . wp_kses( $type['mime'], [ 'br' => [] ] ) . '</td>';
-						echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
-						echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types[]" checked> </td>';
+						echo '<td style="width: 35%;">' . esc_html( $type['desc'] ) . '</td>';
+						echo '<td style="width: 40%;">' . wp_kses( $type['mime'], [ 'br' => [] ] ) . '</td>';
+						echo '<td style="width: 15%;">' . esc_html( $type['ext'] ) . '</td>';
+						echo '<td style="width: 10%; text-align: right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="e_types[]" checked> </td>';
 						echo '</tr>';
 					}
 
@@ -297,7 +302,7 @@ class Settings {
 				<?php
 				$available_types = fut_get_available_file_types();
 				$stored_types    = get_option( 'file_upload_types', [] );
-				$enabled_types   = isset( $stored_types['enabled'] ) ? $stored_types['enabled'] : [];
+				$enabled_types   = $stored_types['enabled'] ?? [];
 				$wp_ext_mimes    = get_allowed_mime_types();
 
 				foreach ( $available_types as $type ) {
@@ -324,10 +329,10 @@ class Settings {
 					}
 
 					echo '<tr>';
-					echo '<td width="35%">' . esc_html( $type['desc'] ) . '</td>';
-					echo '<td width="40%">' . wp_kses( $type['mime'], [ 'br' => [] ] ) . '</td>';
-					echo '<td width="15%">' . esc_html( $type['ext'] ) . '</td>';
-					echo '<td width="10%" style="text-align:right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
+					echo '<td style="width: 35%;">' . esc_html( $type['desc'] ) . '</td>';
+					echo '<td style="width: 40%;">' . wp_kses( $type['mime'], [ 'br' => [] ] ) . '</td>';
+					echo '<td style="width: 15%;">' . esc_html( $type['ext'] ) . '</td>';
+					echo '<td style="width: 10%; text-align: right;"><input type="checkbox" value="' . esc_attr( $type['ext'] ) . '" name="a_types[]"> </td>';
 					echo '</tr>';
 				}
 				?>
@@ -346,11 +351,11 @@ class Settings {
 				</tr>
 
 				<tr class="repetitive-fields">
-					<td width="35%"><input type="text" name="c_types[desc][]" class="description" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
-					<td width="40%"><input type="text" name="c_types[mime][]" class="mime" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
-					<td width="15%"><input type="text" name="c_types[ext][]" class="extension"
+					<td style="width: 35%;"><input type="text" name="c_types[desc][]" class="description" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
+					<td style="width: 40%;"><input type="text" name="c_types[mime][]" class="mime" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
+					<td style="width: 15%;"><input type="text" name="c_types[ext][]" class="extension"
 							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>"></td>
-					<td width="10%" class="icons">
+					<td style="width: 10%;" class="icons">
 						<img class="file-upload-types-plus" src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Add File Type', 'file-upload-types' ); ?>">
 						<img class="file-upload-types-minus" src="<?php echo esc_url( plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Remove File Type', 'file-upload-types' ); ?>">
 					</td>
@@ -364,6 +369,7 @@ class Settings {
 	 * Displays recommended products section.
 	 *
 	 * @since 1.0.0
+	 * @noinspection HtmlUnknownTarget
 	 */
 	public function display_am_products() {
 
@@ -451,7 +457,7 @@ class Settings {
 			return;
 		}
 
-		// All new installs since 1.2.0 will have multiple mime types support enabled by default.
+		// All new installations since 1.2.0 will have multiple mime types support enabled by default.
 		if ( ! get_option( 'file_upload_types' ) ) {
 			update_option( 'file_upload_types_multiple_mimes', 'enabled' );
 		}
@@ -460,7 +466,7 @@ class Settings {
 		$enabled_types   = isset( $_POST['e_types'] ) ? array_map( 'sanitize_text_field', $_POST['e_types'] ) : [];
 		$available_types = isset( $_POST['a_types'] ) ? array_map( 'sanitize_text_field', $_POST['a_types'] ) : [];
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		$custom_types_raw = isset( $_POST['c_types'] ) ? $_POST['c_types'] : [];
+		$custom_types_raw = (array) ( $_POST['c_types'] ?? [] );
 		// phpcs:enable WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 
 		$custom_types = fut_format_raw_custom_types( $custom_types_raw );
@@ -483,7 +489,7 @@ class Settings {
 				unset( $stored_custom_types[ $key ] );
 			}
 
-			// Remove duplicate type of the same extension.
+			// Remove a duplicate type of the same extension.
 			if ( in_array( $value['ext'], array_column( $custom_types, 'ext' ), true ) ) {
 				unset( $stored_custom_types[ $key ] );
 			}
@@ -511,9 +517,10 @@ class Settings {
 	}
 
 	/**
-	 * Display notice about multiple mime types support for old installs.
+	 * Display notice about multiple mime types support for old installations.
 	 *
 	 * @since 1.2.0
+	 * @noinspection HtmlUnknownTarget
 	 */
 	public function display_multiple_mimes_support_notice() {
 
@@ -559,7 +566,7 @@ class Settings {
 	}
 
 	/**
-	 * Enable multiple mime types support for old installs.
+	 * Enable multiple mime types support for old installations.
 	 *
 	 * @since 1.2.0
 	 */
@@ -592,7 +599,7 @@ class Settings {
 	 *
 	 * @return array
 	 */
-	private function get_am_plugins() {
+	private function get_am_plugins(): array {
 
 		return [
 			'wpf' => [
@@ -627,14 +634,15 @@ class Settings {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $text Rating Text.
+	 * @param string|mixed $text Rating Text.
 	 *
 	 * @return string
+	 * @noinspection HtmlUnknownTarget
 	 */
-	public function get_admin_footer( $text ) {
+	public function get_admin_footer( $text ): string {
 
 		if ( ! $this->is_admin_screen() ) {
-			return $text;
+			return (string) $text;
 		}
 
 		return sprintf(

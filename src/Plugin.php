@@ -74,16 +74,19 @@ final class Plugin {
 	/**
 	 * Add plugin settings page link.
 	 *
-	 * @since 1.0.0
+	 * @since        1.0.0
 	 *
-	 * @param array  $actions     Plugin Action links.
-	 * @param string $plugin_file Path to the plugin file relative to the plugins directory.
-	 * @param array  $plugin_data An array of plugin data. See `get_plugin_data()`.
-	 * @param string $context     The plugin context.
+	 * @param array|mixed $actions     Plugin Action links.
+	 * @param string      $plugin_file Path to the plugin file relative to the plugins directory.
+	 * @param array       $plugin_data An array of plugin data. See `get_plugin_data()`.
+	 * @param string      $context     The plugin context.
 	 *
 	 * @return array
+	 * @noinspection PhpMissingParamTypeInspection
+	 * @noinspection PhpUnusedParameterInspection
+	 * @noinspection HtmlUnknownTarget
 	 */
-	public function plugin_action_links( $actions, $plugin_file, $plugin_data, $context ) {
+	public function plugin_action_links( $actions, $plugin_file, $plugin_data, $context ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 		$new_actions = [
 			'settings' => sprintf(
@@ -94,7 +97,7 @@ final class Plugin {
 			),
 		];
 
-		return array_merge( $new_actions, $actions );
+		return array_merge( $new_actions, (array) $actions );
 	}
 
 	/**
@@ -104,7 +107,7 @@ final class Plugin {
 	 *
 	 * @return array
 	 */
-	public function enabled_types() {
+	public function enabled_types(): array {
 
 		$stored_types     = get_option( 'file_upload_types', [] );
 		$enabled_types    = isset( $stored_types['enabled'] ) ? (array) $stored_types['enabled'] : [];
@@ -137,7 +140,7 @@ final class Plugin {
 	 *
 	 * @return array
 	 */
-	private function add_available_types( $available_types, $enabled_types ) {
+	private function add_available_types( array $available_types, array $enabled_types ): array {
 
 		$return_types = [];
 

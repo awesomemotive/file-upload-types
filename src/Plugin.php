@@ -19,20 +19,23 @@ final class Plugin {
 	protected static $instance;
 
 	/**
-	 * Main Plugin Instance.
+	 * Get a single instance of the class.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Plugin Main Instance.
+	 * @return Plugin
 	 */
-	public static function get_instance() {
+	public static function get_instance(): Plugin {
 
-		// If the single instance hasn't been set, set it now.
-		if ( null === self::$instance ) {
-			self::$instance = new self();
+		static $instance = null;
+
+		if ( ! $instance instanceof self ) {
+			$instance = new self();
+
+			$instance->init();
 		}
 
-		return self::$instance;
+		return $instance;
 	}
 
 	/**

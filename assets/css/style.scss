@@ -88,7 +88,7 @@ $border-color: #ccd0d4;
 		display: flex;
 
 		.file-upload-types-heading {
-			
+
 			h3 {
 				margin: 14px 0 10px;
 				font-size: 20px;
@@ -192,8 +192,28 @@ $border-color: #ccd0d4;
 					vertical-align: top;
 				}
 
+				tr.dropzone {
+					padding: 20px;
+
+					.file-upload-types-dropzone {
+						background: rgba(241, 241, 241, 1);
+						padding: 20px;
+						text-align: center;
+						border: 1px dashed rgba(220, 220, 222, 1);
+						border-radius: 4px;
+
+						p {
+							font-size: 14px;
+
+							a {
+								color: inherit;
+							}
+						}
+					}
+				}
+
 				tr.repetitive-fields {
-					td {	
+					td {
 						vertical-align: middle;
 					}
 

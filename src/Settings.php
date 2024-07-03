@@ -41,7 +41,6 @@ class Settings {
 		add_action( 'admin_init', [ $this, 'enable_multiple_mimes_support' ] );
 		add_filter( 'admin_footer_text', [ $this, 'get_admin_footer' ], 1 );
 		add_action( 'admin_print_scripts', [ $this, 'remove_notices' ] );
-		// define ajax callback for file_upload_types_check_sample
 		add_action( 'wp_ajax_file_upload_types_check_sample', [ $this, 'check_sample' ] );
 	}
 
@@ -347,10 +346,20 @@ class Settings {
 					</td>
 				</tr>
 
+				<tr class="dropzone">
+					<td colspan="4">
+						<div class="file-upload-types-dropzone" id="c_types_file_sample_button">
+							<div class="file-upload-types-dropzone-inner">
+								<div class="file-upload-types-dropzone-text">
+									<p><?php echo wp_kses_post( __( 'Drop files here or click to select files. <a href="#">You can also add file types manually</a>.', 'file-upload-types' ) ); ?></p>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
 				<tr class="repetitive-fields">
 					<td width="35%">
-						<input type="button" name="c_types_file_sample_button" id="c_types_file_sample_button" style="display: inline-block; background-color: #0073aa; border-color: #0073aa; color: #fff;"
-							class="button button-primary" value="<?php esc_attr_e( 'Sample', 'file-upload-types' ); ?>" >
 						<input type="text" name="c_types[desc][]" class="description" id="c_types_file_description"  style="display: inline-block; max-width: 80%; width: auto;"
 							placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
 					<td width="40%"><input type="text" name="c_types[mime][]" class="mime" id="c_types_file_mime_type"
@@ -689,14 +698,24 @@ class Settings {
 		}
 	}
 
+	/**
+	 * Check the sample file.
+	 *
+	 * @since 1.4.0
+	 */
 	public function check_sample() {
 
+		// @todo: add nonce verification.
+		// phpcs:disable phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 		if ( isset( $_FILES['c_types_file_sample'] ) ) {
-			$sample = $_FILES['c_types_file_sample'];
-			$var = 'foo';
+			$sample         = $_FILES['c_types_file_sample'];
+			$sample['name'] = preg_replace( '/[^a-zA-Z0-9\._-]/', '', $sample['name'] );
+			$sample['name'] = uniqid() . '_' . $sample['name'];
+
 			$finfo     = finfo_open( FILEINFO_MIME_TYPE );
 			$mime_type = finfo_file( $finfo, $sample['tmp_name'] );
 			$extension = pathinfo( $sample['name'], PATHINFO_EXTENSION );
+
 			finfo_close( $finfo );
 			wp_send_json_success(
 				[
@@ -705,5 +724,6 @@ class Settings {
 				]
 			);
 		}
+		// phpcs:enable phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 	}
 }

@@ -82,6 +82,14 @@ class Settings {
 		);
 
 		wp_enqueue_script(
+			'file-upload-types-dropzone',
+			plugins_url( 'assets/js/dropzone.min.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+			[],
+			FILE_UPLOAD_TYPES_VERSION,
+			true
+		);
+
+		wp_enqueue_script(
 			'file-upload-types',
 			plugins_url( 'assets/js/script' . $suffix . '.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 			[ 'jquery' ],
@@ -92,6 +100,7 @@ class Settings {
 		// phpcs:ignore WPForms.PHP.ValidateDomain.InvalidDomain
 		$strings = [
 			'default_section' => esc_html__( 'Default section can not be deleted.', 'file-upload-types' ),
+			'nonce'           => wp_create_nonce( 'file_upload_types_nonce' ),
 		];
 
 		wp_localize_script( 'file-upload-types', 'file_upload_types_params', $strings );
@@ -349,23 +358,19 @@ class Settings {
 				<tr class="dropzone">
 					<td colspan="4">
 						<div class="file-upload-types-dropzone" id="c_types_file_sample_button">
-							<div class="file-upload-types-dropzone-inner">
-								<div class="file-upload-types-dropzone-text">
-									<p><?php echo wp_kses_post( __( 'Drop files here or click to select files. <a href="#">You can also add file types manually</a>.', 'file-upload-types' ) ); ?></p>
-								</div>
-							</div>
+							<p><?php echo wp_kses_post( __( 'Drop files here or click to select files. <a href="#">You can also add file types manually</a>.', 'file-upload-types' ) ); ?></p>
 						</div>
 					</td>
 				</tr>
 
 				<tr class="repetitive-fields">
 					<td width="35%">
-						<input type="text" name="c_types[desc][]" class="description" id="c_types_file_description"  style="display: inline-block; max-width: 80%; width: auto;"
+						<input type="text" name="c_types[desc][]" class="description c_types_file_description" id="c_types_file_description"  style="display: inline-block; max-width: 80%; width: auto;"
 							placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
-					<td width="40%"><input type="text" name="c_types[mime][]" class="mime" id="c_types_file_mime_type"
+					<td width="40%"><input type="text" name="c_types[mime][]" class="mime c_types_file_mime_type" id="c_types_file_mime_type"
 							placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
 					<td width="15%">
-						<input type="text" name="c_types[ext][]" class="extension" id="c_types_file_extension"
+						<input type="text" name="c_types[ext][]" class="extension c_types_file_extension" id="c_types_file_extension"
 							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>">
 						<input type="file" name="c_types_file_sample" id="c_types_file_sample" style="display:none;"
 							class="file" >
@@ -705,10 +710,13 @@ class Settings {
 	 */
 	public function check_sample() {
 
+		// verify file_upload_types_nonce nonce.
+		check_ajax_referer( 'file_upload_types_nonce', 'nonce' );
+
 		// @todo: add nonce verification.
 		// phpcs:disable phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
-		if ( isset( $_FILES['c_types_file_sample'] ) ) {
-			$sample         = $_FILES['c_types_file_sample'];
+		if ( isset( $_FILES['file'] ) ) {
+			$sample         = $_FILES['file'];
 			$sample['name'] = preg_replace( '/[^a-zA-Z0-9\._-]/', '', $sample['name'] );
 			$sample['name'] = uniqid() . '_' . $sample['name'];
 

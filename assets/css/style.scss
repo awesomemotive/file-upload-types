@@ -204,15 +204,23 @@ $border-color: #ccd0d4;
 
 						p {
 							font-size: 14px;
+							width: fit-content;
+							margin:auto;
 
 							a {
 								color: inherit;
+
+								&:active {
+									outline: none;
+								}
 							}
 						}
 					}
 				}
 
 				tr.repetitive-fields {
+					display: none;
+
 					td {
 						vertical-align: middle;
 					}

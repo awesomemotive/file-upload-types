@@ -1,8 +1,11 @@
-/* global file_upload_types_params, jQuery */
+/* global file_upload_types_params, jQuery, Dropzone */
 
 'use strict';
 
+Dropzone.autoDiscover = false;
+
 jQuery( function ( $ ) {
+
 	$( document )
 		.on( 'click', '#file-upload-types .table-container .file-upload-types-plus', function ( e ) {
 			e.preventDefault();
@@ -51,44 +54,43 @@ jQuery( function ( $ ) {
 					}
 				}
 			} );
-		} ).on(
-			'change', '#c_types_file_sample', function () {
-
-				let data = new FormData( $( '#file-upload-types form' )[0] );
-				data.append( 'action', 'file_upload_types_check_sample' );
-
-				$( '#c_types_file_sample_button' ).val( 'Checking...' );
-
-				$.ajax(
-					{
-						url: ajaxurl,
-						type: 'POST',
-						processData: false,
-						contentType: false,
-						data: data,
-						success: function( response ) {
-							console.log( response );
-							if ( response.data.extension ) {
-								$( '#c_types_file_extension' ).val( response.data.extension );
-								$( '#c_types_file_description' ).val( response.data.extension.toUpperCase() + ' file' );
-							}
-							if ( response.data.mime_type ) {
-								$( '#c_types_file_mime_type' ).val( response.data.mime_type );
-							}
-							$( '#c_types_file_sample_button' ).val( 'Sample' );
-						},
-					}
-				);
-
-				// reset the value of the file input
-				$( this ).val( '' );
-			}
-		).on(
-			'click',
-		'#c_types_file_sample_button',
-		function( e ) {
+		} )
+		.on( 'click', '#c_types_file_sample_button a', function ( e ) {
 			e.preventDefault();
-			$( '#c_types_file_sample' ).trigger( 'click' );
-		}
-	);
+
+			$( '.repetitive-fields' ).show();
+		} );
+
+	let uploaded = 0;
+
+	let SampleFileDropzone = new Dropzone( '#c_types_file_sample_button', {
+		url: ajaxurl,
+		uploadMultiple: false,
+		allowMultiple: false,
+		previewTemplate: '<div style="display:none"></div>',
+		init: function() {
+			this.on( 'sending', function( file, xhr, formData ) {
+				formData.append( 'action', 'file_upload_types_check_sample' );
+				formData.append( 'nonce', file_upload_types_params.nonce );
+			} );
+			this.on( 'success', function( file, response ) {
+
+				if ( uploaded === 0 ) {
+					$( '.repetitive-fields' ).show();
+				} else if ( uploaded > 0 ) {
+					$( '#file-upload-types .table-container .file-upload-types-plus' ).trigger( 'click' );
+				}
+
+				if ( response.data.extension ) {
+					$( '.c_types_file_extension:last' ).val( response.data.extension );
+					$( '.c_types_file_description:last' ).val( response.data.extension.toUpperCase() + ' file' );
+				}
+				if ( response.data.mime_type ) {
+					$( '.c_types_file_mime_type:last' ).val( response.data.mime_type );
+				}
+
+				uploaded++;
+			} );
+		},
+	} );
 } );

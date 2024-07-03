@@ -45,12 +45,17 @@ jQuery( function ( $ ) {
 
 			$( '.file-upload-types-table table tr' ).filter( function () {
 
-				if ( ! $( this ).hasClass( 'heading' ) ) {
-					if ( value !== '' && $( this ).hasClass( 'section' ) ) {
-						$( this ).hide();
+				const $this = $( this );
+
+				if ( ! $this.hasClass( 'heading' ) ) {
+					if ( value !== '' && $this.hasClass( 'section' ) ) {
+						$this.hide();
 					}
-					else {
-						$( this ).toggle( $( this ).text().toLowerCase().indexOf( value ) > - 1 );
+					// Do nothing of this is hidden repetitive section with no value yet.
+					else if ( $this.hasClass( 'repetitive-fields' ) && $this.css( 'display' ) === 'none' && ! $this.find( 'input' ).toArray().some( input => input.value !== '' ) ) {
+						return;
+					} else {
+						$this.toggle( $this.text().toLowerCase().indexOf( value ) > - 1 );
 					}
 				}
 			} );

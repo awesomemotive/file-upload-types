@@ -223,6 +223,10 @@ $border-color: #ccd0d4;
 
 					td {
 						vertical-align: middle;
+
+						&.cell_c_types_file_mime_type, &.cell_c_types_file_extension {
+							padding: 15px;
+						}
 					}
 
 					td.icons {

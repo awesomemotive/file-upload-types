@@ -365,15 +365,13 @@ class Settings {
 
 				<tr class="repetitive-fields">
 					<td width="35%">
-						<input type="text" name="c_types[desc][]" class="description c_types_file_description" id="c_types_file_description"  style="display: inline-block; max-width: 80%; width: auto;"
+						<input type="text" name="c_types[desc][]" class="description c_types_file_description" id="c_types_file_description"  style="display: inline-block"
 							placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
-					<td width="40%"><input type="text" name="c_types[mime][]" class="mime c_types_file_mime_type" id="c_types_file_mime_type"
+					<td width="40%" class="cell_c_types_file_mime_type"><input type="text" name="c_types[mime][]" class="mime c_types_file_mime_type" id="c_types_file_mime_type"
 							placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
-					<td width="15%">
+					<td width="15%" class="cell_c_types_file_extension">
 						<input type="text" name="c_types[ext][]" class="extension c_types_file_extension" id="c_types_file_extension"
 							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>">
-						<input type="file" name="c_types_file_sample" id="c_types_file_sample" style="display:none;"
-							class="file" >
 					</td>
 					<td width="10%" class="icons">
 						<img class="file-upload-types-plus" src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Add File Type', 'file-upload-types' ); ?>">

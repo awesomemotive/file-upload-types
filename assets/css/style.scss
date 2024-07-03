@@ -207,6 +207,25 @@ $border-color: #ccd0d4;
 							width: fit-content;
 							margin:auto;
 
+							span.icon {
+								--icon-size: 21px;
+								display: inline-block;
+								margin: 0;
+								width: var(--icon-size);
+								height: var(--icon-size);
+								background: url('../images/cloud-upload.svg') no-repeat 50% 50%;
+								background-size: var(--icon-size) var(--icon-size);
+								position: relative;
+								top: calc(var(--icon-size) /  4);
+								right: calc(var(--icon-size) / 3);
+
+								&.loading {
+									background: url('../images/spinner.svg') no-repeat 50% 50%;
+									animation: spin 1s linear infinite;
+									transform-origin: 48% 53%;
+								}
+							}
+
 							a {
 								color: inherit;
 

@@ -72,6 +72,8 @@ jQuery( function ( $ ) {
 			this.on( 'sending', function( file, xhr, formData ) {
 				formData.append( 'action', 'file_upload_types_check_sample' );
 				formData.append( 'nonce', file_upload_types_params.nonce );
+
+				$( '.file-upload-types-dropzone span.icon' ).addClass( 'loading' );
 			} );
 			this.on( 'success', function( file, response ) {
 
@@ -88,6 +90,8 @@ jQuery( function ( $ ) {
 				if ( response.data.mime_type ) {
 					$( '.c_types_file_mime_type:last' ).val( response.data.mime_type );
 				}
+
+				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
 
 				uploaded++;
 			} );

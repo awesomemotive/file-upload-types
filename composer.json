@@ -3,31 +3,40 @@
   "description": "Manage the types of files that can be uploaded to your WordPress site.",
   "homepage": "https://github.com/awesomemotive.com/file-upload-types",
   "type": "wordpress-plugin",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "files",
+    "upload",
+    "file upload",
+    "mime",
+    "attachments"
+  ],
+  "support": {
+    "issues": "https://wordpress.org/plugins/file-upload-types"
+  },
   "repositories": [
     {
       "type": "vcs",
       "url": "https://github.com/awesomemotive/wpforms-phpcs.git"
     }
   ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
-    "php": ">=5.6",
-    "composer/installers": "~1.0"
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "awesomemotive/wpforms-phpcs": "^1.2.0"
   },
   "scripts": {
     "phpcs": [
-      "phpcs -s -p"
-    ],
-    "phpcs-pre-commit": [
-      "phpcs -s -p -n"
-    ],
-    "phpcbf": [
-      "phpcbf -p"
+      "vendor/bin/phpcs --colors --standard=phpcs.xml"
     ]
   },
   "autoload": {
     "psr-4": {
-        "FileUploadTypes\\": "src/"
+      "FileUploadTypes\\": "src"
     },
     "files": [
       "src/functions.php"
@@ -35,11 +44,7 @@
   },
   "config": {
     "allow-plugins": {
-      "composer/installers": true,
       "dealerdirect/phpcodesniffer-composer-installer": true
     }
-  },
-  "require-dev": {
-    "awesomemotive/wpforms-phpcs": "^1.0.6"
   }
 }

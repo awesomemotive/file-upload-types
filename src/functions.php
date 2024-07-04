@@ -7,14 +7,20 @@
  *
  * @return array
  */
-function fut_get_available_file_types() {
+function fut_get_available_file_types(): array {
 
-	// Serve v2 for new installs, and for old installs having multiple mime types support enabled.
-	$file = ! get_option( 'file_upload_types' ) || 'enabled' === get_option( 'file_upload_types_multiple_mimes' ) ? 'file-types-list-v2' : 'file-types-list';
+	// Serve v2 for new installations, and for old installations having multiple mime types support enabled.
+	$file =
+		(
+			! get_option( 'file_upload_types' ) ||
+			'enabled' === get_option( 'file_upload_types_multiple_mimes' )
+		)
+			? 'file-types-list-v2'
+			: 'file-types-list';
 
 	$mime_types_serialized = trim( file_get_contents( dirname( FILE_UPLOAD_TYPES_PLUGIN_FILE ) . '/assets/' . $file . '.json' ) );
 
-	return json_decode( $mime_types_serialized, true );
+	return json_decode( $mime_types_serialized, true ) ?? [];
 }
 
 /**
@@ -26,7 +32,7 @@ function fut_get_available_file_types() {
  *
  * @return array
  */
-function fut_format_raw_custom_types( $file_data_raw ) {
+function fut_format_raw_custom_types( array $file_data_raw ): array {
 
 	$description = isset( $file_data_raw['desc'] ) ? array_map( 'sanitize_text_field', $file_data_raw['desc'] ) : [];
 	$mime_types  = isset( $file_data_raw['mime'] ) ? array_map( 'sanitize_text_field', $file_data_raw['mime'] ) : [];
@@ -34,15 +40,14 @@ function fut_format_raw_custom_types( $file_data_raw ) {
 
 	$file_data = _fut_update_file_data_description( $description );
 	$file_data = _fut_update_file_data_mime( $file_data, $mime_types );
-	$file_data = _fut_update_file_data_extensions( $file_data, $extensions );
 
-	return $file_data;
+	return _fut_update_file_data_extensions( $file_data, $extensions );
 }
 
 /**
- * Format the file types when the multiple mime types for a single extension is entered via + icon interface.
+ * Format the file types when the multiple mime types for a single extension are entered via + icon interface.
  *
- * Same extension with multiple mime types are merged and mime types are placed in an array.
+ * Same extensions with multiple mime types are merged, and mime types are placed in an array.
  *
  * @since 1.2.0
  *
@@ -50,14 +55,13 @@ function fut_format_raw_custom_types( $file_data_raw ) {
  *
  * @return array
  */
-function fut_format_multiple_file_types( $custom_types ) {
+function fut_format_multiple_file_types( array $custom_types ): array {
 
 	$result   = [];
 	$ext_mime = [];
 	$ext_desc = [];
 
 	foreach ( $custom_types as $types ) {
-
 		if ( ! isset( $ext_mime[ $types['ext'] ] ) ) {
 			$ext_mime[ $types['ext'] ] = $types['mime'];
 		} else {
@@ -114,12 +118,13 @@ if ( ! function_exists( '_fut_update_file_data_description' ) ) {
 	 *
 	 * @since {VERSION}
 	 *
+	 * @see   fut_format_raw_custom_types
+	 *
 	 * @param array $descriptions Descriptions.
 	 *
 	 * @return array
-	 * @see   fut_format_raw_custom_types
 	 */
-	function _fut_update_file_data_description( $descriptions ) {
+	function _fut_update_file_data_description( array $descriptions ): array {
 
 		$file_data = [];
 
@@ -139,13 +144,14 @@ if ( ! function_exists( '_fut_update_file_data_mime' ) ) {
 	 *
 	 * @since {VERSION}
 	 *
+	 * @see   fut_format_raw_custom_types
+	 *
 	 * @param array $file_data File data.
-	 * @param array $mime      Mime types.
+	 * @param array $mime Mime types.
 	 *
 	 * @return array
-	 * @see   fut_format_raw_custom_types
 	 */
-	function _fut_update_file_data_mime( $file_data, $mime ) {
+	function _fut_update_file_data_mime( array $file_data, array $mime ): array {
 
 		foreach ( $mime as $key => $mime_type ) {
 			$file_data[ $key ]['mime'] = strpos( $mime_type, ',' ) === false ? $mime_type : array_filter( array_map( 'trim', explode( ',', $mime_type ) ) );
@@ -163,13 +169,14 @@ if ( ! function_exists( '_fut_update_file_data_extensions' ) ) {
 	 *
 	 * @since {VERSION}
 	 *
+	 * @see   fut_format_raw_custom_types
+	 *
 	 * @param array $file_data  File data.
 	 * @param array $extensions Extensions.
 	 *
 	 * @return array
-	 * @see   fut_format_raw_custom_types
 	 */
-	function _fut_update_file_data_extensions( $file_data, $extensions ) {
+	function _fut_update_file_data_extensions( array $file_data, array $extensions ): array {
 
 		foreach ( $extensions as $key => $extension ) {
 			$file_data[ $key ]['ext'] = '.' . strtolower( ltrim( $extension, '.' ) );

@@ -27,6 +27,7 @@
     "cross-env": "^7.0.3",
     "gulp": "^4.0.2",
     "gulp-cached": "^1.1.1",
+    "gulp-composer": "^0.4.5",
     "gulp-debug": "^5.0.1",
     "gulp-imagemin": "^9.1.0",
     "gulp-include": "^2.4.1",

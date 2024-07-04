@@ -13,6 +13,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import uglify from 'gulp-uglify';
 import zip from 'gulp-zip';
 import sassCompiler from 'sass';
+import composer from 'gulp-composer';
 
 const exec = process.exec;
 const sass = gulpSass( sassCompiler );
@@ -159,9 +160,16 @@ gulp.task( 'zip', function() {
 } );
 
 /**
+ * Run composer with no dev dependencies.
+ */
+gulp.task( 'composer', function () {
+	return composer( { 'no-dev': true } );
+} );
+
+/**
  * Task: build.
  */
-gulp.task( 'build', gulp.series( gulp.parallel( 'css', 'js', 'img', 'pot' ), 'zip' ) );
+gulp.task( 'build', gulp.series( gulp.parallel( 'css', 'js', 'img', 'pot', 'composer' ), 'zip' ) );
 
 /**
  * Look out for relevant sass/js changes.

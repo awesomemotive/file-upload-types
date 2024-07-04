@@ -4,22 +4,16 @@
 
 	<!-- What to scan -->
 	<file>.</file>
-
-	<exclude-pattern>vendor/*</exclude-pattern>
-	<exclude-pattern>node_modues/*</exclude-pattern>
 	<exclude-pattern>assets/*</exclude-pattern>
+	<exclude-pattern>languages/*</exclude-pattern>
+	<exclude-pattern>node_modules/*</exclude-pattern>
+	<exclude-pattern>vendor/*</exclude-pattern>
 
-	<arg value="ps"/>
-	<arg name="colors"/>
-	<arg name="parallel" value="100"/>
-	<arg name="extensions" value="php"/>
-	<arg name="cache" value=".phpcs.cache"/>
+	<!-- Rules: Check PHP version compatibility -->
+	<config name="testVersion" value="7.0-"/>
 
-	<rule ref="WordPress">
-		<!-- PSR4 -->
-		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
-		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
-	</rule>
+	<!-- Rules: WordPress Coding Standards -->
+	<config name="minimum_supported_wp_version" value="5.5"/>
 
 	<!-- Rules: WPForms Coding Standards -->
 	<config name="multi_domains" value="true"/>
@@ -29,6 +23,12 @@
 		<properties>
 			<property name="file-upload-types" value="src"/>
 		</properties>
+	</rule>
+
+	<rule ref="WordPress">
+		<!-- PSR4 -->
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
 	</rule>
 
 	<rule ref="Generic.Metrics.CyclomaticComplexity">
@@ -42,9 +42,5 @@
 		<properties>
 			<property name="absoluteNestingLevel" value="4"/>
 		</properties>
-	</rule>
-
-	<rule ref="Squiz.Commenting.FunctionComment.EmptyThrows">
-		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
 </ruleset>

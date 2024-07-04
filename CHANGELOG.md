@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
+## [1.4.0] - 2024-07-03
+### Changed
+- The minimum required PHP version is now 7.0.
+- The minimum required WordPress version is now 5.5.
+
 ## [1.3.0] - 2023-02-15
 - IMPORTANT - Support for WordPress 5.1 has been discontinued. If you are running WordPress 5.1, you MUST upgrade WordPress before installing File Upload Types 1.3.0. Failure to do that will disable File Upload Types core functionality.
 - Enhancement - Add `.world` and `.heif` extensions to the default list.

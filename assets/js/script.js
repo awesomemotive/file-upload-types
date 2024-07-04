@@ -2,13 +2,17 @@
 
 'use strict';
 
+/**
+ * @param file_upload_types_params.default_section
+ */
+
 jQuery( function ( $ ) {
 	$( document )
 		.on( 'click', '#file-upload-types .table-container .file-upload-types-plus', function ( e ) {
 			e.preventDefault();
 
-			var closest = $( this ).closest( 'tr' );
-			var clone = closest.clone();
+			const closest = $( this ).closest( 'tr' );
+			const clone = closest.clone();
 
 			clone.find( 'input' ).val( '' );
 
@@ -25,8 +29,9 @@ jQuery( function ( $ ) {
 			}
 		} )
 		.on( 'keyup keypress', '#file-upload-types form', function( e ) {
-			// Do not allow to submit the form on Enter.
-			var keyCode = e.keyCode || e.which;
+			// Do not allow submitting the form on Enter.
+			const keyCode = e.keyCode || e.which;
+
 			if (keyCode === 13) {
 				e.preventDefault();
 				return false;
@@ -37,11 +42,10 @@ jQuery( function ( $ ) {
 
 			$( '.repetitive-fields input' ).first().focus();
 		} )
-		.on( 'input', '#file-upload-types-search', function ( e ) {
-			var value = $( this ).val().toLowerCase();
+		.on( 'input', '#file-upload-types-search', function () {
+			const value = $( this ).val().toLowerCase();
 
 			$( '.file-upload-types-table table tr' ).filter( function () {
-
 				if ( ! $( this ).hasClass( 'heading' ) ) {
 					if ( value !== '' && $( this ).hasClass( 'section' ) ) {
 						$( this ).hide();

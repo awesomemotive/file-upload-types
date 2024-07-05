@@ -620,29 +620,29 @@ class Settings {
 	private function get_am_plugins(): array {
 
 		return [
-			'wpf' => [
+			'wpf'  => [
 				'icon' => plugins_url( 'assets/images/wpforms.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => __( 'WPForms', 'file-upload-types' ),
 				'desc' => __( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
 				'url'  => 'https://wpforms.com',
 			],
-			'mi'  => [
-				'icon' => plugins_url( 'assets/images/monsterinsights.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => __( 'MonsterInsights', 'file-upload-types' ),
-				'desc' => __( 'Effortlessly connect your WP site with Google Analytics.', 'file-upload-types' ),
-				'url'  => 'https://www.monsterinsights.com',
+			'smtp' => [
+				'icon' => plugins_url( 'assets/images/wp-mail-smtp.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'name' => __( 'WP Mail SMTP', 'file-upload-types' ),
+				'desc' => __( 'The most popular SMTP and PHP mailer WordPress plugin.', 'file-upload-types' ),
+				'url'  => 'https://wpmailsmtp.com',
 			],
-			'om'  => [
-				'icon' => plugins_url( 'assets/images/optinmonster.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => __( 'OptinMonster', 'file-upload-types' ),
-				'desc' => __( 'Turn your traffic into leads, conversions and sales.', 'file-upload-types' ),
-				'url'  => 'https://optinmonster.com',
+			'sl'   => [
+				'icon' => plugins_url( 'assets/images/sendlayer.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'name' => __( 'SendLayer', 'file-upload-types' ),
+				'desc' => __( 'An SMTP email delivery service that’s easy and powerful.', 'file-upload-types' ),
+				'url'  => 'https://sendlayer.com',
 			],
-			'sp'  => [
-				'icon' => plugins_url( 'assets/images/seedprod.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => __( 'SeedProd', 'file-upload-types' ),
-				'desc' => __( 'Create beautiful coming soon pages, skyrocket your email list.', 'file-upload-types' ),
-				'url'  => 'https://seedprod.com',
+			'seo'  => [
+				'icon' => plugins_url( 'assets/images/allinone.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'name' => __( 'All In One SEO', 'file-upload-types' ),
+				'desc' => __( 'The best WordPress SEO plugin and toolkit.', 'file-upload-types' ),
+				'url'  => 'https://aioseo.com',
 			],
 		];
 	}

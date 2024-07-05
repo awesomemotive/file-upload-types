@@ -163,7 +163,7 @@ class Settings {
 						<p>
 							<?php esc_html_e( 'Need some help?', 'file-upload-types' ); ?>
 							<a href="https://wpforms.com/docs/how-to-allow-additional-file-upload-types/" target="_blank" rel="noopener noreferrer"
-								class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-blue">
+								class="button button-secondary">
 								<?php esc_html_e( 'View Documentation', 'file-upload-types' ); ?>
 							</a>
 						</p>
@@ -196,7 +196,7 @@ class Settings {
 
 					<p class="file-upload-types-submit">
 						<button type="submit" value="submit" name="file-upload-types-submit"
-							class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
+							class="button button-primary">
 							<?php esc_html_e( 'Save Settings', 'file-upload-types' ); ?>
 						</button>
 					</p>

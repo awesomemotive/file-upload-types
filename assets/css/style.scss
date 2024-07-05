@@ -1,6 +1,8 @@
 $primary-color: #fff;
+$text-color-primary: #32373c;
+$text-color-secondary: #50575e;
 $secondary-color: #e17730;
-$border-color: #ccd0d4;
+$border-color: #c3c4c7;
 
 #wpcontent {
     padding-left: 0 !important;
@@ -51,7 +53,7 @@ $border-color: #ccd0d4;
 			font-size: 23px;
 			font-weight: 400;
 			line-height: 1.3;
-			color: #2d3235;
+			color: $text-color-primary;
 	    }
 
 	    .fie-upload-types-docs {
@@ -61,23 +63,11 @@ $border-color: #ccd0d4;
 				margin: 0;
 				font-size: 14px;
 				line-height: 1;
-				color: #777;
+				color: $text-color-secondary;
 			}
 
 			p a {
 				margin-left: 20px;
-			}
-
-			button {
-				color:#fff;
-				background:#e2772f;
-			}
-
-			button:hover,
-			button:active,
-			button:focus {
-				color:#fff;
-				background:#658699;
 			}
 		}
 	}
@@ -93,13 +83,13 @@ $border-color: #ccd0d4;
 				margin: 14px 0 10px;
 				font-size: 20px;
 				font-weight: 700;
-				color: #444;
+				color: $text-color-primary;
 			}
 
 			p {
 				margin-top: 0;
 				font-size: 14px;
-				color: #444;
+				color: $text-color-secondary;
 			}
 
 		}
@@ -127,6 +117,10 @@ $border-color: #ccd0d4;
 				background-size: 16px 16px;
 				border: 1px solid #ddd;
 				border-radius: 4px;
+
+				&::placeholder {
+					color: #A7AAAD;
+				}
 			}
 
 			.search-box input:focus {
@@ -162,8 +156,8 @@ $border-color: #ccd0d4;
 				tr.heading td {
 					font-size: 14px;
 					font-weight: 700;
-					background: #7d8992;
-					border-color: #7d8992;
+					background: #8c8f94;
+					border-color: #8c8f94;
 					color: #ffffff;
 				}
 
@@ -180,14 +174,15 @@ $border-color: #ccd0d4;
 					font-size: 11px;
 					font-weight: 700;
 					text-transform: uppercase;
-					color: #444444;
-					background: #e7e8e7;
+					color: $text-color-primary;
+					background: #dcdcde;
 				}
 
 				td {
 					text-align: left;
-					padding: 18px 20px;
+					padding: 14px 20px;
 					background: $primary-color;
+					color: $text-color-primary;
 					max-width: 100px;
 					vertical-align: top;
 				}
@@ -198,6 +193,7 @@ $border-color: #ccd0d4;
 					.file-upload-types-dropzone {
 						background: rgba(241, 241, 241, 1);
 						padding: 20px;
+						margin: 4px 0;
 						text-align: center;
 						border: 1px dashed rgba(220, 220, 222, 1);
 						border-radius: 4px;
@@ -301,13 +297,13 @@ $border-color: #ccd0d4;
 			h3 {
 				margin: 15px 0 -5px;
 				font-size: 16px;
-				color: #444;
+				color: $text-color-primary;
 			}
 
 			p {
 				margin-bottom: 30px;
 				font-size: 14px;
-				color: #444;
+				color: $text-color-secondary;
 			}
 
 			.file-upload-types-recommended-plugins {
@@ -329,12 +325,13 @@ $border-color: #ccd0d4;
 
 						h5 {
 						    margin: 0 0 0 90px;
-						    font-size: 14px
+						    font-size: 14px;
+							color: $text-color-primary;
 						}
 
 						p {
 						    margin: 0 0 0 90px;
-						    color: #777;
+						    color: $text-color-secondary;
 						}
 
 						.details {
@@ -360,61 +357,6 @@ $border-color: #ccd0d4;
 	p.file-upload-types-submit {
 		padding: 0 20px;
 	}
-
-	.file-upload-types-btn.file-upload-types-btn-orange {
-		background-color: $secondary-color;
-		border-color: $border-color;
-		color: $primary-color;
-	}
-
-	.file-upload-types-btn.file-upload-types-btn-orange:hover,
-	.file-upload-types-btn.file-upload-types-btn-orange:active,
-	.file-upload-types-btn.file-upload-types-btn-orange:focus {
-	    background-color: #c45e1b;
-	    border-color: $border-color;
-	}
-
-	.file-upload-types-btn.file-upload-types-btn-orange:focus {
-		box-shadow: 0 0 0 1px #fff, 0 0 0 3px #c45e1b;
-	}
-
-	.file-upload-types-btn.file-upload-types-btn-blue {
-		background-color: #809eb0;
-		border-color: $border-color;
-		color: $primary-color;
-	}
-
-	.file-upload-types-btn.file-upload-types-btn-blue:hover,
-	.file-upload-types-btn.file-upload-types-btn-blue:active,
-	.file-upload-types-btn.file-upload-types-btn-blue:focus {
-	    background-color: #658699;
-	    border-color: $border-color;
-	}
-
-	.file-upload-types-btn.file-upload-types-btn-blue:focus {
-		box-shadow: 0 0 0 1px #fff, 0 0 0 3px #658699;
-	}
-}
-
-.file-upload-types-btn {
-    border: 0;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 0;
-    text-decoration: none;
-    text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-    text-shadow: none;
-    box-shadow: none;
-    outline: none;
-}
-
-.file-upload-types-btn.file-upload-types-btn-md {
-	font-size: 13px;
-	font-weight: 600;
-	padding: 8px 12px;
-	min-height: 35px;
 }
 
 .file-upload-types-info {

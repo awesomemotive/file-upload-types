@@ -720,8 +720,9 @@ class Settings {
 
 			$finfo     = finfo_open( FILEINFO_MIME_TYPE );
 			$mime_type = finfo_file( $finfo, $sample['tmp_name'] );
+			$extension = pathinfo( $sample['name'], PATHINFO_EXTENSION );
 
-			if ( ! $mime_type ) {
+			if ( ! $mime_type || ! $extension ) {
 				wp_send_json_error(
 					[
 						'message' => __( 'Unable to detect the file MIME type.', 'file-upload-types' ),
@@ -729,8 +730,6 @@ class Settings {
 					400
 				);
 			}
-
-			$extension = pathinfo( $sample['name'], PATHINFO_EXTENSION );
 
 			finfo_close( $finfo );
 			wp_send_json_success(

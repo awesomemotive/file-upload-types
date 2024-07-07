@@ -1,4 +1,4 @@
-/* global file_upload_types_params, jQuery, Dropzone */
+/* global file_upload_types_params, jQuery, Dropzone, ajaxurl */
 
 'use strict';
 
@@ -102,6 +102,12 @@ jQuery( function ( $ ) {
 				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
 
 				uploaded++;
+			} ).on( 'error', function( file, response ) {
+				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
+
+				if ( response?.data?.message ) {
+					alert( response?.data?.message );
+				}
 			} );
 		},
 	} );

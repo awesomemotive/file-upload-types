@@ -90,7 +90,7 @@ jQuery( function ( $ ) {
 				if ( uploaded === 0 ) {
 					$( '.repetitive-fields' ).show();
 				} else if ( uploaded > 0 ) {
-					$( '#file-upload-types .table-container .file-upload-types-plus' ).trigger( 'click' );
+					$( '#file-upload-types .table-container .file-upload-types-plus:last' ).trigger( 'click' );
 				}
 
 				if ( response.data.extension ) {

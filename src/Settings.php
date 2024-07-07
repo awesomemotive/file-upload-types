@@ -348,7 +348,7 @@ class Settings {
 					<td colspan="4" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
 						<div class="file-upload-types-info" style="font-size: 14px;">
 							<img src="<?php echo esc_url( plugins_url( 'assets/images/question-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Help', 'file-upload-types' ); ?>">
-							<span class="tooltiptext"><?php echo esc_html__( 'Enter the description, MIME type and extension of the file. Multiple MIME types for a single extension can be separated by a comma.', 'file-upload-types' ); ?> </span>
+							<span class="tooltiptext"><?php echo esc_html__( 'Upload files and have their MIME type detected automatically. Multiple MIME types for a single extension can be separated by a comma.', 'file-upload-types' ); ?> </span>
 						</div>
 					</td>
 				</tr>

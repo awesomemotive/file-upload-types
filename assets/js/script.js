@@ -2,8 +2,6 @@
 
 'use strict';
 
-Dropzone.autoDiscover = false;
-
 /**
  * @param file_upload_types_params.default_section
  * @param file_upload_types_params.nonce

@@ -83,7 +83,7 @@ class Settings {
 			'file-upload-types-dropzone',
 			plugins_url( 'assets/js/dropzone.min.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 			[],
-			FILE_UPLOAD_TYPES_VERSION,
+			'6.0.0-beta.1',
 			true
 		);
 
@@ -711,15 +711,12 @@ class Settings {
 	 */
 	public function check_sample() {
 
-		// verify file_upload_types_nonce nonce.
 		check_ajax_referer( 'file_upload_types_nonce', 'nonce' );
 
-		// @todo: add nonce verification.
 		// phpcs:disable phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing
 		if ( isset( $_FILES['file'] ) ) {
 			$sample         = $_FILES['file'];
-			$sample['name'] = preg_replace( '/[^a-zA-Z0-9\._-]/', '', $sample['name'] );
-			$sample['name'] = uniqid() . '_' . $sample['name'];
+			$sample['name'] = sanitize_file_name( $sample['name'] );
 
 			$finfo     = finfo_open( FILEINFO_MIME_TYPE );
 			$mime_type = finfo_file( $finfo, $sample['tmp_name'] );

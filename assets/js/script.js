@@ -1,8 +1,6 @@
-/* global file_upload_types_params, jQuery, Dropzone */
+/* global file_upload_types_params, jQuery, Dropzone, ajaxurl */
 
 'use strict';
-
-Dropzone.autoDiscover = false;
 
 /**
  * @param file_upload_types_params.default_section
@@ -90,7 +88,7 @@ jQuery( function ( $ ) {
 				if ( uploaded === 0 ) {
 					$( '.repetitive-fields' ).show();
 				} else if ( uploaded > 0 ) {
-					$( '#file-upload-types .table-container .file-upload-types-plus' ).trigger( 'click' );
+					$( '#file-upload-types .table-container .file-upload-types-plus:last' ).trigger( 'click' );
 				}
 
 				if ( response.data.extension ) {
@@ -104,6 +102,12 @@ jQuery( function ( $ ) {
 				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
 
 				uploaded++;
+			} ).on( 'error', function( file, response ) {
+				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
+
+				if ( response?.data?.message ) {
+					alert( response?.data?.message );
+				}
 			} );
 		},
 	} );

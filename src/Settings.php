@@ -83,7 +83,7 @@ class Settings {
 			'file-upload-types-dropzone',
 			plugins_url( 'assets/js/dropzone.min.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 			[],
-			'6.0.0-beta.1',
+			'6.0.0-beta.2',
 			true
 		);
 

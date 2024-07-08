@@ -43,7 +43,7 @@ $border-color: #c3c4c7;
 
 	.file-upload-types-nav {
 	    background-color: $primary-color;
-	    margin: 0 0 20px 0;
+	    margin: 0 0 10px 0;
 	    padding: 15px 20px;
 		display: flex;
 		align-items: center;
@@ -264,6 +264,7 @@ $border-color: #c3c4c7;
 
 				input[type="text"] {
 					width: 100%;
+					background: #f1f1f1;
 				}
 
 				input:focus {
@@ -320,18 +321,21 @@ $border-color: #c3c4c7;
 
 						img {
 						    float: left;
-						    max-width: 80px;
+						    max-width: 87px;
 						    height: auto;
+							position: relative;
+							left: -2px;
+							top: -2px;
 						}
 
 						h5 {
-						    margin: 0 0 0 90px;
+						    margin: 0 0 0 98px;
 						    font-size: 14px;
 							color: $text-color-primary;
 						}
 
 						p {
-						    margin: 0 0 0 90px;
+						    margin: 0 0 0 98px;
 						    color: $text-color-secondary;
 						}
 

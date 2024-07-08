@@ -395,19 +395,10 @@ class Settings {
 
 		<p>
 			<?php
-			printf(
-				wp_kses( /* translators: %s - wpforms.com link. */
-					__( 'File Upload Types is built by the team behind the most popular WordPress form plugin, <a href="%s" target="_blank" rel="noopener noreferrer">WPForms</a>. Check out some of our other plugins.', 'file-upload-types' ),
-					[
-						'a' => [
-							'href'   => [],
-							'target' => [],
-							'rel'    => [],
-						],
-					]
-				),
-				'https://wpforms.com'
-			);
+				echo wp_kses(
+					__( 'File Upload Types is built by the team behind some of the most popular WordPress plugins.', 'file-upload-types' ),
+					[]
+				);
 			?>
 		</p>
 

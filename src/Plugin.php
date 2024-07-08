@@ -173,13 +173,24 @@ final class Plugin {
 		$mime_types = (array) $mime_types;
 
 		// Only add the first mime type to the allowed list. Aliases will be dynamically added when required.
-		$enabled_types = array_map(
-			static function ( $enabled_types ) {
+		$enabled_types = $this->enabled_types();
 
-				return sanitize_mime_type( ! is_array( $enabled_types ) ? $enabled_types : $enabled_types[0] );
-			},
-			$this->enabled_types()
-		);
+		foreach( $enabled_types as $ext => $mime ) {
+			if ( is_array( $mime ) ) {
+				$i = 1;
+
+				foreach ($mime as $m) {
+
+					if ( $i === 1 ) {
+						$enabled_types[$ext] = $m;
+						continue;
+					}
+
+					$enabled_types[$ext . '_' . $i] = $m;
+					$i++;
+				}
+			}
+		}
 
 		return array_replace( $mime_types, $enabled_types );
 	}

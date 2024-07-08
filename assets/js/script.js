@@ -18,6 +18,8 @@ jQuery( function ( $ ) {
 			clone.find( 'input' ).val( '' );
 
 			closest.after( clone );
+
+			hideFirstMinus();
 		} )
 		.on( 'click', '#file-upload-types .table-container .file-upload-types-minus', function ( e ) {
 			e.preventDefault();
@@ -67,6 +69,8 @@ jQuery( function ( $ ) {
 			e.preventDefault();
 
 			$( '.repetitive-fields' ).show();
+
+			hideFirstMinus();
 		} );
 
 	let uploaded = 0;
@@ -111,4 +115,11 @@ jQuery( function ( $ ) {
 			} );
 		},
 	} );
+
+	const hideFirstMinus = () => {
+		let minus = $( '.file-upload-types-minus' );
+
+		minus.removeClass( 'first' );
+		minus.first().addClass( 'first' );
+	}
 } );

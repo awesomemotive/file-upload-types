@@ -22,7 +22,7 @@ $border-color: #c3c4c7;
 }
 
 #file-upload-types-header {
-    border-top: 3px solid #df7739;
+    border-top: 3px solid #809EB0;
     padding: 16px 20px 17px;
 
 	img {
@@ -63,11 +63,12 @@ $border-color: #c3c4c7;
 				margin: 0;
 				font-size: 14px;
 				line-height: 1;
-				color: $text-color-secondary;
+				color: #a7aaad;
 			}
 
 			p a {
 				margin-left: 20px;
+				font-size: 14px;
 			}
 		}
 	}

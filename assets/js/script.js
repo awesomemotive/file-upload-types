@@ -26,6 +26,8 @@ jQuery( function ( $ ) {
 
 			if ( $( this ).closest( 'table' ).find( 'tr.repetitive-fields' ).length > 1 ) {
 				$( this ).closest( 'tr' ).remove();
+
+				hideFirstMinus();
 			}
 			else {
 				alert( file_upload_types_params.default_section );
@@ -105,6 +107,8 @@ jQuery( function ( $ ) {
 
 				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
 
+				hideFirstMinus();
+
 				uploaded++;
 			} ).on( 'error', function( file, response ) {
 				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
@@ -117,9 +121,12 @@ jQuery( function ( $ ) {
 	} );
 
 	const hideFirstMinus = () => {
-		let minus = $( '.file-upload-types-minus' );
+		let $minuses = $( '.file-upload-types-minus' );
+debugger;
+		if ( $minuses.length === 1 ) {
+			return $minuses.first().addClass( 'first' );
+		}
 
-		minus.removeClass( 'first' );
-		minus.first().addClass( 'first' );
+		$minuses.removeClass( 'first' );
 	}
 } );

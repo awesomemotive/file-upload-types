@@ -71,7 +71,7 @@ jQuery( function ( $ ) {
 
 	let uploaded = 0;
 
-	let SampleFileDropzone = new Dropzone( '#c_types_file_sample_button', {
+	new Dropzone( '#c_types_file_sample_button', {
 		url: ajaxurl,
 		uploadMultiple: false,
 		allowMultiple: false,
@@ -106,7 +106,7 @@ jQuery( function ( $ ) {
 				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
 
 				if ( response?.data?.message ) {
-					alert( response?.data?.message );
+					alert( response.data.message );
 				}
 			} );
 		},

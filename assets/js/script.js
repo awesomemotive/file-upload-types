@@ -19,7 +19,7 @@ jQuery( function ( $ ) {
 
 			closest.after( clone );
 
-			hideFirstMinus();
+			firstMinus();
 		} )
 		.on( 'click', '#file-upload-types .table-container .file-upload-types-minus', function ( e ) {
 			e.preventDefault();
@@ -27,7 +27,7 @@ jQuery( function ( $ ) {
 			if ( $( this ).closest( 'table' ).find( 'tr.repetitive-fields' ).length > 1 ) {
 				$( this ).closest( 'tr' ).remove();
 
-				hideFirstMinus();
+				firstMinus();
 			}
 			else {
 				alert( file_upload_types_params.default_section );
@@ -72,7 +72,7 @@ jQuery( function ( $ ) {
 
 			$( '.repetitive-fields' ).show();
 
-			hideFirstMinus();
+			firstMinus();
 		} );
 
 	let uploaded = 0;
@@ -107,7 +107,7 @@ jQuery( function ( $ ) {
 
 				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
 
-				hideFirstMinus();
+				firstMinus();
 
 				uploaded++;
 			} ).on( 'error', function( file, response ) {
@@ -120,11 +120,18 @@ jQuery( function ( $ ) {
 		},
 	} );
 
-	const hideFirstMinus = () => {
+	/**
+	 * Add class to the first minus icon.
+	 *
+	 * @since 1.4.0
+	 */
+	const firstMinus = () => {
 		let $minuses = $( '.file-upload-types-minus' );
-debugger;
+
 		if ( $minuses.length === 1 ) {
-			return $minuses.first().addClass( 'first' );
+			$minuses.first().addClass( 'first' );
+
+			return;
 		}
 
 		$minuses.removeClass( 'first' );

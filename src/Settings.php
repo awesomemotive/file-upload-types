@@ -615,25 +615,25 @@ class Settings {
 				'icon' => plugins_url( 'assets/images/wpforms.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => __( 'WPForms', 'file-upload-types' ),
 				'desc' => __( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
-				'url'  => 'https://wpforms.com?utm_source=WordPress&utm_medium=settings-sidebar&utm_campaign=file-upload-types',
+				'url'  => 'https://wpforms.com?utm_source=WordPress&utm_medium=fut-recommendations&utm_campaign=file-upload-types&utm_content=get-wpforms',
 			],
 			'smtp' => [
 				'icon' => plugins_url( 'assets/images/wp-mail-smtp.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => __( 'WP Mail SMTP', 'file-upload-types' ),
 				'desc' => __( 'The most popular SMTP and PHP mailer WordPress plugin.', 'file-upload-types' ),
-				'url'  => 'https://wpmailsmtp.com?utm_source=WordPress&utm_medium=settings-sidebar&utm_campaign=file-upload-types',
+				'url'  => 'https://wpmailsmtp.com?utm_source=WordPress&utm_medium=fut-recommendations&utm_campaign=file-upload-types&utm_content=get-wp-mail-smtp',
 			],
 			'sl'   => [
 				'icon' => plugins_url( 'assets/images/sendlayer.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => __( 'SendLayer', 'file-upload-types' ),
 				'desc' => __( 'An SMTP email delivery service that’s easy and powerful.', 'file-upload-types' ),
-				'url'  => 'https://sendlayer.com?utm_source=WordPress&utm_medium=settings-sidebar&utm_campaign=file-upload-types',
+				'url'  => 'https://sendlayer.com?utm_source=WordPress&utm_medium=fut-recommendations&utm_campaign=file-upload-types&utm_content=get-sendlayer',
 			],
 			'seo'  => [
 				'icon' => plugins_url( 'assets/images/allinone.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => __( 'All In One SEO', 'file-upload-types' ),
 				'desc' => __( 'The best WordPress SEO plugin and toolkit.', 'file-upload-types' ),
-				'url'  => 'https://aioseo.com?utm_source=WordPress&utm_medium=settings-sidebar&utm_campaign=file-upload-types',
+				'url'  => 'https://aioseo.com?utm_source=WordPress&utm_medium=fut-recommendations&utm_campaign=file-upload-types&utm_content=get-aioseo',
 			],
 		];
 	}

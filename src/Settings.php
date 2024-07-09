@@ -713,6 +713,10 @@ class Settings {
 			$mime_type = finfo_file( $finfo, $sample['tmp_name'] );
 			$extension = pathinfo( $sample['name'], PATHINFO_EXTENSION );
 
+			if ( isset( $sample['type'] ) && $mime_type !== $sample['type'] ) {
+				$mime_type .= ', ' . $sample['type'];
+			}
+
 			if ( ! $mime_type || ! $extension ) {
 				wp_send_json_error(
 					[

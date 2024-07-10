@@ -41,6 +41,7 @@ class Settings {
 		add_action( 'admin_init', [ $this, 'enable_multiple_mimes_support' ] );
 		add_filter( 'admin_footer_text', [ $this, 'get_admin_footer' ], 1 );
 		add_action( 'admin_print_scripts', [ $this, 'remove_notices' ] );
+		add_action( 'wp_ajax_file_upload_types_check_sample', [ $this, 'check_sample' ] );
 	}
 
 	/**
@@ -79,6 +80,14 @@ class Settings {
 		);
 
 		wp_enqueue_script(
+			'file-upload-types-dropzone',
+			plugins_url( 'assets/js/dropzone.min.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+			[],
+			'5.9.3',
+			true
+		);
+
+		wp_enqueue_script(
 			'file-upload-types',
 			plugins_url( 'assets/js/script' . $suffix . '.js', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 			[ 'jquery' ],
@@ -89,6 +98,7 @@ class Settings {
 		// phpcs:ignore WPForms.PHP.ValidateDomain.InvalidDomain
 		$strings = [
 			'default_section' => esc_html__( 'Default section can not be deleted.', 'file-upload-types' ),
+			'nonce'           => wp_create_nonce( 'file_upload_types_nonce' ),
 		];
 
 		wp_localize_script( 'file-upload-types', 'file_upload_types_params', $strings );
@@ -338,19 +348,50 @@ class Settings {
 					<td colspan="4" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
 						<div class="file-upload-types-info" style="font-size: 14px;">
 							<img src="<?php echo esc_url( plugins_url( 'assets/images/question-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Help', 'file-upload-types' ); ?>">
-							<span class="tooltiptext"><?php echo esc_html__( 'Enter the description, MIME type and extension of the file. Multiple MIME types for a single extension can be separated by a comma.', 'file-upload-types' ); ?> </span>
+							<span class="tooltiptext"><?php echo esc_html__( 'Upload files and have their MIME type detected automatically. Multiple MIME types for a single extension can be separated by a comma.', 'file-upload-types' ); ?> </span>
+						</div>
+					</td>
+				</tr>
+
+				<tr class="dropzone">
+					<td colspan="4">
+						<div class="file-upload-types-dropzone" id="c_types_file_sample_button">
+						<p><span class="dz-message"><span class="icon"></span><?php echo wp_kses_post( __( 'Drop files here or click to select files.</span> <a href="#">You can also add file types manually</a>.', 'file-upload-types' ) ); ?></p>
 						</div>
 					</td>
 				</tr>
 
 				<tr class="repetitive-fields">
-					<td style="width: 35%;"><input type="text" name="c_types[desc][]" class="description" placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>"></td>
-					<td style="width: 40%;"><input type="text" name="c_types[mime][]" class="mime" placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>"></td>
-					<td style="width: 15%;"><input type="text" name="c_types[ext][]" class="extension"
-							placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>"></td>
+					<td style="width: 35%;">
+						<label for="c_types_file_description"></label>
+						<input
+								type="text" name="c_types[desc][]" class="description c_types_file_description"
+								id="c_types_file_description" style="display: inline-block"
+								placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>">
+					</td>
+					<td style="width: 40%;" class="cell_c_types_file_mime_type">
+						<label for="c_types_file_mime_type"></label>
+						<input
+								type="text" name="c_types[mime][]" class="mime c_types_file_mime_type"
+								id="c_types_file_mime_type"
+								placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>">
+					</td>
+					<td style="width: 15%;" class="cell_c_types_file_extension">
+						<label for="c_types_file_extension"></label>
+						<input
+								type="text" name="c_types[ext][]" class="extension c_types_file_extension"
+								id="c_types_file_extension"
+								placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>">
+					</td>
 					<td style="width: 10%;" class="icons">
-						<img class="file-upload-types-plus" src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Add File Type', 'file-upload-types' ); ?>">
-						<img class="file-upload-types-minus" src="<?php echo esc_url( plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>" alt="<?php esc_attr_e( 'Remove File Type', 'file-upload-types' ); ?>">
+						<img
+								class="file-upload-types-plus"
+								src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>"
+								alt="<?php esc_attr_e( 'Add File Type', 'file-upload-types' ); ?>">
+						<img
+								class="file-upload-types-minus"
+								src="<?php echo esc_url( plugins_url( 'assets/images/trash-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>"
+								alt="<?php esc_attr_e( 'Remove File Type', 'file-upload-types' ); ?>">
 					</td>
 				</tr>
 			</table>
@@ -679,5 +720,58 @@ class Settings {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Check the sample file.
+	 *
+	 * @since 1.4.0
+	 */
+	public function check_sample() {
+
+		check_ajax_referer( 'file_upload_types_nonce', 'nonce' );
+
+		if ( ! isset( $_FILES['file'] ) ) {
+			wp_send_json_error(
+				[
+					'message' => __( 'No file provided.', 'file-upload-types' ),
+				],
+				400
+			);
+		}
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$sample             = $_FILES['file'];
+		$sample['name']     = sanitize_file_name( $sample['name'] );
+		$sample['tmp_name'] = sanitize_text_field( $sample['tmp_name'] );
+		$sample['type']     = sanitize_text_field( $sample['type'] );
+
+		$file_info = finfo_open( FILEINFO_MIME_TYPE );
+		$mime_type = finfo_file( $file_info, $sample['tmp_name'] );
+		$extension = pathinfo( $sample['name'], PATHINFO_EXTENSION );
+
+		$mime_types_arr = [ (string) $mime_type ];
+
+		if ( isset( $sample['type'] ) && $mime_type !== $sample['type'] ) {
+			$mime_types_arr[] = $sample['type'];
+		}
+
+		if ( ! $mime_type || ! $extension ) {
+			wp_send_json_error(
+				[
+					'message' => __( 'Unable to detect the file MIME type.', 'file-upload-types' ),
+				],
+				400
+			);
+		}
+
+		finfo_close( $file_info );
+
+		wp_send_json_success(
+			[
+				'mime_type' => implode( ', ', array_filter( $mime_types_arr ) ),
+				'extension' => $extension,
+			]
+		);
 	}
 }

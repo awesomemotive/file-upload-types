@@ -750,7 +750,7 @@ class Settings {
 		$mime_type = finfo_file( $file_info, $sample['tmp_name'] );
 		$extension = pathinfo( $sample['name'], PATHINFO_EXTENSION );
 
-		$mime_types_arr = [];
+		$mime_types_arr = [ (string) $mime_type ];
 
 		if ( isset( $sample['type'] ) && $mime_type !== $sample['type'] ) {
 			$mime_types_arr[] = $sample['type'];
@@ -769,7 +769,7 @@ class Settings {
 
 		wp_send_json_success(
 			[
-				'mime_type' => implode( ' , ', $mime_types_arr ),
+				'mime_type' => implode( ', ', array_filter( $mime_types_arr ) ),
 				'extension' => $extension,
 			]
 		);

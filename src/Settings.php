@@ -743,15 +743,17 @@ class Settings {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		$sample             = $_FILES['file'];
 		$sample['name']     = sanitize_file_name( $sample['name'] );
-		$sample['tmp_name'] = sanitize_file_name( $sample['tmp_name'] );
+		$sample['tmp_name'] = sanitize_text_field( $sample['tmp_name'] );
 		$sample['type']     = sanitize_text_field( $sample['type'] );
 
 		$file_info = finfo_open( FILEINFO_MIME_TYPE );
 		$mime_type = finfo_file( $file_info, $sample['tmp_name'] );
 		$extension = pathinfo( $sample['name'], PATHINFO_EXTENSION );
 
+		$mime_types_arr = [];
+
 		if ( isset( $sample['type'] ) && $mime_type !== $sample['type'] ) {
-			$mime_type .= ', ' . $sample['type'];
+			$mime_types_arr[] = $sample['type'];
 		}
 
 		if ( ! $mime_type || ! $extension ) {
@@ -767,7 +769,7 @@ class Settings {
 
 		wp_send_json_success(
 			[
-				'mime_type' => $mime_type,
+				'mime_type' => implode( ' , ', $mime_types_arr ),
 				'extension' => $extension,
 			]
 		);

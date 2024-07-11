@@ -231,6 +231,7 @@ class Settings {
 									'rel'    => [],
 									'id'     => [],
 								],
+								'br' => [],
 							]
 						),
 						'https://codex.wordpress.org/Uploading_Files#About_Uploading_Files_on_Dashboard',

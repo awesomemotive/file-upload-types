@@ -245,13 +245,18 @@ $border-color: #c3c4c7;
 						vertical-align: middle;
 
 						&.cell_c_types_file_mime_type, &.cell_c_types_file_extension {
-							padding: 15px;
+							padding: 20px 15px;
+						}
+
+						&.cell_c_types_file_description, &.cell_c_types_file_mime_type, &.cell_c_types_file_extension {
+							padding-right: 5px;
 						}
 					}
 
 					td.icons {
 						white-space: nowrap;
 						text-align: right;
+						padding-left: 15px;
 					}
 				}
 

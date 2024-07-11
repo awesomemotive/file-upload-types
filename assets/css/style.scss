@@ -191,10 +191,14 @@ $border-color: #c3c4c7;
 				tr.dropzone {
 					padding: 20px;
 
+					td {
+						padding: 20px;
+					}
+
 					.file-upload-types-dropzone {
 						background: rgba(241, 241, 241, 1);
 						padding: 20px;
-						margin: 4px 0;
+						margin: 0;
 						text-align: center;
 						border: 1px dashed rgba(220, 220, 222, 1);
 						border-radius: 4px;
@@ -214,7 +218,7 @@ $border-color: #c3c4c7;
 								background-size: var(--icon-size);
 								position: relative;
 								top: calc(var(--icon-size) /  4);
-								right: calc(var(--icon-size) / 3);
+								margin-right: 10px;
 
 								&.loading {
 									background: url('../images/spinner.svg') no-repeat 50% 50%;

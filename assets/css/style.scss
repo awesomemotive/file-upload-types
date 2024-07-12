@@ -44,15 +44,15 @@ $border-color: #c3c4c7;
 	.file-upload-types-nav {
 	    background-color: $primary-color;
 	    margin: 0 0 10px 0;
-	    padding: 15px 20px;
+	    padding: 14px 20px;
 		display: flex;
 		align-items: center;
 
 	    .file-upload-types-nav-title p {
 	    	margin: 0;
-			font-size: 23px;
+			font-size: 22px;
 			font-weight: 400;
-			line-height: 1.3;
+			line-height: 26px;
 			color: $text-color-primary;
 	    }
 
@@ -339,7 +339,7 @@ $border-color: #c3c4c7;
 
 						img {
 						    float: left;
-						    max-width: 87px;
+						    max-width: 84px;
 						    height: auto;
 							position: relative;
 							left: -2px;
@@ -347,7 +347,7 @@ $border-color: #c3c4c7;
 						}
 
 						h5 {
-						    margin: 0 0 0 98px;
+						    margin: 0 0 0 99px;
 							font-weight: 500;
 						    font-size: 14px;
 							line-height: 17px;
@@ -355,8 +355,16 @@ $border-color: #c3c4c7;
 						}
 
 						p {
-						    margin: 0 0 0 98px;
+						    margin: 0 0 0 99px;
 						    color: $text-color-secondary;
+							font-size: 14px;
+							line-height: 18px;
+							font-weight: 400;
+
+							&.plugin-desc {
+								margin-top: 5px;
+								margin-bottom: 5px;
+							}
 						}
 
 						.details {
@@ -365,8 +373,9 @@ $border-color: #c3c4c7;
 					}
 
 					h5 {
-						font-size: 17px;
-						font-weight: 700;
+						font-size: 14px;
+						font-weight: 500;
+						line-height: 17px;
 					}
 				}
 			}

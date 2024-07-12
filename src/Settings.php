@@ -438,9 +438,8 @@ class Settings {
 									<?php
 									printf(
 										wp_kses( /* translators: %2$s - Plugin Name. */
-											'<strong><a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">' . __( 'Get %2$s', 'file-upload-types' ) . '</a></strong>',
+											'<a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">' . __( 'Get %2$s', 'file-upload-types' ) . '</a>',
 											[
-												'strong' => [],
 												'img'    => [
 													'src' => [],
 												],

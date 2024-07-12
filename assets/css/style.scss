@@ -90,6 +90,8 @@ $border-color: #c3c4c7;
 			p {
 				margin-top: 0;
 				font-size: 14px;
+				line-height: 20px;
+				font-weight: 400;
 				color: $text-color-secondary;
 			}
 
@@ -107,11 +109,11 @@ $border-color: #c3c4c7;
 
 			.search-box {
 				margin-left: auto;
-				padding: 20px 0 15px 40px;
+				padding: 0 0 15px 0;
 			}
 
 			.search-box input {
-				width: 200px;
+				width: 195px;
 				padding: 10px 10px 10px 35px;
 				line-height: 1;
 				color: #777;

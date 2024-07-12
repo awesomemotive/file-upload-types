@@ -79,6 +79,7 @@ $border-color: #c3c4c7;
 		display: flex;
 
 		.file-upload-types-heading {
+			padding-right: 20px;
 
 			h3 {
 				margin: 14px 0 10px;
@@ -89,6 +90,7 @@ $border-color: #c3c4c7;
 
 			p {
 				margin-top: 0;
+				margin-bottom: 20px;
 				font-size: 14px;
 				line-height: 20px;
 				font-weight: 400;
@@ -109,7 +111,7 @@ $border-color: #c3c4c7;
 
 			.search-box {
 				margin-left: auto;
-				padding: 0 0 15px 0;
+				padding: 0 0 20px 0;
 			}
 
 			.search-box input {
@@ -204,7 +206,7 @@ $border-color: #c3c4c7;
 
 					.file-upload-types-dropzone {
 						background: rgba(241, 241, 241, 1);
-						padding: 20px;
+						padding: 14px 20px 17px 20px;
 						margin: 0;
 						text-align: center;
 						border: 1px dashed rgba(220, 220, 222, 1);
@@ -353,7 +355,7 @@ $border-color: #c3c4c7;
 						}
 
 						h5 {
-						    margin: 0 0 0 99px;
+						    margin: 0 0 0 97px;
 							font-weight: 500;
 						    font-size: 14px;
 							line-height: 17px;

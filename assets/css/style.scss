@@ -177,8 +177,9 @@ $border-color: #c3c4c7;
 
 				tr.section td {
 					padding: 10px 20px;
-					font-size: 11px;
-					font-weight: 700;
+					font-size: 12px;
+					line-height: 20px;
+					font-weight: 500;
 					text-transform: uppercase;
 					color: $text-color-secondary;
 					background: #dcdcde;
@@ -251,11 +252,11 @@ $border-color: #c3c4c7;
 						vertical-align: middle;
 
 						&.cell_c_types_file_mime_type, &.cell_c_types_file_extension {
-							padding: 20px 15px;
+							padding: 20px 0;
 						}
 
 						&.cell_c_types_file_description, &.cell_c_types_file_mime_type, &.cell_c_types_file_extension {
-							padding-right: 5px;
+							padding-right: 20px;
 						}
 					}
 

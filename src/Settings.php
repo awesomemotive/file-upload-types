@@ -357,13 +357,13 @@ class Settings {
 				<tr class="dropzone">
 					<td colspan="4" class="rounded-left-bottom rounded-right-bottom">
 						<div class="file-upload-types-dropzone" id="c_types_file_sample_button">
-							<p class="dz-message" ><span class="icon"></span><?php echo wp_kses_post( __( 'Drop files here or click to select files. You can also <a href="#">add file types manually</a>.', 'file-upload-types' ) ); ?></p>
+							<p><span class="dz-message"><span class="icon"></span><?php echo wp_kses_post( __( 'Drop files here or click to select files. You can also <a href="#">add file types manually</a>.', 'file-upload-types' ) ); ?></span></p>
 						</div>
 					</td>
 				</tr>
 
 				<tr class="repetitive-fields">
-					<td style="width: 45%;" class="cell_c_types_file_description rounded-left-bottom">
+					<td style="width: 40%;" class="cell_c_types_file_description rounded-left-bottom">
 						<label for="c_types_file_description"></label>
 						<input
 								type="text" name="c_types[desc][]" class="description c_types_file_description"

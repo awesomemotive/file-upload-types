@@ -22,6 +22,8 @@ jQuery( function ( $ ) {
 			closest.after( clone );
 
 			firstMinus();
+
+			roundCorners();
 		} )
 		.on( 'click', '#file-upload-types .table-container .file-upload-types-minus', function ( e ) {
 			e.preventDefault();
@@ -30,6 +32,8 @@ jQuery( function ( $ ) {
 				$( this ).closest( 'tr' ).remove();
 
 				firstMinus();
+
+				roundCorners();
 			}
 			else {
 				alert( file_upload_types_params.default_section );
@@ -75,6 +79,8 @@ jQuery( function ( $ ) {
 			$( '.repetitive-fields' ).show();
 
 			firstMinus();
+
+			roundCorners();
 		} );
 
 	let uploaded = 0;
@@ -138,4 +144,15 @@ jQuery( function ( $ ) {
 
 		$minuses.removeClass( 'first' );
 	}
+
+	const roundCorners = () => {
+		$( 'tr.dropzone td' ).removeClass( 'rounded-left-bottom rounded-right-bottom' );
+
+		$( 'tr.repetitive-fields:not(:last) td:first-child' ).removeClass( 'rounded-left-bottom' );
+		$( 'tr.repetitive-fields:not(:last) td:last-child' ).removeClass( 'rounded-right-bottom' );
+
+		$( 'tr.repetitive-fields:last td:first-child' ).addClass( 'rounded-left-bottom' );
+		$( 'tr.repetitive-fields:last td:last-child' ).addClass( 'rounded-right-bottom' );
+
+	};
 } );

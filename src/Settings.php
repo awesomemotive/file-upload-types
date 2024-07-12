@@ -344,7 +344,7 @@ class Settings {
 		</div>
 
 		<div class="table-container">
-			<table>
+			<table class="rounded-left-bottom rounded-right-bottom">
 				<tr class="section" style="overflow-y:hidden">
 					<td colspan="4" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
 						<div class="file-upload-types-info" style="font-size: 14px;">
@@ -355,7 +355,7 @@ class Settings {
 				</tr>
 
 				<tr class="dropzone">
-					<td colspan="4">
+					<td colspan="4" class="rounded-left-bottom rounded-right-bottom">
 						<div class="file-upload-types-dropzone" id="c_types_file_sample_button">
 							<p><span class="dz-message" class="icon"></span><?php echo wp_kses_post( __( 'Drop files here or click to select files. You can also <a href="#">add file types manually</a>.', 'file-upload-types' ) ); ?></p>
 						</div>
@@ -363,7 +363,7 @@ class Settings {
 				</tr>
 
 				<tr class="repetitive-fields">
-					<td style="width: 45%;" class="cell_c_types_file_description">
+					<td style="width: 45%;" class="cell_c_types_file_description rounded-left-bottom">
 						<label for="c_types_file_description"></label>
 						<input
 								type="text" name="c_types[desc][]" class="description c_types_file_description"
@@ -384,7 +384,7 @@ class Settings {
 								id="c_types_file_extension"
 								placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>">
 					</td>
-					<td style="width: 10%;" class="icons">
+					<td style="width: 10%;" class="icons rounded-right-bottom">
 						<img
 								class="file-upload-types-plus"
 								src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>"

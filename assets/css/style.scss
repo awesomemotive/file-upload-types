@@ -136,7 +136,8 @@ $border-color: #c3c4c7;
 				table {
 					width: 100%;
 					font-family: arial, sans-serif;
-					border-collapse: collapse;
+					border-collapse: separate;
+					border-spacing: 0;
 					border: 1px solid $border-color;
 
 					img {
@@ -449,4 +450,12 @@ $border-color: #c3c4c7;
 		filter: grayscale(100%);
 		cursor: default;
 	}
+}
+
+.rounded-left-bottom {
+	border-bottom-left-radius: 4px;
+}
+
+.rounded-right-bottom {
+	border-bottom-right-radius: 4px;
 }

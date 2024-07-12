@@ -357,7 +357,7 @@ class Settings {
 				<tr class="dropzone">
 					<td colspan="4" class="rounded-left-bottom rounded-right-bottom">
 						<div class="file-upload-types-dropzone" id="c_types_file_sample_button">
-							<p><span class="dz-message" class="icon"></span><?php echo wp_kses_post( __( 'Drop files here or click to select files. You can also <a href="#">add file types manually</a>.', 'file-upload-types' ) ); ?></p>
+							<p class="dz-message" ><span class="icon"></span><?php echo wp_kses_post( __( 'Drop files here or click to select files. You can also <a href="#">add file types manually</a>.', 'file-upload-types' ) ); ?></p>
 						</div>
 					</td>
 				</tr>

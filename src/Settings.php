@@ -632,7 +632,7 @@ class Settings {
 			'wpf'  => [
 				'icon' => plugins_url( 'assets/images/wpforms.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => __( 'WPForms', 'file-upload-types' ),
-				'desc' => __( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
+				'desc' => __( 'The most beginner friendly WordPress form plugin.', 'file-upload-types' ),
 				'url'  => 'https://wpforms.com?utm_source=WordPress&utm_medium=fut-recommendations&utm_campaign=file-upload-types&utm_content=get-wpforms',
 			],
 			'smtp' => [

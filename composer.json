@@ -23,7 +23,8 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-fileinfo": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",

@@ -2,6 +2,8 @@
 
 'use strict';
 
+Dropzone.autoDiscover = false;
+
 /**
  * @param file_upload_types_params.default_section
  * @param file_upload_types_params.nonce
@@ -58,7 +60,7 @@ jQuery( function ( $ ) {
 					if ( value !== '' && $this.hasClass( 'section' ) ) {
 						$this.hide();
 					}
-					// Do nothing of this is hidden repetitive section with no value yet.
+					// Do nothing of this is a hidden repetitive section with no value yet.
 					else if ( $this.hasClass( 'repetitive-fields' ) && $this.css( 'display' ) === 'none' && ! $this.find( 'input' ).toArray().some( input => input.value !== '' ) ) {
 						return;
 					} else {
@@ -77,7 +79,7 @@ jQuery( function ( $ ) {
 
 	let uploaded = 0;
 
-	let SampleFileDropzone = new Dropzone( '#c_types_file_sample_button', {
+	new Dropzone( '#c_types_file_sample_button', {
 		url: ajaxurl,
 		uploadMultiple: false,
 		allowMultiple: false,
@@ -90,7 +92,6 @@ jQuery( function ( $ ) {
 				$( '.file-upload-types-dropzone span.icon' ).addClass( 'loading' );
 			} );
 			this.on( 'success', function( file, response ) {
-
 				if ( uploaded === 0 ) {
 					$( '.repetitive-fields' ).show();
 				} else if ( uploaded > 0 ) {
@@ -101,6 +102,7 @@ jQuery( function ( $ ) {
 					$( '.c_types_file_extension:last' ).val( response.data.extension );
 					$( '.c_types_file_description:last' ).val( response.data.extension.toUpperCase() + ' file' );
 				}
+
 				if ( response.data.mime_type ) {
 					$( '.c_types_file_mime_type:last' ).val( response.data.mime_type );
 				}
@@ -114,7 +116,7 @@ jQuery( function ( $ ) {
 				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
 
 				if ( response?.data?.message ) {
-					alert( response?.data?.message );
+					alert( response.data.message );
 				}
 			} );
 		},

@@ -162,7 +162,9 @@ class Settings {
 					<div class="fie-upload-types-docs">
 						<p>
 							<?php esc_html_e( 'Need some help?', 'file-upload-types' ); ?>
-							<a href="https://wpforms.com/docs/how-to-allow-additional-file-upload-types/" target="_blank" rel="noopener noreferrer"
+							<a href="https://wpforms.com/docs/how-to-allow-additional-file-upload-types/?utm_source=WordPress&utm_medium=fut-help&utm_campaign=file-upload-types&utm_content=view-documentation"
+								target="_blank"
+								rel="noopener noreferrer"
 								class="button button-secondary">
 								<?php esc_html_e( 'View Documentation', 'file-upload-types' ); ?>
 							</a>

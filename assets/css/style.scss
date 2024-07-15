@@ -118,21 +118,13 @@ $border-color: #c3c4c7;
 				width: 195px;
 				padding: 10px 10px 10px 35px;
 				line-height: 1;
-				color: #777;
 				background: #fff url('../images/search-regular.svg') no-repeat 10px 50%;
 				background-size: 16px 16px;
-				border: 1px solid #8c8f94;
 				border-radius: 3px;
 
 				&::placeholder {
 					color: #A7AAAD;
 				}
-			}
-
-			.search-box input:focus {
-				color: #444;
-				border: 1px solid #638699;
-				box-shadow: 0 0 0 1px #638699;
 			}
 
 			.table-container {
@@ -235,14 +227,6 @@ $border-color: #c3c4c7;
 									transform-origin: 48% 53%;
 								}
 							}
-
-							a {
-								color: inherit;
-
-								&:active {
-									outline: none;
-								}
-							}
 						}
 					}
 				}
@@ -274,26 +258,14 @@ $border-color: #c3c4c7;
 					font-size: 14px;
 					font-weight: 400;
 					line-height: 1;
-					color: #777777;
-					background: #fff;
-					border: 1px solid #999999;
 					border-radius: 4px;
 				}
 
 				input[type="text"] {
 					width: 100%;
-					background: #fff;
-
-					&:not(:placeholder-shown) {
-						background: #f1f1f1;
-					}
 				}
 
 				input:focus {
-					color: #444444;
-					background: #fff;
-					border: 1px solid #638699;
-					box-shadow: 0 0 0 1px #638699;
 					outline: none;
 				}
 
@@ -411,7 +383,7 @@ $border-color: #c3c4c7;
 		width: 150px;
 		background: #21282c;
 		color: #fff;
-		text-align: center;
+		text-align: left;
 		text-transform: none;
 		border-radius: 4px;
 		padding: 10px;

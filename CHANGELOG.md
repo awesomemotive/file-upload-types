@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file, formatted v
 
 ## [1.4.0] - 2024-07-03
 ### Changed
+- New functionality to define file extension and MIME type with sample file.
 - The minimum required PHP version is now 7.0.
 - The minimum required WordPress version is now 5.5.
 - Updated styles and icons.

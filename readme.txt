@@ -83,8 +83,10 @@ Visit <a href="http://www.wpbeginner.com/?utm_source=wprepo&utm_medium=link&utm_
 == Changelog ==
 
 = 1.4.0 - 2024-07-03 =
-- Changed: The minimum required PHP version is now 7.0.
-- Changed: The minimum required WordPress version is now 5.5.
+- New functionality to define file extension and MIME type with sample file.
+- The minimum required PHP version is now 7.0.
+- The minimum required WordPress version is now 5.5.
+- Updated styles and icons.
 
 = 1.3.0 - 2023-02-15 =
 * IMPORTANT - Support for WordPress 5.1 has been discontinued. If you are running WordPress 5.1, you MUST upgrade WordPress before installing File Upload Types 1.3.0. Failure to do that will disable File Upload Types core functionality.

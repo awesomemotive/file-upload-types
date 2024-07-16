@@ -162,8 +162,10 @@ class Settings {
 					<div class="fie-upload-types-docs">
 						<p>
 							<?php esc_html_e( 'Need some help?', 'file-upload-types' ); ?>
-							<a href="https://wpforms.com/docs/how-to-allow-additional-file-upload-types/" target="_blank" rel="noopener noreferrer"
-								class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-blue">
+							<a href="https://wpforms.com/docs/how-to-allow-additional-file-upload-types/?utm_source=WordPress&utm_medium=fut-help&utm_campaign=file-upload-types&utm_content=view-documentation"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="button button-secondary">
 								<?php esc_html_e( 'View Documentation', 'file-upload-types' ); ?>
 							</a>
 						</p>
@@ -196,7 +198,7 @@ class Settings {
 
 					<p class="file-upload-types-submit">
 						<button type="submit" value="submit" name="file-upload-types-submit"
-							class="file-upload-types-btn file-upload-types-btn-md file-upload-types-btn-orange">
+							class="button button-primary">
 							<?php esc_html_e( 'Save Settings', 'file-upload-types' ); ?>
 						</button>
 					</p>
@@ -231,6 +233,7 @@ class Settings {
 									'rel'    => [],
 									'id'     => [],
 								],
+								'br' => [],
 							]
 						),
 						'https://codex.wordpress.org/Uploading_Files#About_Uploading_Files_on_Dashboard',
@@ -343,7 +346,7 @@ class Settings {
 		</div>
 
 		<div class="table-container">
-			<table>
+			<table class="rounded-left-bottom rounded-right-bottom">
 				<tr class="section" style="overflow-y:hidden">
 					<td colspan="4" id="custom-file-types"><?php esc_html_e( 'ADD CUSTOM FILE TYPES', 'file-upload-types' ); ?>
 						<div class="file-upload-types-info" style="font-size: 14px;">
@@ -354,36 +357,36 @@ class Settings {
 				</tr>
 
 				<tr class="dropzone">
-					<td colspan="4">
+					<td colspan="4" class="rounded-left-bottom rounded-right-bottom">
 						<div class="file-upload-types-dropzone" id="c_types_file_sample_button">
-						<p><span class="dz-message"><span class="icon"></span><?php echo wp_kses_post( __( 'Drop files here or click to select files.</span> <a href="#">You can also add file types manually</a>.', 'file-upload-types' ) ); ?></p>
+							<p><span class="dz-message"><span class="icon"></span><?php echo wp_kses_post( __( 'Drop files here or click to select files. You can also </span><a href="#">add file types manually</a>.', 'file-upload-types' ) ); ?></p>
 						</div>
 					</td>
 				</tr>
 
 				<tr class="repetitive-fields">
-					<td style="width: 35%;">
+					<td style="width: 40%;" class="cell_c_types_file_description rounded-left-bottom">
 						<label for="c_types_file_description"></label>
 						<input
 								type="text" name="c_types[desc][]" class="description c_types_file_description"
 								id="c_types_file_description" style="display: inline-block"
 								placeholder="<?php esc_attr_e( 'File Description', 'file-upload-types' ); ?>">
 					</td>
-					<td style="width: 40%;" class="cell_c_types_file_mime_type">
+					<td style="width: 45%;" class="cell_c_types_file_mime_type">
 						<label for="c_types_file_mime_type"></label>
 						<input
 								type="text" name="c_types[mime][]" class="mime c_types_file_mime_type"
 								id="c_types_file_mime_type"
 								placeholder="<?php esc_attr_e( 'MIME Type', 'file-upload-types' ); ?>">
 					</td>
-					<td style="width: 15%;" class="cell_c_types_file_extension">
+					<td style="width: 35%;" class="cell_c_types_file_extension">
 						<label for="c_types_file_extension"></label>
 						<input
 								type="text" name="c_types[ext][]" class="extension c_types_file_extension"
 								id="c_types_file_extension"
 								placeholder="<?php esc_attr_e( 'Extension', 'file-upload-types' ); ?>">
 					</td>
-					<td style="width: 10%;" class="icons">
+					<td style="width: 10%;" class="icons rounded-right-bottom">
 						<img
 								class="file-upload-types-plus"
 								src="<?php echo esc_url( plugins_url( 'assets/images/plus-circle-solid.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ) ); ?>"
@@ -413,19 +416,10 @@ class Settings {
 
 		<p>
 			<?php
-			printf(
-				wp_kses( /* translators: %s - wpforms.com link. */
-					__( 'File Upload Types is built by the team behind the most popular WordPress form plugin, <a href="%s" target="_blank" rel="noopener noreferrer">WPForms</a>. Check out some of our other plugins.', 'file-upload-types' ),
-					[
-						'a' => [
-							'href'   => [],
-							'target' => [],
-							'rel'    => [],
-						],
-					]
-				),
-				'https://wpforms.com'
-			);
+				echo wp_kses(
+					__( 'File Upload Types is built by the team behind some of the most popular WordPress plugins.', 'file-upload-types' ),
+					[]
+				);
 			?>
 		</p>
 
@@ -446,9 +440,8 @@ class Settings {
 									<?php
 									printf(
 										wp_kses( /* translators: %2$s - Plugin Name. */
-											'<strong><a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">' . __( 'Get %2$s', 'file-upload-types' ) . '</a></strong>',
+											'<a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">' . __( 'Get %2$s', 'file-upload-types' ) . '</a>',
 											[
-												'strong' => [],
 												'img'    => [
 													'src' => [],
 												],
@@ -638,29 +631,29 @@ class Settings {
 	private function get_am_plugins(): array {
 
 		return [
-			'wpf' => [
+			'wpf'  => [
 				'icon' => plugins_url( 'assets/images/wpforms.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
 				'name' => __( 'WPForms', 'file-upload-types' ),
-				'desc' => __( 'The most beginner friendly WordPress contact form plugin.', 'file-upload-types' ),
-				'url'  => 'https://wpforms.com',
+				'desc' => __( 'The most beginner friendly WordPress form plugin.', 'file-upload-types' ),
+				'url'  => 'https://wpforms.com?utm_source=WordPress&utm_medium=fut-recommendations&utm_campaign=file-upload-types&utm_content=get-wpforms',
 			],
-			'mi'  => [
-				'icon' => plugins_url( 'assets/images/monsterinsights.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => __( 'MonsterInsights', 'file-upload-types' ),
-				'desc' => __( 'Effortlessly connect your WP site with Google Analytics.', 'file-upload-types' ),
-				'url'  => 'https://www.monsterinsights.com',
+			'smtp' => [
+				'icon' => plugins_url( 'assets/images/wp-mail-smtp.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'name' => __( 'WP Mail SMTP', 'file-upload-types' ),
+				'desc' => __( 'The most popular SMTP and PHP mailer WordPress plugin.', 'file-upload-types' ),
+				'url'  => 'https://wpmailsmtp.com?utm_source=WordPress&utm_medium=fut-recommendations&utm_campaign=file-upload-types&utm_content=get-wp-mail-smtp',
 			],
-			'om'  => [
-				'icon' => plugins_url( 'assets/images/optinmonster.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => __( 'OptinMonster', 'file-upload-types' ),
-				'desc' => __( 'Turn your traffic into leads, conversions and sales.', 'file-upload-types' ),
-				'url'  => 'https://optinmonster.com',
+			'sl'   => [
+				'icon' => plugins_url( 'assets/images/sendlayer.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'name' => __( 'SendLayer', 'file-upload-types' ),
+				'desc' => __( 'An SMTP email delivery service that’s easy and powerful.', 'file-upload-types' ),
+				'url'  => 'https://sendlayer.com?utm_source=WordPress&utm_medium=fut-recommendations&utm_campaign=file-upload-types&utm_content=get-sendlayer',
 			],
-			'sp'  => [
-				'icon' => plugins_url( 'assets/images/seedprod.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
-				'name' => __( 'SeedProd', 'file-upload-types' ),
-				'desc' => __( 'Create beautiful coming soon pages, skyrocket your email list.', 'file-upload-types' ),
-				'url'  => 'https://seedprod.com',
+			'seo'  => [
+				'icon' => plugins_url( 'assets/images/allinone.svg', FILE_UPLOAD_TYPES_PLUGIN_FILE ),
+				'name' => __( 'All In One SEO', 'file-upload-types' ),
+				'desc' => __( 'The best WordPress SEO plugin and toolkit.', 'file-upload-types' ),
+				'url'  => 'https://aioseo.com?utm_source=WordPress&utm_medium=fut-recommendations&utm_campaign=file-upload-types&utm_content=get-aioseo',
 			],
 		];
 	}
@@ -683,7 +676,7 @@ class Settings {
 
 		return sprintf(
 			wp_kses( /* translators: %1$s - WP.org link. */
-				__( 'Please rate <strong>File Upload Types</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the File Upload Types team!', 'file-upload-types' ),
+				__( 'Please rate <strong>File Upload Types</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word.', 'file-upload-types' ),
 				[
 					'strong' => [],
 					'a'      => [

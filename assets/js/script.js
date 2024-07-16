@@ -18,14 +18,19 @@ jQuery( function ( $ ) {
 			const clone = closest.clone();
 
 			clone.find( 'input' ).val( '' );
-
 			closest.after( clone );
+
+			firstMinus();
+			roundCorners();
 		} )
 		.on( 'click', '#file-upload-types .table-container .file-upload-types-minus', function ( e ) {
 			e.preventDefault();
 
 			if ( $( this ).closest( 'table' ).find( 'tr.repetitive-fields' ).length > 1 ) {
 				$( this ).closest( 'tr' ).remove();
+
+				firstMinus();
+				roundCorners();
 			}
 			else {
 				alert( file_upload_types_params.default_section );
@@ -69,6 +74,9 @@ jQuery( function ( $ ) {
 			e.preventDefault();
 
 			$( '.repetitive-fields' ).show();
+
+			firstMinus();
+			roundCorners();
 		} );
 
 	let uploaded = 0;
@@ -103,6 +111,8 @@ jQuery( function ( $ ) {
 
 				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
 
+				firstMinus();
+
 				uploaded++;
 			} ).on( 'error', function( file, response ) {
 				$( '.file-upload-types-dropzone span.icon' ).removeClass( 'loading' );
@@ -113,4 +123,32 @@ jQuery( function ( $ ) {
 			} );
 		},
 	} );
+
+	/**
+	 * Add class to the first minus icon.
+	 *
+	 * @since 1.4.0
+	 */
+	const firstMinus = () => {
+		let $minuses = $( '.file-upload-types-minus' );
+
+		if ( $minuses.length === 1 ) {
+			$minuses.first().addClass( 'first' );
+
+			return;
+		}
+
+		$minuses.removeClass( 'first' );
+	}
+
+	const roundCorners = () => {
+		$( 'tr.dropzone td' ).removeClass( 'rounded-left-bottom rounded-right-bottom' );
+
+		$( 'tr.repetitive-fields:not(:last) td:first-child' ).removeClass( 'rounded-left-bottom' );
+		$( 'tr.repetitive-fields:not(:last) td:last-child' ).removeClass( 'rounded-right-bottom' );
+
+		$( 'tr.repetitive-fields:last td:first-child' ).addClass( 'rounded-left-bottom' );
+		$( 'tr.repetitive-fields:last td:last-child' ).addClass( 'rounded-right-bottom' );
+
+	};
 } );

@@ -18,11 +18,9 @@ jQuery( function ( $ ) {
 			const clone = closest.clone();
 
 			clone.find( 'input' ).val( '' );
-
 			closest.after( clone );
 
 			firstMinus();
-
 			roundCorners();
 		} )
 		.on( 'click', '#file-upload-types .table-container .file-upload-types-minus', function ( e ) {
@@ -32,7 +30,6 @@ jQuery( function ( $ ) {
 				$( this ).closest( 'tr' ).remove();
 
 				firstMinus();
-
 				roundCorners();
 			}
 			else {
@@ -79,7 +76,6 @@ jQuery( function ( $ ) {
 			$( '.repetitive-fields' ).show();
 
 			firstMinus();
-
 			roundCorners();
 		} );
 

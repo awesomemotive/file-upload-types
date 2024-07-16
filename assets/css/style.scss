@@ -428,6 +428,7 @@ $border-color: #c3c4c7;
 	&.first {
 		filter: grayscale(100%);
 		cursor: default;
+		opacity: .25;
 	}
 }
 

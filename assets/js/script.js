@@ -48,6 +48,8 @@ jQuery( function ( $ ) {
 		.on( 'click', '#add-custom-file-types', function( e ) {
 			e.preventDefault();
 
+			$( '.repetitive-fields' ).show();
+
 			$( '.repetitive-fields input' ).first().focus();
 		} )
 		.on( 'input', '#file-upload-types-search', function () {

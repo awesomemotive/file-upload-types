@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
+## [UNRELEASED](1.5.0) - 2024-XX-XX
+### Fixed
+- "Add your custom file types" link did not work before clicking on "Add file types manually" link.
+
 ## [1.4.0] - 2024-07-17
 ### Changed
 - New functionality to define file extension and MIME type with sample file.

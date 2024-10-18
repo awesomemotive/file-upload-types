@@ -24,7 +24,8 @@
   "prefer-stable": true,
   "require": {
     "ext-json": "*",
-    "ext-fileinfo": "*"
+    "ext-fileinfo": "*",
+    "ext-zlib": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",

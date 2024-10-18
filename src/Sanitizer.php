@@ -30,7 +30,7 @@ class Sanitizer {
 	public function before_wpforms_processing() {
 
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
-		if ( empty ( $_FILES ) ) {
+		if ( empty( $_FILES ) ) {
 			return;
 		}
 
@@ -49,17 +49,19 @@ class Sanitizer {
 	 *
 	 * @since {VERSION}
 	 *
-	 * @param array $file File data.
+	 * @param array|mixed $file File data.
 	 *
 	 * @return array
 	 */
 	public function handle_upload( $file ): array {
 
+		$file = (array) $file;
+
 		if ( ! isset( $file['tmp_name'] ) ) {
 			return $file;
 		}
 
-		if ( ! $this->sanitize( $file['tmp_name'], $file['name'] ) ) {
+		if ( ! $this->sanitize( (string) $file['tmp_name'], (string) ( $file['name'] ?? '' ) ) ) {
 			$file['error'] = esc_html__( 'The SVG file could not be sanitized.', 'file-upload-types' );
 		}
 
@@ -76,7 +78,7 @@ class Sanitizer {
 	 *
 	 * @return bool
 	 */
-	public function sanitize( $file, $file_name ): bool {
+	public function sanitize( string $file, string $file_name ): bool {
 
 		if ( $file_name ) {
 			$wp_filetype = wp_check_filetype_and_ext( $file, $file_name );
@@ -86,34 +88,58 @@ class Sanitizer {
 			}
 		}
 
-		$dirty = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$content = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 
-		// Maybe ungzip.
-		$is_zipped = $this->is_gzipped( $dirty );
+		$content = $this->sanitize_content( $content );
 
+		if ( ! $content ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		file_put_contents( $file, $content );
+
+		return true;
+	}
+
+	/**
+	 * Sanitize content.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $content File content.
+	 *
+	 * @return string|false
+	 * @noinspection CallableParameterUseCaseInTypeContextInspection
+	 */
+	private function sanitize_content( string $content ) {
+
+		$is_zipped = $this->is_gzipped( $content );
+
+		// Maybe unzip.
 		if ( $is_zipped ) {
-			$dirty = gzdecode( $dirty );
+			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			$content = @gzdecode( $content );
 
-			if ( $dirty === false ) {
+			if ( $content === false ) {
 				return false;
 			}
 		}
 
-		$clean = $this->remove_php_tags( $dirty );
-		$clean = $this->remove_js_tags( $clean );
+		$content = $this->remove_php_tags( $content );
+		$content = $this->remove_js_tags( $content );
 
-		if ( $clean === null ) { // Error while removing tags.
+		if ( ! $content ) { // Error while removing tags.
 			return false;
 		}
 
 		// Maybe gzip.
 		if ( $is_zipped ) {
-			$clean = gzencode( $clean );
+			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			$content = @gzencode( $content );
 		}
 
-		file_put_contents( $file, $clean );
-
-		return true;
+		return $content;
 	}
 
 	/**
@@ -121,9 +147,9 @@ class Sanitizer {
 	 *
 	 * @since {VERSION}
 	 *
-	 * @param array $file File data
+	 * @param array $file File data.
 	 */
-	private function is_risky( $file ): bool {
+	private function is_risky( array $file ): bool {
 
 		/**
 		 * Filter to allow adding risky file extensions.
@@ -151,13 +177,13 @@ class Sanitizer {
 	 *
 	 * @since {VERSION}
 	 *
-	 * @param string $string File data.
+	 * @param string $file File data.
 	 *
 	 * @return bool
 	 */
-	private function is_gzipped( string $string ): bool {
+	private function is_gzipped( string $file ): bool {
 
-		return 0 === strpos( $string, "\x1f\x8b" );
+		return 0 === strpos( $file, "\x1f\x8b" );
 	}
 
 	/**
@@ -165,13 +191,13 @@ class Sanitizer {
 	 *
 	 * @since {VERSION}
 	 *
-	 * @param string $string File data.
+	 * @param string $content File content.
 	 *
 	 * @return string
 	 */
-	private function remove_php_tags( string $string ): string {
+	private function remove_php_tags( string $content ): string {
 
-		return preg_replace( '/<\?(php\b|=| ).*?\?>/sm', '', $string );
+		return (string) preg_replace( '/<\?(php\b|=| ).*?\?>/sm', '', $content );
 	}
 
 	/**
@@ -179,12 +205,12 @@ class Sanitizer {
 	 *
 	 * @since {VERSION}
 	 *
-	 * @param string $string File data.
+	 * @param string $content File content.
 	 *
 	 * @return string
 	 */
-	private function remove_js_tags( string $string ): string {
+	private function remove_js_tags( string $content ): string {
 
-		return preg_replace( '/<script[^>]*>.*?<\/script>/sm', '', $string );
+		return (string) preg_replace( '/<script[^>]*>.*?<\/script>/sm', '', $content );
 	}
 }

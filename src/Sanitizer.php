@@ -3,20 +3,28 @@
 namespace FileUploadTypes;
 
 /**
- * Sanitize SVG files from malicious tags (PHP and JavaScript).
+ * Sanitize SVG and HTML files from JS and PHP tags.
  *
  * @since {VERSION}
  */
-class Svg {
+class Sanitizer {
 
+	/**
+	 * Hooks.
+	 *
+	 * @since {VERSION}
+	 */
 	public function hooks() {
 
+		add_action( 'wpforms_pro_forms_fields_file_upload_chunk_finalize_saved', [ $this, 'sanitize' ], 10, 2 );
+		add_action( 'wpforms_ajax_submit_before_processing', [ $this, 'before_wpforms_processing' ] );
 		add_filter( 'wp_handle_sideload_prefilter', [ $this, 'handle_upload' ] );
 		add_filter( 'wp_handle_upload_prefilter', [ $this, 'handle_upload' ] );
-		add_action( 'wpforms_pro_forms_fields_file_upload_chunk_finalize_saved', [ $this, 'sanitize' ] );
-		add_action( 'wpforms_ajax_submit_before_processing', [ $this, 'before_wpforms_processing' ] );
 	}
 
+	/**
+	 *
+	 */
 	public function before_wpforms_processing() {
 
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
@@ -35,7 +43,7 @@ class Svg {
 	}
 
 	/**
-	 * Sanitize SVG files from malicious tags (PHP and JavaScript).
+	 * Sanitize SVG/HTML files from malicious tags (PHP and JavaScript).
 	 *
 	 * @since {VERSION}
 	 *
@@ -59,14 +67,22 @@ class Svg {
 			return $file;
 		}
 
-		if ( ! $this->sanitize( $file['tmp_name'] ) ) {
+		if ( ! $this->sanitize( $file['tmp_name'], $file['name'] ) ) {
 			$file['error'] = esc_html__( 'The SVG file could not be sanitized.', 'file-upload-types' );
 		}
 
 		return $file;
 	}
 
-	public function sanitize( $file ): bool {
+	public function sanitize( $file, $file_name ): bool {
+
+		if ( $file_name ) {
+			$wp_filetype = wp_check_filetype_and_ext( $file, $file_name );
+
+			if ( ! $this->is_risky( $wp_filetype ) ) {
+				return true;
+			}
+		}
 
 		$dirty = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 
@@ -96,6 +112,15 @@ class Svg {
 		file_put_contents( $file, $clean );
 
 		return true;
+	}
+
+	private function is_risky( $file_): bool {
+
+		return in_array(
+			$file_['ext'] ?? '',
+			[ 'svg', 'html', 'htm', 'xhtml', 'phtml' ],
+			true
+		);
 	}
 
 	private function is_gzipped( string $string ): bool {

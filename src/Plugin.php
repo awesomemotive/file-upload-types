@@ -47,7 +47,7 @@ final class Plugin {
 
 		$this->hooks();
 
-		( new Svg() )->hooks();
+		( new Sanitizer() )->hooks();
 	}
 
 	/**

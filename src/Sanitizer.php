@@ -23,7 +23,9 @@ class Sanitizer {
 	}
 
 	/**
+	 * Sanitize files uploaded via WPForms Pro.
 	 *
+	 * @since {VERSION}
 	 */
 	public function before_wpforms_processing() {
 
@@ -51,19 +53,9 @@ class Sanitizer {
 	 *
 	 * @return array
 	 */
-	public function handle_upload( $file ) {
+	public function handle_upload( $file ): array {
 
 		if ( ! isset( $file['tmp_name'] ) ) {
-			return $file;
-		}
-
-		$wp_filetype = wp_check_filetype_and_ext(
-			$file['tmp_name'],
-			$file['name'] ?? ''
-		);
-		$type        = ! empty( $wp_filetype['type'] ) ? $wp_filetype['type'] : '';
-
-		if ( $type !== 'image/svg+xml' ) {
 			return $file;
 		}
 
@@ -74,6 +66,16 @@ class Sanitizer {
 		return $file;
 	}
 
+	/**
+	 * Sanitize data.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $file      File path.
+	 * @param string $file_name File name.
+	 *
+	 * @return bool
+	 */
 	public function sanitize( $file, $file_name ): bool {
 
 		if ( $file_name ) {
@@ -114,25 +116,73 @@ class Sanitizer {
 		return true;
 	}
 
-	private function is_risky( $file_): bool {
+	/**
+	 * Check if the file is a risky file type.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array $file File data
+	 */
+	private function is_risky( $file ): bool {
+
+		/**
+		 * Filter to allow adding risky file extensions.
+		 *
+		 * @since {VERSION}
+		 *
+		 * @param array $risky_extensions Risky file extensions.
+		 * @param array $file             File data.
+		 */
+		$risky_extensions = apply_filters(
+			'file_upload_types_sanitizer_is_risky_extensions',
+			[ 'svg', 'html', 'htm', 'xhtml', 'phtml' ],
+			$file
+		);
 
 		return in_array(
-			$file_['ext'] ?? '',
-			[ 'svg', 'html', 'htm', 'xhtml', 'phtml' ],
+			$file['ext'] ?? '',
+			$risky_extensions,
 			true
 		);
 	}
 
+	/**
+	 * Check if the file is gzipped.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $string File data.
+	 *
+	 * @return bool
+	 */
 	private function is_gzipped( string $string ): bool {
 
 		return 0 === strpos( $string, "\x1f\x8b" );
 	}
 
+	/**
+	 * Remove PHP tags.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $string File data.
+	 *
+	 * @return string
+	 */
 	private function remove_php_tags( string $string ): string {
 
 		return preg_replace( '/<\?(php\b|=| ).*?\?>/sm', '', $string );
 	}
 
+	/**
+	 * Remove JS tags.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param string $string File data.
+	 *
+	 * @return string
+	 */
 	private function remove_js_tags( string $string ): string {
 
 		return preg_replace( '/<script[^>]*>.*?<\/script>/sm', '', $string );

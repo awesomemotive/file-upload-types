@@ -46,6 +46,8 @@ final class Plugin {
 	public function init() {
 
 		$this->hooks();
+
+		( new Sanitizer() )->hooks();
 	}
 
 	/**

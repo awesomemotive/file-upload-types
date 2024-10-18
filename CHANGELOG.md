@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file, formatted v
 ## [UNRELEASED](1.5.0) - 2024-XX-XX
 ### Fixed
 - "Add your custom file types" link did not work before clicking on "Add file types manually" link.
+- Added message about allowing risky file types.
 
 ## [1.4.0] - 2024-07-17
 ### Changed

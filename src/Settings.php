@@ -186,7 +186,11 @@ class Settings {
 				<form method="post" action="">
 					<div class="file-upload-types-content">
 						<div class="file-upload-types-table">
-							<?php $this->display_types_table(); ?>
+							<?php
+							$this->display_types_table();
+							$this->display_table_notice();
+							?>
+
 						</div>
 
 						<div class="file-upload-types-products">
@@ -227,7 +231,7 @@ class Settings {
 						wp_kses( /* translators: %1$s - URL to WordPress Codex page, %2$s - anchor link. */
 							__( 'Below is the list of files types that can be enabled, not including the <a href="%1$s" rel="noopener" target="_blank">files WordPress allows by default</a>. <br>Don\'t see what you need? No problem, <a href="%2$s" id="add-custom-file-types" rel="noopener noreferrer">add your custom file types</a>.', 'file-upload-types' ),
 							[
-								'a' => [
+								'a'  => [
 									'href'   => [],
 									'target' => [],
 									'rel'    => [],
@@ -403,6 +407,40 @@ class Settings {
 	}
 
 	/**
+	 * Display notice about the security risks of allowing various file uploads.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @return void
+	 */
+	private function display_table_notice() {
+
+		$link = 'https://wpforms.com/docs/how-to-allow-additional-file-upload-types/?utm_source=WordPress&utm_medium=fut-help&utm_campaign=file-upload-types&utm_content=view-documentation#secure-upload';
+
+		echo '<p>';
+		echo esc_html(
+			__(
+				'While allowing various file uploads can be convenient, it poses security risks.',
+				'file-upload-types'
+			)
+		);
+		echo esc_html(
+			__(
+				'Enhance your site\'s security by restricting uploads to specific, safe file types and limiting upload permissions to trusted users only.',
+				'file-upload-types'
+			)
+		);
+		echo '<br>';
+		printf(
+		/* translators: %1$s - opening anchor tag, %2$s - closing anchor tag. */
+			esc_html__( 'Please refer %1$shere%2$s for more information.', 'file-upload-types' ),
+			'<a href="' . esc_url( $link ) . '" target="_blank" rel="noopener noreferrer">',
+			'</a>'
+		);
+		echo '</p>';
+	}
+
+	/**
 	 * Displays recommended products section.
 	 *
 	 * @since 1.0.0
@@ -442,10 +480,10 @@ class Settings {
 										wp_kses( /* translators: %2$s - Plugin Name. */
 											'<a href="%1$s" class="external-link" target="_blank" rel="noopener noreferrer">' . __( 'Get %2$s', 'file-upload-types' ) . '</a>',
 											[
-												'img'    => [
+												'img' => [
 													'src' => [],
 												],
-												'a'      => [
+												'a'   => [
 													'alt'  => [],
 													'href' => [],
 													'class' => [],

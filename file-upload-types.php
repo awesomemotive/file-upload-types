@@ -9,7 +9,7 @@
  * @copyright         Copyright (c) WPForms LLC
  *
  * Plugin Name:       File Upload Types
- * Plugin URI:        https://wordpress.org/plugins/file-upload-types/
+ * Plugin URI:        https://wpforms.com
  * Description:       Easily allow WordPress to accept and upload any file type extension or MIME type, including custom file types.
  * Author:            WPForms
  * Author URI:        https://wpforms.com

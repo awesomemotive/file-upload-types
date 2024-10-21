@@ -29,7 +29,7 @@ class Settings {
 	/**
 	 * Register hooks.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	private function hooks() {
 
@@ -409,7 +409,7 @@ class Settings {
 	/**
 	 * Display notice about the security risks of allowing various file uploads.
 	 *
-	 * @since {VERSION}
+	 * @since 1.5.0
 	 *
 	 * @return void
 	 */

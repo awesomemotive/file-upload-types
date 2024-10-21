@@ -5,14 +5,14 @@ namespace FileUploadTypes;
 /**
  * Sanitize SVG and HTML files from JS and PHP tags.
  *
- * @since {VERSION}
+ * @since 1.5.0
  */
 class Sanitizer {
 
 	/**
 	 * Hooks.
 	 *
-	 * @since {VERSION}
+	 * @since 1.5.0
 	 */
 	public function hooks() {
 
@@ -25,7 +25,7 @@ class Sanitizer {
 	/**
 	 * Sanitize files uploaded via WPForms Pro.
 	 *
-	 * @since {VERSION}
+	 * @since 1.5.0
 	 */
 	public function before_wpforms_processing() {
 
@@ -47,7 +47,7 @@ class Sanitizer {
 	/**
 	 * Sanitize SVG/HTML files from malicious tags (PHP and JavaScript).
 	 *
-	 * @since {VERSION}
+	 * @since 1.5.0
 	 *
 	 * @param array|mixed $file File data.
 	 *
@@ -71,7 +71,7 @@ class Sanitizer {
 	/**
 	 * Sanitize data.
 	 *
-	 * @since {VERSION}
+	 * @since 1.5.0
 	 *
 	 * @param string $file      File path.
 	 * @param string $file_name File name.
@@ -105,7 +105,7 @@ class Sanitizer {
 	/**
 	 * Sanitize content.
 	 *
-	 * @since {VERSION}
+	 * @since 1.5.0
 	 *
 	 * @param string $content File content.
 	 *
@@ -145,7 +145,7 @@ class Sanitizer {
 	/**
 	 * Check if the file is a risky file type.
 	 *
-	 * @since {VERSION}
+	 * @since 1.5.0
 	 *
 	 * @param array $file File data.
 	 */
@@ -154,7 +154,7 @@ class Sanitizer {
 		/**
 		 * Filter to allow adding risky file extensions.
 		 *
-		 * @since {VERSION}
+		 * @since 1.5.0
 		 *
 		 * @param array $risky_extensions Risky file extensions.
 		 * @param array $file             File data.
@@ -175,7 +175,7 @@ class Sanitizer {
 	/**
 	 * Check if the file is gzipped.
 	 *
-	 * @since {VERSION}
+	 * @since 1.5.0
 	 *
 	 * @param string $file File data.
 	 *
@@ -189,7 +189,7 @@ class Sanitizer {
 	/**
 	 * Remove PHP tags.
 	 *
-	 * @since {VERSION}
+	 * @since 1.5.0
 	 *
 	 * @param string $content File content.
 	 *
@@ -203,7 +203,7 @@ class Sanitizer {
 	/**
 	 * Remove JS tags.
 	 *
-	 * @since {VERSION}
+	 * @since 1.5.0
 	 *
 	 * @param string $content File content.
 	 *

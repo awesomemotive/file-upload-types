@@ -53,7 +53,7 @@ final class Plugin {
 	/**
 	 * Register hooks.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 */
 	private function hooks() {
 
@@ -135,7 +135,7 @@ final class Plugin {
 	/**
 	 * Add available types to return types.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @param array $available_types Available types.
 	 * @param array $enabled_types   Enabled types.

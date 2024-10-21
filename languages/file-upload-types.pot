@@ -1,52 +1,60 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: File Upload Types 1.4.0\n"
+"Project-Id-Version: File Upload Types 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/file-upload-types\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-17T08:51:35+02:00\n"
+"POT-Creation-Date: 2024-10-21T12:28:48+03:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: file-upload-types\n"
 
 #. Plugin Name of the plugin
-#: src/Settings.php:120
-#: src/Settings.php:134
-#: src/Settings.php:135
-msgid "File Upload Types"
+#: D:\Sites\Projects\file-upload-types\file-upload-types.php
+msgid "File Upload Types by WPForms"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://wordpress.org/plugins/file-upload-types/"
+#. Author URI of the plugin
+#: D:\Sites\Projects\file-upload-types\file-upload-types.php
+msgid "https://wpforms.com"
 msgstr ""
 
 #. Description of the plugin
+#: D:\Sites\Projects\file-upload-types\file-upload-types.php
 msgid "Easily allow WordPress to accept and upload any file type extension or MIME type, including custom file types."
 msgstr ""
 
 #. Author of the plugin
-#: src/Settings.php:636
+#: D:\Sites\Projects\file-upload-types\file-upload-types.php
+#: src/Settings.php:675
 msgid "WPForms"
 msgstr ""
 
-#. Author URI of the plugin
-msgid "https://wpforms.com"
-msgstr ""
-
-#: src/Plugin.php:95
+#: src/Plugin.php:97
 msgid "File Upload Types Settings"
 msgstr ""
 
-#: src/Plugin.php:96
+#: src/Plugin.php:98
 #: src/Settings.php:159
 msgid "Settings"
 msgstr ""
 
+#: src/Sanitizer.php:65
+msgid "The SVG file could not be sanitized."
+msgstr ""
+
 #: src/Settings.php:100
 msgid "Default section can not be deleted."
+msgstr ""
+
+#: src/Settings.php:120
+#: src/Settings.php:134
+#: src/Settings.php:135
+msgid "File Upload Types"
 msgstr ""
 
 #: src/Settings.php:164
@@ -57,136 +65,149 @@ msgstr ""
 msgid "View Documentation"
 msgstr ""
 
-#: src/Settings.php:202
+#: src/Settings.php:206
 msgid "Save Settings"
 msgstr ""
 
-#: src/Settings.php:223
+#: src/Settings.php:227
 msgid "Add File Upload Types"
 msgstr ""
 
 #. translators: %1$s - URL to WordPress Codex page, %2$s - anchor link.
-#: src/Settings.php:228
+#: src/Settings.php:232
 msgid "Below is the list of files types that can be enabled, not including the <a href=\"%1$s\" rel=\"noopener\" target=\"_blank\">files WordPress allows by default</a>. <br>Don't see what you need? No problem, <a href=\"%2$s\" id=\"add-custom-file-types\" rel=\"noopener noreferrer\">add your custom file types</a>."
 msgstr ""
 
-#: src/Settings.php:248
+#: src/Settings.php:252
 msgid "Search File Types"
 msgstr ""
 
-#: src/Settings.php:256
+#: src/Settings.php:260
 msgid "Description"
 msgstr ""
 
-#: src/Settings.php:257
-#: src/Settings.php:380
+#: src/Settings.php:261
+#: src/Settings.php:384
 msgid "MIME Type"
 msgstr ""
 
-#: src/Settings.php:258
-#: src/Settings.php:387
+#: src/Settings.php:262
+#: src/Settings.php:391
 msgid "Extension"
 msgstr ""
 
-#: src/Settings.php:278
+#: src/Settings.php:282
 msgid "ENABLED"
 msgstr ""
 
-#: src/Settings.php:306
+#: src/Settings.php:310
 msgid "AVAILABLE"
 msgstr ""
 
-#: src/Settings.php:351
+#: src/Settings.php:355
 msgid "ADD CUSTOM FILE TYPES"
 msgstr ""
 
-#: src/Settings.php:353
+#: src/Settings.php:357
 msgid "Help"
 msgstr ""
 
-#: src/Settings.php:354
+#: src/Settings.php:358
 msgid "Upload files and have their MIME type detected automatically. Multiple MIME types for a single extension can be separated by a comma."
 msgstr ""
 
-#: src/Settings.php:362
+#: src/Settings.php:366
 msgid "Drop files here or click to select files. You can also </span><a href=\"#\">add file types manually</a>."
 msgstr ""
 
-#: src/Settings.php:373
+#: src/Settings.php:377
 msgid "File Description"
 msgstr ""
 
-#: src/Settings.php:393
+#: src/Settings.php:397
 msgid "Add File Type"
 msgstr ""
 
-#: src/Settings.php:397
+#: src/Settings.php:401
 msgid "Remove File Type"
 msgstr ""
 
-#: src/Settings.php:415
+#: src/Settings.php:422
+msgid "While allowing various file uploads can be convenient, it poses security risks."
+msgstr ""
+
+#: src/Settings.php:429
+msgid "Enhance your site's security by restricting uploads to specific, safe file types and limiting upload permissions to trusted users only."
+msgstr ""
+
+#. translators: %1$s - opening anchor tag, %2$s - closing anchor tag.
+#: src/Settings.php:437
+msgid "Please refer %1$shere%2$s for more information."
+msgstr ""
+
+#: src/Settings.php:454
 msgid "You might like our other products"
 msgstr ""
 
-#: src/Settings.php:420
+#: src/Settings.php:459
 msgid "File Upload Types is built by the team behind some of the most popular WordPress plugins."
 msgstr ""
 
 #. translators: %2$s - Plugin Name.
-#: src/Settings.php:443
+#: src/Settings.php:482
 msgid "Get %2$s"
 msgstr ""
 
-#: src/Settings.php:540
+#: src/Settings.php:579
 msgid "Your settings have been saved."
 msgstr ""
 
 #. translators: %1$s - Same page; %2$s - Documentation link for multiple types support.
-#: src/Settings.php:566
+#: src/Settings.php:605
 msgid "File Upload Types now supports multiple MIME types for each file extension to improve file upload compatibility! <br/> <strong><a href=\"%1$s\">Enable multiple MIME types support</a> | <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">Learn More</a></strong>"
 msgstr ""
 
-#: src/Settings.php:617
+#: src/Settings.php:656
 msgid "Support for multiple MIME types has been enabled."
 msgstr ""
 
-#: src/Settings.php:637
+#: src/Settings.php:676
 msgid "The most beginner friendly WordPress form plugin."
 msgstr ""
 
-#: src/Settings.php:642
+#: src/Settings.php:681
 msgid "WP Mail SMTP"
 msgstr ""
 
-#: src/Settings.php:643
+#: src/Settings.php:682
 msgid "The most popular SMTP and PHP mailer WordPress plugin."
 msgstr ""
 
-#: src/Settings.php:648
+#: src/Settings.php:687
 msgid "SendLayer"
 msgstr ""
 
-#: src/Settings.php:649
+#: src/Settings.php:688
 msgid "An SMTP email delivery service that’s easy and powerful."
 msgstr ""
 
-#: src/Settings.php:654
+#: src/Settings.php:693
 msgid "All In One SEO"
 msgstr ""
 
-#: src/Settings.php:655
+#: src/Settings.php:694
 msgid "The best WordPress SEO plugin and toolkit."
 msgstr ""
 
 #. translators: %1$s - WP.org link.
-#: src/Settings.php:679
+#: src/Settings.php:718
 msgid "Please rate <strong>File Upload Types</strong> <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">WordPress.org</a> to help us spread the word."
 msgstr ""
 
-#: src/Settings.php:730
+#: src/Settings.php:769
 msgid "No file provided."
 msgstr ""
 
-#: src/Settings.php:755
+#: src/Settings.php:794
 msgid "Unable to detect the file MIME type."
 msgstr ""

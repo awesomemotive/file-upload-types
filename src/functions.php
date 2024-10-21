@@ -117,7 +117,7 @@ if ( ! function_exists( '_fut_update_file_data_description' ) ) {
 	 *
 	 * Use internally only.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @see   fut_format_raw_custom_types
 	 *
@@ -143,7 +143,7 @@ if ( ! function_exists( '_fut_update_file_data_mime' ) ) {
 	 *
 	 * Use internally only.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @see   fut_format_raw_custom_types
 	 *
@@ -168,7 +168,7 @@ if ( ! function_exists( '_fut_update_file_data_extensions' ) ) {
 	 *
 	 * Use internally only.
 	 *
-	 * @since {VERSION}
+	 * @since 1.3.0
 	 *
 	 * @see   fut_format_raw_custom_types
 	 *

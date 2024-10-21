@@ -13,7 +13,7 @@
  * Description:       Easily allow WordPress to accept and upload any file type extension or MIME type, including custom file types.
  * Author:            WPForms
  * Author URI:        https://wpforms.com
- * Version:           1.4.0
+ * Version:           1.5.0
  * Requires at least: 5.5
  * Requires PHP:      7.0
  * Text Domain:       file-upload-types
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since {VERSION}
  */
-const FILE_UPLOAD_TYPES_VERSION = '1.4.0';
+const FILE_UPLOAD_TYPES_VERSION = '1.5.0';
 
 /**
  * Plugin file.

@@ -2,6 +2,9 @@
 
 namespace FileUploadTypes;
 
+use DOMDocument;
+use DOMXPath;
+
 /**
  * Sanitize SVG and HTML files from JS and PHP tags.
  *
@@ -131,15 +134,18 @@ class Sanitizer {
 
 		if ( $type === 'svg' ) {
 			$allowed_tags = $this->get_allowed_tags_for_svg();
+
+			$xml_content = '';
+
+			if ( strpos( $content, '<?xml' ) === 0 ) {
+				$xml_content = substr( $content, 0, strpos( $content, '?>' ) + 2 );
+			}
+
+			$content = $this->remove_js_tags( $content );
+			$content = wp_kses( $content, $allowed_tags );
+			$content = $xml_content . $content;
 		} else {
-			$allowed_tags = $this->get_allowed_tags_for_html();
-		}
-
-		$content = $this->remove_js_tags( $content );
-		$content = wp_kses( $content, $allowed_tags );
-
-		if ( $type === 'svg' ) {
-			$content = '<?xml version="1.0" encoding="utf-8"?>' . $content;
+			$content = $this->remove_scripts_from_html( $content );
 		}
 
 		if ( ! $content ) { // Error while removing tags.
@@ -199,8 +205,16 @@ class Sanitizer {
 		return 0 === strpos( $file, "\x1f\x8b" );
 	}
 
+	/**
+	 * Get allowed tags for SVG.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return array
+	 */
 	private function get_allowed_tags_for_svg(): array {
 
+		// phpcs:disable WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine
 		$elements = [
 			'a', 'animate', 'animateMotion', 'animateTransform', 'circle', 'clipPath', 'defs', 'desc', 'ellipse',
 			'feBlend', 'feColorMatrix', 'feComponentTransfer', 'feComposite', 'feConvolveMatrix',
@@ -210,7 +224,7 @@ class Sanitizer {
 			'feTurbulence', 'filter', 'foreignObject', 'g', 'image', 'line', 'linearGradient', 'marker',
 			'mask', 'metadata', 'mpath', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect',
 			'set', 'stop', 'style', 'svg', 'switch', 'symbol', 'text', 'textPath', 'title', 'tspan',
-			'use', 'view'
+			'use', 'view',
 		];
 
 		$attributes = [
@@ -249,48 +263,18 @@ class Sanitizer {
 			'v-ideographic', 'v-mathematical', 'values', 'vector-effect', 'version', 'vert-adv-y',
 			'vert-origin-x', 'vert-origin-y', 'viewBox', 'visibility', 'width', 'widths', 'word-spacing',
 			'writing-mode', 'x', 'x-height', 'x1', 'x2', 'xChannelSelector', 'xml:lang', 'xml:space', 'xmlns',
-			'y', 'y1', 'y2', 'yChannelSelector', 'z', 'zoomAndPan'
+			'y', 'y1', 'y2', 'yChannelSelector', 'z', 'zoomAndPan',
 		];
+		// phpcs:enable WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine
 		$attributes = array_map( 'strtolower', $attributes );
 
 		$allowed_elements = [];
 
-		foreach ($elements as $element) {
-			$allowed_elements[$element] = array_fill_keys($attributes, []);
+		foreach ( $elements as $element ) {
+			$allowed_elements[ $element ] = array_fill_keys( $attributes, [] );
 		}
 
 		return $allowed_elements;
-	}
-
-	private function get_allowed_tags_for_html(): array {
-
-		$kses_defaults = wp_kses_allowed_html( 'post' );
-
-		$html_args = [
-			'head'    => [],
-			'body'    => [],
-			'style'   => [],
-			'html'    => [],
-			'title'   => [],
-			'meta'    => [],
-			'link'    => [],
-		];
-
-		return array_merge( $kses_defaults, $html_args );
-	}
-
-	/**
-	 * Remove PHP tags.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $content File content.
-	 *
-	 * @return string
-	 */
-	private function remove_php_tags( string $content ): string {
-
-		return (string) preg_replace( '/<\?(php\b|=| ).*?\?>/sm', '', $content );
 	}
 
 	/**
@@ -305,5 +289,36 @@ class Sanitizer {
 	private function remove_js_tags( string $content ): string {
 
 		return (string) preg_replace( '/<script[^>]*>.*?<\/script>/sm', '', $content );
+	}
+
+	/**
+	 * Remove scripts from HTML.
+	 *
+	 * Use DomDocument to remove scripts from HTML.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param string $content File content.
+	 *
+	 * @return string
+	 */
+	private function remove_scripts_from_html( string $content ): string {
+
+		$dom = new DOMDocument();
+
+		$dom->loadHTML( $content );
+
+		$xpath = new DOMXPath( $dom );
+
+		$scripts = $xpath->query( '//script' );
+
+		foreach ( $scripts as $script ) {
+
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$script->parentNode->removeChild( $script );
+
+		}
+
+		return $dom->saveHTML();
 	}
 }

@@ -1,10 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
-## [UNRELEASED](1.5.0) - 2024-XX-XX
+## [1.5.0] - 2024-10-21
 ### Fixed
 - "Add your custom file types" link did not work before clicking on "Add file types manually" link.
-- Implemented sanitizing of SVG & HTML files
+- Implemented sanitizing of SVG & HTML files.
 - Added message about allowing risky file types.
 
 ## [1.4.0] - 2024-07-17

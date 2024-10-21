@@ -417,13 +417,14 @@ class Settings {
 
 		$link = 'https://wpforms.com/docs/how-to-allow-additional-file-upload-types/?utm_source=WordPress&utm_medium=fut-help&utm_campaign=file-upload-types&utm_content=view-documentation#secure-upload';
 
-		echo '<p>';
+		echo '<p style="color: #6E6E6E">';
 		echo esc_html(
 			__(
 				'While allowing various file uploads can be convenient, it poses security risks.',
 				'file-upload-types'
 			)
 		);
+		echo '<br>';
 		echo esc_html(
 			__(
 				'Enhance your site\'s security by restricting uploads to specific, safe file types and limiting upload permissions to trusted users only.',

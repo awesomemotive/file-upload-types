@@ -82,6 +82,11 @@ Visit <a href="http://www.wpbeginner.com/?utm_source=wprepo&utm_medium=link&utm_
 
 == Changelog ==
 
+= 1.5.0 - 2024-10-21 =
+- "Add your custom file types" link did not work before clicking on "Add file types manually" link.
+- Implemented sanitizing of SVG & HTML files.
+- Added message about allowing risky file types.
+
 = 1.4.0 - 2024-07-17 =
 - New functionality to define file extension and MIME type with sample file.
 - The minimum required PHP version is now 7.0.

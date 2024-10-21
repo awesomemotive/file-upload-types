@@ -13,6 +13,8 @@
  * Description:       Easily allow WordPress to accept and upload any file type extension or MIME type, including custom file types.
  * Author:            WPForms
  * Author URI:        https://wpforms.com
+ * License:           GPL v2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Version:           1.5.0
  * Requires at least: 5.5
  * Requires PHP:      7.0

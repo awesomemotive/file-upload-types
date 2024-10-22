@@ -107,9 +107,6 @@ class SanitizerHtml {
 			'lang', 'dir'
 		],
 		'i' => [],
-		'iframe' => [
-			'src', 'srcdoc', 'name', 'sandbox', 'allow', 'allowfullscreen', 'width', 'height', 'referrerpolicy', 'loading'
-		],
 		'img' => [
 			'alt', 'src', 'srcset', 'sizes', 'crossorigin', 'usemap', 'ismap', 'width', 'height', 'referrerpolicy', 'decoding', 'loading'
 		],

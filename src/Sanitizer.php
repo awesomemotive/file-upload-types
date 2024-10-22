@@ -2,8 +2,6 @@
 
 namespace FileUploadTypes;
 
-use SimplePie\Sanitize;
-
 /**
  * Sanitize SVG and HTML files from JS and PHP tags.
  *

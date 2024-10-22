@@ -88,9 +88,12 @@ class Sanitizer {
 			}
 		}
 
+		$ext  = $wp_filetype['ext'] ?? '';
+		$type = $ext === 'svg' ?: 'html';
+
 		$content = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 
-		$content = $this->sanitize_content( $content );
+		$content = $this->sanitize_content( $content, $type );
 
 		if ( ! $content ) {
 			return false;
@@ -108,11 +111,12 @@ class Sanitizer {
 	 * @since 1.5.0
 	 *
 	 * @param string $content File content.
+	 * @param string $type    File type, 'svg' or 'html'.
 	 *
 	 * @return string|false
 	 * @noinspection CallableParameterUseCaseInTypeContextInspection
 	 */
-	private function sanitize_content( string $content ) {
+	private function sanitize_content( string $content, string $type ) {
 
 		$is_zipped = $this->is_gzipped( $content );
 
@@ -126,8 +130,19 @@ class Sanitizer {
 			}
 		}
 
-		$content = $this->remove_php_tags( $content );
 		$content = $this->remove_js_tags( $content );
+
+		if ( $type === 'svg' ) {
+			$allowed_tags     = $this->reformat_allowed_tags( SanitizerSvg::ALLOWED );
+			$type_declaration = SanitizerSvg::get_type_declaration( $content );
+		} else {
+			$allowed_tags     = $this->reformat_allowed_tags( SanitizerHtml::ALLOWED );
+			$type_declaration = SanitizerHtml::get_type_declaration( $content );
+
+		}
+
+		$content = wp_kses( $content, $allowed_tags );
+		$content = $type_declaration . $content;
 
 		if ( ! $content ) { // Error while removing tags.
 			return false;
@@ -187,20 +202,6 @@ class Sanitizer {
 	}
 
 	/**
-	 * Remove PHP tags.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $content File content.
-	 *
-	 * @return string
-	 */
-	private function remove_php_tags( string $content ): string {
-
-		return (string) preg_replace( '/<\?(php\b|=| ).*?\?>/sm', '', $content );
-	}
-
-	/**
 	 * Remove JS tags.
 	 *
 	 * @since 1.5.0
@@ -212,5 +213,26 @@ class Sanitizer {
 	private function remove_js_tags( string $content ): string {
 
 		return (string) preg_replace( '/<script[^>]*>.*?<\/script>/sm', '', $content );
+	}
+
+	/**
+	 * Get allowed tags for HTML.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $allowed Preloaded allowed tags.
+	 *
+	 * @return array
+	 */
+	private function reformat_allowed_tags( array $allowed ): array {
+
+		foreach ( $allowed as $element => $attributes ) {
+			$attributes          = array_map( 'strtolower', $attributes );
+			$attributes[]        = 'id';
+			$attributes[]        = 'class';
+			$allowed[ $element ] = array_fill_keys( $attributes, [] );
+		}
+
+		return $allowed;
 	}
 }

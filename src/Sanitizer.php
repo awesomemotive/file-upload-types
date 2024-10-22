@@ -132,20 +132,30 @@ class Sanitizer {
 			}
 		}
 
+		$content = $this->remove_js_tags( $content );
+
 		if ( $type === 'svg' ) {
 			$allowed_tags = $this->get_allowed_tags_for_svg();
 
-			$xml_content = '';
+			$type_declaration = '';
 
-			if ( strpos( $content, '<?xml' ) === 0 ) {
-				$xml_content = substr( $content, 0, strpos( $content, '?>' ) + 2 );
+			if ( strpos( $content, '<?xml' ) !== false ) {
+				$type_declaration = substr( $content, 0, strpos( $content, '?>' ) + 2 );
 			}
 
-			$content = $this->remove_js_tags( $content );
 			$content = wp_kses( $content, $allowed_tags );
-			$content = $xml_content . $content;
+			$content = $type_declaration . $content;
 		} else {
-			$content = $this->remove_scripts_from_html( $content );
+			$allowed_tags = $this->get_allowed_tags_for_html();
+
+			$type_declaration = '';
+
+			if ( strpos( $content, '<!DOCTYPE' ) !== false ) {
+				$type_declaration = substr( $content, 0, strpos( $content, '>' ) + 1 );
+			}
+
+			$content = wp_kses( $content, $allowed_tags );
+			$content = $type_declaration . $content;
 		}
 
 		if ( ! $content ) { // Error while removing tags.
@@ -263,7 +273,7 @@ class Sanitizer {
 			'v-ideographic', 'v-mathematical', 'values', 'vector-effect', 'version', 'vert-adv-y',
 			'vert-origin-x', 'vert-origin-y', 'viewBox', 'visibility', 'width', 'widths', 'word-spacing',
 			'writing-mode', 'x', 'x-height', 'x1', 'x2', 'xChannelSelector', 'xml:lang', 'xml:space', 'xmlns',
-			'y', 'y1', 'y2', 'yChannelSelector', 'z', 'zoomAndPan',
+			'y', 'y1', 'y2', 'yChannelSelector', 'z', 'zoomAndPan', 'id', 'class',
 		];
 		// phpcs:enable WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine
 		$attributes = array_map( 'strtolower', $attributes );
@@ -292,33 +302,228 @@ class Sanitizer {
 	}
 
 	/**
-	 * Remove scripts from HTML.
-	 *
-	 * Use DomDocument to remove scripts from HTML.
+	 * Get allowed tags for HTML.
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param string $content File content.
-	 *
-	 * @return string
+	 * @return array
 	 */
-	private function remove_scripts_from_html( string $content ): string {
+	private function get_allowed_tags_for_html(): array {
 
-		$dom = new DOMDocument();
+		// phpcs:disable WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine, NormalizedArrays.Arrays.CommaAfterLast.MissingMultiLine, WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
+		$allowed = [
+			'a' => [
+				'href', 'target', 'rel', 'download', 'hreflang', 'type', 'referrerpolicy'
+			],
+			'abbr' => [
+				'title'
+			],
+			'address' => [],
+			'area' => [
+				'alt', 'coords', 'shape', 'href', 'target', 'download', 'ping', 'rel', 'referrerpolicy'
+			],
+			'article' => [],
+			'aside' => [],
+			'audio' => [
+				'src', 'crossorigin', 'preload', 'autoplay', 'loop', 'muted', 'controls'
+			],
+			'b' => [],
+			'base' => [
+				'href', 'target'
+			],
+			'bdi' => [
+				'dir'
+			],
+			'bdo' => [
+				'dir'
+			],
+			'blockquote' => [
+				'cite'
+			],
+			'body' => [],
+			'br' => [],
+			'button' => [
+				'autofocus', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'name', 'type', 'value'
+			],
+			'canvas' => [
+				'width', 'height'
+			],
+			'caption' => [],
+			'cite' => [],
+			'code' => [],
+			'col' => [
+				'span'
+			],
+			'colgroup' => [
+				'span'
+			],
+			'data' => [
+				'value'
+			],
+			'datalist' => [],
+			'dd' => [],
+			'del' => [
+				'cite', 'datetime'
+			],
+			'details' => [
+				'open'
+			],
+			'dfn' => [],
+			'dialog' => [
+				'open'
+			],
+			'div' => [],
+			'dl' => [],
+			'dt' => [],
+			'em' => [],
+			'embed' => [
+				'src', 'type', 'width', 'height'
+			],
+			'fieldset' => [
+				'disabled', 'form', 'name'
+			],
+			'figcaption' => [],
+			'figure' => [],
+			'footer' => [],
+			'form' => [
+				'accept-charset', 'action', 'autocomplete', 'enctype', 'method', 'name', 'novalidate', 'target'
+			],
+			'h1' => [],
+			'h2' => [],
+			'h3' => [],
+			'h4' => [],
+			'h5' => [],
+			'h6' => [],
+			'head' => [],
+			'header' => [],
+			'hr' => [],
+			'html' => [
+				'lang', 'dir'
+			],
+			'i' => [],
+			'iframe' => [
+				'src', 'srcdoc', 'name', 'sandbox', 'allow', 'allowfullscreen', 'width', 'height', 'referrerpolicy', 'loading'
+			],
+			'img' => [
+				'alt', 'src', 'srcset', 'sizes', 'crossorigin', 'usemap', 'ismap', 'width', 'height', 'referrerpolicy', 'decoding', 'loading'
+			],
+			'input' => [
+				'accept', 'alt', 'autocomplete', 'autofocus', 'checked', 'dirname', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'height', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'src', 'step', 'type', 'value', 'width'
+			],
+			'ins' => [
+				'cite', 'datetime'
+			],
+			'kbd' => [],
+			'label' => [
+				'for'
+			],
+			'legend' => [],
+			'li' => [
+				'value'
+			],
+			'link' => [
+				'href', 'crossorigin', 'rel', 'as', 'media', 'hreflang', 'type', 'sizes', 'referrerpolicy', 'integrity'
+			],
+			'main' => [],
+			'map' => [
+				'name'
+			],
+			'mark' => [],
+			'meta' => [
+				'name', 'http-equiv', 'content', 'charset'
+			],
+			'meter' => [
+				'value', 'min', 'max', 'low', 'high', 'optimum'
+			],
+			'nav' => [],
+			'noframes' => [],
+			'noscript' => [],
+			'object' => [
+				'data', 'type', 'typemustmatch', 'name', 'usemap', 'form', 'width', 'height'
+			],
+			'ol' => [
+				'reversed', 'start', 'type'
+			],
+			'optgroup' => [
+				'disabled', 'label'
+			],
+			'option' => [
+				'disabled', 'label', 'selected', 'value'
+			],
+			'output' => [
+				'for', 'form', 'name'
+			],
+			'p' => [],
+			'param' => [
+				'name', 'value'
+			],
+			'picture' => [],
+			'pre' => [],
+			'progress' => [
+				'value', 'max'
+			],
+			'q' => [
+				'cite'
+			],
+			'rp' => [],
+			'rt' => [],
+			'rtc' => [],
+			'ruby' => [],
+			's' => [],
+			'samp' => [],
+			'section' => [],
+			'select' => [
+				'autocomplete', 'autofocus', 'disabled', 'form', 'multiple', 'name', 'required', 'size'
+			],
+			'small' => [],
+			'source' => [
+				'src', 'type', 'srcset', 'sizes', 'media'
+			],
+			'span' => [],
+			'strong' => [],
+			'style' => [
+				'media', 'nonce', 'type'
+			],
+			'sub' => [],
+			'summary' => [],
+			'sup' => [],
+			'table' => [],
+			'tbody' => [],
+			'td' => [
+				'colspan', 'rowspan', 'headers'
+			],
+			'template' => [],
+			'textarea' => [
+				'cols', 'rows', 'autocomplete', 'autofocus', 'dirname', 'disabled', 'form', 'maxlength', 'minlength', 'name', 'placeholder', 'readonly', 'required', 'wrap'
+			],
+			'tfoot' => [],
+			'th' => [
+				'colspan', 'rowspan', 'headers', 'scope', 'abbr'
+			],
+			'thead' => [],
+			'time' => [
+				'datetime'
+			],
+			'title' => [],
+			'tr' => [],
+			'track' => [
+				'default', 'kind', 'label', 'src', 'srclang'
+			],
+			'u' => [],
+			'ul' => [],
+			'var' => [],
+			'video' => [
+				'src', 'crossorigin', 'poster', 'preload', 'autoplay', 'playsinline', 'loop', 'muted', 'controls', 'width', 'height'
+			],
+			'wbr' => []
+		];
+		// phpcs:enable WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine, NormalizedArrays.Arrays.CommaAfterLast.MissingMultiLine, WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
 
-		$dom->loadHTML( $content );
-
-		$xpath = new DOMXPath( $dom );
-
-		$scripts = $xpath->query( '//script' );
-
-		foreach ( $scripts as $script ) {
-
-			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$script->parentNode->removeChild( $script );
-
+		foreach ( $allowed as $element => $attributes ) {
+			$attributes          = array_merge( $attributes, [ 'id', 'class' ] );
+			$allowed[ $element ] = array_fill_keys( $attributes, [] );
 		}
 
-		return $dom->saveHTML();
+		return $allowed;
 	}
 }

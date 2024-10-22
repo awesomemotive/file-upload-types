@@ -2,8 +2,7 @@
 
 namespace FileUploadTypes;
 
-use DOMDocument;
-use DOMXPath;
+use SimplePie\Sanitize;
 
 /**
  * Sanitize SVG and HTML files from JS and PHP tags.
@@ -135,28 +134,16 @@ class Sanitizer {
 		$content = $this->remove_js_tags( $content );
 
 		if ( $type === 'svg' ) {
-			$allowed_tags = $this->get_allowed_tags_for_svg();
-
-			$type_declaration = '';
-
-			if ( strpos( $content, '<?xml' ) !== false ) {
-				$type_declaration = substr( $content, 0, strpos( $content, '?>' ) + 2 );
-			}
-
-			$content = wp_kses( $content, $allowed_tags );
-			$content = $type_declaration . $content;
+			$allowed_tags     = $this->reformat_allowed_tags( SanitizerSvg::ALLOWED );
+			$type_declaration = SanitizerSvg::get_type_declaration( $content );
 		} else {
-			$allowed_tags = $this->get_allowed_tags_for_html();
+			$allowed_tags     = $this->reformat_allowed_tags( SanitizerHtml::ALLOWED );
+			$type_declaration = SanitizerHtml::get_type_declaration( $content );
 
-			$type_declaration = '';
-
-			if ( strpos( $content, '<!DOCTYPE' ) !== false ) {
-				$type_declaration = substr( $content, 0, strpos( $content, '>' ) + 1 );
-			}
-
-			$content = wp_kses( $content, $allowed_tags );
-			$content = $type_declaration . $content;
 		}
+
+		$content = wp_kses( $content, $allowed_tags );
+		$content = $type_declaration . $content;
 
 		if ( ! $content ) { // Error while removing tags.
 			return false;
@@ -216,78 +203,6 @@ class Sanitizer {
 	}
 
 	/**
-	 * Get allowed tags for SVG.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @return array
-	 */
-	private function get_allowed_tags_for_svg(): array {
-
-		// phpcs:disable WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine
-		$elements = [
-			'a', 'animate', 'animateMotion', 'animateTransform', 'circle', 'clipPath', 'defs', 'desc', 'ellipse',
-			'feBlend', 'feColorMatrix', 'feComponentTransfer', 'feComposite', 'feConvolveMatrix',
-			'feDiffuseLighting', 'feDisplacementMap', 'feDistantLight', 'feDropShadow', 'feFlood', 'feFuncA',
-			'feFuncB', 'feFuncG', 'feFuncR', 'feGaussianBlur', 'feImage', 'feMerge', 'feMergeNode',
-			'feMorphology', 'feOffset', 'fePointLight', 'feSpecularLighting', 'feSpotLight', 'feTile',
-			'feTurbulence', 'filter', 'foreignObject', 'g', 'image', 'line', 'linearGradient', 'marker',
-			'mask', 'metadata', 'mpath', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect',
-			'set', 'stop', 'style', 'svg', 'switch', 'symbol', 'text', 'textPath', 'title', 'tspan',
-			'use', 'view',
-		];
-
-		$attributes = [
-			'accent-height', 'accumulate', 'additive', 'alignment-baseline', 'alphabetic', 'amplitude',
-			'arabic-form', 'ascent', 'attributeName', 'attributeType', 'azimuth', 'baseFrequency',
-			'baseline-shift', 'baseProfile', 'bbox', 'begin', 'bias', 'by', 'calcMode', 'cap-height',
-			'class', 'clip', 'clipPathUnits', 'clip-path', 'clip-rule', 'color', 'color-interpolation',
-			'color-interpolation-filters', 'color-rendering', 'crossorigin', 'cursor', 'cx', 'cy', 'd',
-			'decelerate', 'descent', 'diffuseConstant', 'direction', 'display', 'divisor',
-			'dominant-baseline', 'dur', 'dx', 'dy', 'edgeMode', 'elevation', 'end', 'exponent', 'fill',
-			'fill-opacity', 'fill-rule', 'filter', 'filterUnits', 'flood-color', 'flood-opacity',
-			'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant',
-			'font-weight', 'format', 'from', 'fr', 'fx', 'fy', 'g1', 'g2', 'glyph-name',
-			'glyph-orientation-horizontal', 'glyph-orientation-vertical', 'glyphRef', 'gradientTransform',
-			'gradientUnits', 'hanging', 'height', 'href', 'hreflang', 'horiz-adv-x', 'horiz-origin-x',
-			'horiz-origin-y', 'id', 'ideographic', 'image-rendering', 'in', 'in2', 'intercept', 'k', 'k1',
-			'k2', 'k3', 'k4', 'kernelMatrix', 'kernelUnitLength', 'keyPoints', 'keySplines', 'keyTimes',
-			'lang', 'lengthAdjust', 'letter-spacing', 'lighting-color', 'limitingConeAngle', 'local',
-			'marker-end', 'marker-mid', 'marker-start', 'markerHeight', 'markerUnits', 'markerWidth',
-			'mask', 'maskContentUnits', 'maskUnits', 'mathematical', 'max', 'media', 'method', 'min',
-			'mode', 'name', 'numOctaves', 'offset', 'opacity', 'operator', 'order', 'orient', 'orientation',
-			'origin', 'overflow', 'overline-position', 'overline-thickness', 'panose-1', 'paint-order',
-			'path', 'pathLength', 'patternContentUnits', 'patternTransform', 'patternUnits', 'ping',
-			'pointer-events', 'points', 'pointsAtX', 'pointsAtY', 'pointsAtZ', 'preserveAlpha',
-			'preserveAspectRatio', 'primitiveUnits', 'r', 'radius', 'referrerPolicy', 'refX', 'refY',
-			'rel', 'rendering-intent', 'repeatCount', 'repeatDur', 'requiredExtensions', 'requiredFeatures',
-			'restart', 'result', 'rotate', 'rx', 'ry', 'scale', 'seed', 'shape-rendering', 'side',
-			'slope', 'spacing', 'specularConstant', 'specularExponent', 'speed', 'spreadMethod',
-			'startOffset', 'stdDeviation', 'stemh', 'stemv', 'stitchTiles', 'stop-color', 'stop-opacity',
-			'strikethrough-position', 'strikethrough-thickness', 'string', 'stroke', 'stroke-dasharray',
-			'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity',
-			'stroke-width', 'style', 'surfaceScale', 'systemLanguage', 'tabindex', 'tableValues', 'target',
-			'targetX', 'targetY', 'text-anchor', 'text-decoration', 'text-rendering', 'textLength', 'to',
-			'transform', 'transform-origin', 'type', 'u1', 'u2', 'underline-position', 'underline-thickness',
-			'unicode', 'unicode-bidi', 'unicode-range', 'units-per-em', 'v-alphabetic', 'v-hanging',
-			'v-ideographic', 'v-mathematical', 'values', 'vector-effect', 'version', 'vert-adv-y',
-			'vert-origin-x', 'vert-origin-y', 'viewBox', 'visibility', 'width', 'widths', 'word-spacing',
-			'writing-mode', 'x', 'x-height', 'x1', 'x2', 'xChannelSelector', 'xml:lang', 'xml:space', 'xmlns',
-			'y', 'y1', 'y2', 'yChannelSelector', 'z', 'zoomAndPan', 'id', 'class',
-		];
-		// phpcs:enable WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine
-		$attributes = array_map( 'strtolower', $attributes );
-
-		$allowed_elements = [];
-
-		foreach ( $elements as $element ) {
-			$allowed_elements[ $element ] = array_fill_keys( $attributes, [] );
-		}
-
-		return $allowed_elements;
-	}
-
-	/**
 	 * Remove JS tags.
 	 *
 	 * @since 1.5.0
@@ -306,220 +221,14 @@ class Sanitizer {
 	 *
 	 * @since 1.5.0
 	 *
+	 * @param array $allowed Preloaded allowed tags.
+	 *
 	 * @return array
 	 */
-	private function get_allowed_tags_for_html(): array {
-
-		// phpcs:disable WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine, NormalizedArrays.Arrays.CommaAfterLast.MissingMultiLine, WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
-		$allowed = [
-			'a' => [
-				'href', 'target', 'rel', 'download', 'hreflang', 'type', 'referrerpolicy'
-			],
-			'abbr' => [
-				'title'
-			],
-			'address' => [],
-			'area' => [
-				'alt', 'coords', 'shape', 'href', 'target', 'download', 'ping', 'rel', 'referrerpolicy'
-			],
-			'article' => [],
-			'aside' => [],
-			'audio' => [
-				'src', 'crossorigin', 'preload', 'autoplay', 'loop', 'muted', 'controls'
-			],
-			'b' => [],
-			'base' => [
-				'href', 'target'
-			],
-			'bdi' => [
-				'dir'
-			],
-			'bdo' => [
-				'dir'
-			],
-			'blockquote' => [
-				'cite'
-			],
-			'body' => [],
-			'br' => [],
-			'button' => [
-				'autofocus', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'name', 'type', 'value'
-			],
-			'canvas' => [
-				'width', 'height'
-			],
-			'caption' => [],
-			'cite' => [],
-			'code' => [],
-			'col' => [
-				'span'
-			],
-			'colgroup' => [
-				'span'
-			],
-			'data' => [
-				'value'
-			],
-			'datalist' => [],
-			'dd' => [],
-			'del' => [
-				'cite', 'datetime'
-			],
-			'details' => [
-				'open'
-			],
-			'dfn' => [],
-			'dialog' => [
-				'open'
-			],
-			'div' => [],
-			'dl' => [],
-			'dt' => [],
-			'em' => [],
-			'embed' => [
-				'src', 'type', 'width', 'height'
-			],
-			'fieldset' => [
-				'disabled', 'form', 'name'
-			],
-			'figcaption' => [],
-			'figure' => [],
-			'footer' => [],
-			'form' => [
-				'accept-charset', 'action', 'autocomplete', 'enctype', 'method', 'name', 'novalidate', 'target'
-			],
-			'h1' => [],
-			'h2' => [],
-			'h3' => [],
-			'h4' => [],
-			'h5' => [],
-			'h6' => [],
-			'head' => [],
-			'header' => [],
-			'hr' => [],
-			'html' => [
-				'lang', 'dir'
-			],
-			'i' => [],
-			'iframe' => [
-				'src', 'srcdoc', 'name', 'sandbox', 'allow', 'allowfullscreen', 'width', 'height', 'referrerpolicy', 'loading'
-			],
-			'img' => [
-				'alt', 'src', 'srcset', 'sizes', 'crossorigin', 'usemap', 'ismap', 'width', 'height', 'referrerpolicy', 'decoding', 'loading'
-			],
-			'input' => [
-				'accept', 'alt', 'autocomplete', 'autofocus', 'checked', 'dirname', 'disabled', 'form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget', 'height', 'list', 'max', 'maxlength', 'min', 'minlength', 'multiple', 'name', 'pattern', 'placeholder', 'readonly', 'required', 'size', 'src', 'step', 'type', 'value', 'width'
-			],
-			'ins' => [
-				'cite', 'datetime'
-			],
-			'kbd' => [],
-			'label' => [
-				'for'
-			],
-			'legend' => [],
-			'li' => [
-				'value'
-			],
-			'link' => [
-				'href', 'crossorigin', 'rel', 'as', 'media', 'hreflang', 'type', 'sizes', 'referrerpolicy', 'integrity'
-			],
-			'main' => [],
-			'map' => [
-				'name'
-			],
-			'mark' => [],
-			'meta' => [
-				'name', 'http-equiv', 'content', 'charset'
-			],
-			'meter' => [
-				'value', 'min', 'max', 'low', 'high', 'optimum'
-			],
-			'nav' => [],
-			'noframes' => [],
-			'noscript' => [],
-			'object' => [
-				'data', 'type', 'typemustmatch', 'name', 'usemap', 'form', 'width', 'height'
-			],
-			'ol' => [
-				'reversed', 'start', 'type'
-			],
-			'optgroup' => [
-				'disabled', 'label'
-			],
-			'option' => [
-				'disabled', 'label', 'selected', 'value'
-			],
-			'output' => [
-				'for', 'form', 'name'
-			],
-			'p' => [],
-			'param' => [
-				'name', 'value'
-			],
-			'picture' => [],
-			'pre' => [],
-			'progress' => [
-				'value', 'max'
-			],
-			'q' => [
-				'cite'
-			],
-			'rp' => [],
-			'rt' => [],
-			'rtc' => [],
-			'ruby' => [],
-			's' => [],
-			'samp' => [],
-			'section' => [],
-			'select' => [
-				'autocomplete', 'autofocus', 'disabled', 'form', 'multiple', 'name', 'required', 'size'
-			],
-			'small' => [],
-			'source' => [
-				'src', 'type', 'srcset', 'sizes', 'media'
-			],
-			'span' => [],
-			'strong' => [],
-			'style' => [
-				'media', 'nonce', 'type'
-			],
-			'sub' => [],
-			'summary' => [],
-			'sup' => [],
-			'table' => [],
-			'tbody' => [],
-			'td' => [
-				'colspan', 'rowspan', 'headers'
-			],
-			'template' => [],
-			'textarea' => [
-				'cols', 'rows', 'autocomplete', 'autofocus', 'dirname', 'disabled', 'form', 'maxlength', 'minlength', 'name', 'placeholder', 'readonly', 'required', 'wrap'
-			],
-			'tfoot' => [],
-			'th' => [
-				'colspan', 'rowspan', 'headers', 'scope', 'abbr'
-			],
-			'thead' => [],
-			'time' => [
-				'datetime'
-			],
-			'title' => [],
-			'tr' => [],
-			'track' => [
-				'default', 'kind', 'label', 'src', 'srclang'
-			],
-			'u' => [],
-			'ul' => [],
-			'var' => [],
-			'video' => [
-				'src', 'crossorigin', 'poster', 'preload', 'autoplay', 'playsinline', 'loop', 'muted', 'controls', 'width', 'height'
-			],
-			'wbr' => []
-		];
-		// phpcs:enable WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine, NormalizedArrays.Arrays.CommaAfterLast.MissingMultiLine, WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
+	private function reformat_allowed_tags( $allowed ): array {
 
 		foreach ( $allowed as $element => $attributes ) {
+			$attributes          = array_map( 'strtolower', $attributes );
 			$attributes          = array_merge( $attributes, [ 'id', 'class' ] );
 			$allowed[ $element ] = array_fill_keys( $attributes, [] );
 		}

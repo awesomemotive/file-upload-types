@@ -89,7 +89,7 @@ class Sanitizer {
 		}
 
 		$ext  = $wp_filetype['ext'] ?? '';
-		$type = $ext === 'svg' ?: 'html';
+		$type = $ext === 'svg' ? 'svg' : 'html';
 
 		$content = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 

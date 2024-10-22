@@ -90,7 +90,8 @@ class Sanitizer {
 			}
 		}
 
-		$type = $wp_filetype['ext'] === 'svg' ? 'svg' : 'html';
+		$ext  = $wp_filetype['ext'] ?? '';
+		$type = $ext === 'svg' ?: 'html';
 
 		$content = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 
@@ -225,11 +226,12 @@ class Sanitizer {
 	 *
 	 * @return array
 	 */
-	private function reformat_allowed_tags( $allowed ): array {
+	private function reformat_allowed_tags( array $allowed ): array {
 
 		foreach ( $allowed as $element => $attributes ) {
 			$attributes          = array_map( 'strtolower', $attributes );
-			$attributes          = array_merge( $attributes, [ 'id', 'class' ] );
+			$attributes[]        = 'id';
+			$attributes[]        = 'class';
 			$allowed[ $element ] = array_fill_keys( $attributes, [] );
 		}
 

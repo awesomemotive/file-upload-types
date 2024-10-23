@@ -782,11 +782,11 @@ class Settings {
 		$mime_type = finfo_file( $file_info, $sample['tmp_name'] );
 		$extension = pathinfo( $sample['name'], PATHINFO_EXTENSION );
 
-		$mime_types_arr = [ (string) $mime_type ];
-
 		if ( isset( $sample['type'] ) && $mime_type !== $sample['type'] ) {
 			$mime_types_arr[] = $sample['type'];
 		}
+
+		$mime_types_arr[] = (string) $mime_type;
 
 		if ( ! $mime_type || ! $extension ) {
 			wp_send_json_error(

@@ -1,11 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
-## [1.5.0] - 2024-10-21
+## [1.5.0] - 2024-10-23
 ### Fixed
 - "Add your custom file types" link did not work before clicking on "Add file types manually" link.
 - Implemented sanitizing of SVG & HTML files.
 - Added message about allowing risky file types.
+- Some file types, even enabled, were not possible to upload using the Gutenberg editor.
 
 ## [1.4.0] - 2024-07-17
 ### Changed

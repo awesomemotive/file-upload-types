@@ -238,8 +238,6 @@ class Sanitizer {
 		return $allowed;
 	}
 
-
-
 	/**
 	 * Add SVG to wp_get_ext_types results when it's enabled.
 	 *

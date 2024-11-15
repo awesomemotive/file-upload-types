@@ -243,11 +243,13 @@ class Sanitizer {
 	 *
 	 * @since {VERSION}
 	 *
-	 * @param array $types Array of allowed file types.
+	 * @param array|mixed $types Array of allowed file types.
 	 *
 	 * @return array
 	 */
 	public function include_svg( $types ): array {
+
+		$types = (array) $types;
 
 		$enabled_types = Plugin::get_instance()->enabled_types();
 

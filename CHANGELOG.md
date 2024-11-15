@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file, formatted via [this recommendation](https://keepachangelog.com/).
 
-## [UNRELEASED](1.6.0) - 2024-XX-XX
+## [1.6.0] (UNRELEASED) - 2024-XX-XX
 ### Added
 - Include svg into images defined with wp_get_ext_types if svg is enabled.
 

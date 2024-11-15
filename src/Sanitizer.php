@@ -20,6 +20,8 @@ class Sanitizer {
 		add_action( 'wpforms_ajax_submit_before_processing', [ $this, 'before_wpforms_processing' ] );
 		add_filter( 'wp_handle_sideload_prefilter', [ $this, 'handle_upload' ] );
 		add_filter( 'wp_handle_upload_prefilter', [ $this, 'handle_upload' ] );
+
+		add_filter( 'ext2type', [ $this, 'include_svg' ] );
 	}
 
 	/**
@@ -234,5 +236,29 @@ class Sanitizer {
 		}
 
 		return $allowed;
+	}
+
+	/**
+	 * Add SVG to wp_get_ext_types results when it's enabled.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array|mixed $types Array of allowed file types.
+	 *
+	 * @return array
+	 */
+	public function include_svg( $types ): array {
+
+		$types = (array) $types;
+
+		$enabled_types = Plugin::get_instance()->enabled_types();
+
+		if ( ! isset( $enabled_types['svg'] ) ) {
+			return $types;
+		}
+
+		$types['image'][] = 'svg';
+
+		return $types;
 	}
 }

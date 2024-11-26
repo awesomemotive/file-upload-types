@@ -22,41 +22,41 @@ class SanitizerSvg {
 			'width', 'height', 'viewBox', 'xmlns', 'version', 'preserveAspectRatio'
 		],
 		'rect' => [
-			'x', 'y', 'width', 'height', 'rx', 'ry', 'fill', 'stroke', 'stroke-width'
+			'x', 'y', 'width', 'height', 'rx', 'ry', 'fill', 'stroke', 'stroke-width', 'style'
 		],
 		'circle' => [
-			'cx', 'cy', 'r', 'fill', 'stroke', 'stroke-width'
+			'cx', 'cy', 'r', 'fill', 'stroke', 'stroke-width', 'style'
 		],
 		'ellipse' => [
-			'cx', 'cy', 'rx', 'ry', 'fill', 'stroke', 'stroke-width'
+			'cx', 'cy', 'rx', 'ry', 'fill', 'stroke', 'stroke-width', 'style'
 		],
 		'line' => [
-			'x1', 'y1', 'x2', 'y2', 'stroke', 'stroke-width'
+			'x1', 'y1', 'x2', 'y2', 'stroke', 'stroke-width', 'style'
 		],
 		'polyline' => [
-			'points', 'fill', 'stroke', 'stroke-width'
+			'points', 'fill', 'stroke', 'stroke-width', 'style'
 		],
 		'polygon' => [
-			'points', 'fill', 'stroke', 'stroke-width'
+			'points', 'fill', 'stroke', 'stroke-width', 'style'
 		],
 		'path' => [
-			'd', 'fill', 'stroke', 'stroke-width'
+			'd', 'fill', 'stroke', 'stroke-width', 'style'
 		],
 		'text' => [
-			'x', 'y', 'font-family', 'font-size', 'fill'
+			'x', 'y', 'font-family', 'font-size', 'fill', 'style'
 		],
 		'tspan' => [
-			'x', 'y', 'dx', 'dy'
+			'x', 'y', 'dx', 'dy', 'style'
 		],
 		'g' => [
-			'transform', 'fill', 'stroke', 'stroke-width'
+			'transform', 'fill', 'stroke', 'stroke-width', 'style'
 		],
 		'defs' => [],
 		'use' => [
 			'href', 'x', 'y', 'width', 'height'
 		],
 		'image' => [
-			'href', 'x', 'y', 'width', 'height', 'preserveAspectRatio'
+			'href', 'x', 'y', 'width', 'height', 'preserveAspectRatio', 'style'
 		],
 		'linearGradient' => [
 			'id', 'x1', 'y1', 'x2', 'y2'

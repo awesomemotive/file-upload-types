@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file, formatted v
 ### Added
 - Include svg into images defined with wp_get_ext_types if svg is enabled.
 
+### Fixed
+- Fill color in uploaded svg files.
+
 ## [1.5.0] - 2024-10-23
 ### Fixed
 - "Add your custom file types" link did not work before clicking on "Add file types manually" link.

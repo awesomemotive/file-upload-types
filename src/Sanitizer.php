@@ -22,6 +22,7 @@ class Sanitizer {
 		add_filter( 'wp_handle_upload_prefilter', [ $this, 'handle_upload' ] );
 
 		add_filter( 'ext2type', [ $this, 'include_svg' ] );
+		add_filter( 'safe_style_css', [ $this, 'safe_style_css' ] );
 	}
 
 	/**
@@ -105,6 +106,52 @@ class Sanitizer {
 		file_put_contents( $file, $content );
 
 		return true;
+	}
+
+	/**
+	 * Add SVG to wp_get_ext_types results when it's enabled.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array|mixed $types Array of allowed file types.
+	 *
+	 * @return array
+	 */
+	public function include_svg( $types ): array {
+
+		$types = (array) $types;
+
+		if ( ! $this->is_svg_allowed() ) {
+			return $types;
+		}
+
+		$types['image'][] = 'svg';
+
+		return $types;
+	}
+
+	/**
+	 * Add allowed CSS properties.
+	 *
+	 * Add 'fill' to the list of allowed CSS properties if SVG is enabled.
+	 *
+	 * @since {VERSION}
+	 *
+	 * @param array|mixed $css CSS properties.
+	 *
+	 * @return array
+	 */
+	public function safe_style_css( $css ): array {
+
+		$css = (array) $css;
+
+		if ( ! $this->is_svg_allowed() ) {
+			return $css;
+		}
+
+		$css[] = 'fill';
+
+		return $css;
 	}
 
 	/**
@@ -239,26 +286,16 @@ class Sanitizer {
 	}
 
 	/**
-	 * Add SVG to wp_get_ext_types results when it's enabled.
+	 * Check if SVG is allowed.
 	 *
 	 * @since {VERSION}
 	 *
-	 * @param array|mixed $types Array of allowed file types.
-	 *
-	 * @return array
+	 * @return bool
 	 */
-	public function include_svg( $types ): array {
-
-		$types = (array) $types;
+	private function is_svg_allowed(): bool {
 
 		$enabled_types = Plugin::get_instance()->enabled_types();
 
-		if ( ! isset( $enabled_types['svg'] ) ) {
-			return $types;
-		}
-
-		$types['image'][] = 'svg';
-
-		return $types;
+		return isset( $enabled_types['svg'] );
 	}
 }

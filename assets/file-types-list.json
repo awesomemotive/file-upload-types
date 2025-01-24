@@ -430,7 +430,7 @@
     "ext": ".dae"
   },
   {
-    "desc": "Comma-Seperated Values",
+    "desc": "Comma-Separated Values",
     "mime": "text\/csv",
     "ext": ".csv"
   },

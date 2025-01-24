@@ -3,10 +3,11 @@ All notable changes to this project will be documented in this file, formatted v
 
 ## [1.6.0] (UNRELEASED) - 2024-XX-XX
 ### Added
-- Include svg into images defined with wp_get_ext_types if svg is enabled.
+- Include svg in images defined with wp_get_ext_types if svg is enabled.
 
 ### Fixed
 - Fill color in uploaded svg files.
+- It was unable to use file extensions in capital letters.
 
 ## [1.5.0] - 2024-10-23
 ### Fixed

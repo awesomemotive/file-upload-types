@@ -206,7 +206,7 @@ final class Plugin {
 	public function real_file_type( $file_data, $file, $filename, $mimes, $real_mime ): array { // phpcs:ignore WPForms.PHP.HooksMethod.InvalidPlaceForAddingHooks, Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 		$file_data     = (array) $file_data;
-		$extension     = pathinfo( $filename, PATHINFO_EXTENSION );
+		$extension     = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
 		$enabled_types = $this->enabled_types();
 
 		// We don't need to do anything if the file uploads normally.

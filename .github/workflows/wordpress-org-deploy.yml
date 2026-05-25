@@ -1,0 +1,93 @@
+name: Deploy to WordPress.org
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version to deploy (e.g. 1.5.0)'
+        required: true
+        type: string
+
+jobs:
+  check-user:
+    name: Check User Authorization
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check if user is authorized
+        shell: bash
+        run: |
+          ALLOWED_USERS=("dimitris-am" "cheh")
+          CURRENT_USER="${{ github.actor }}"
+          AUTHORIZED=false
+
+          for user in "${ALLOWED_USERS[@]}"; do
+            if [[ "$user" == "$CURRENT_USER" ]]; then
+              AUTHORIZED=true
+              break
+            fi
+          done
+
+          if [[ "$AUTHORIZED" != "true" ]]; then
+            echo "Error: User $CURRENT_USER is not authorized to run this workflow"
+            exit 1
+          fi
+
+  deploy:
+    name: Deploy File Upload Types to WordPress.org
+    runs-on: ubuntu-24.04
+    needs: check-user
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20.19.1'
+
+      - run: npm install -g npm@10.9.2
+
+      - name: Install PHP 7.4 and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository ppa:ondrej/php -y
+          sudo apt-get update
+          sudo apt-get install -y php7.4 php7.4-cli php7.4-curl php7.4-zip php7.4-mbstring php7.4-xml php7.4-mysql unzip
+          php -v
+
+      - name: Install Composer
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php -r "if (hash_file('sha384', 'composer-setup.php') === file_get_contents('https://composer.github.io/installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); exit(1); }"
+          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+          php -r "unlink('composer-setup.php');"
+          composer --version
+
+      - name: Install WP-CLI
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp
+          wp --info
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build plugin
+        run: |
+          npm run gulp build
+          cd build
+          unzip file-upload-types-*.zip
+          rm -rf file-upload-types-*.zip
+
+      - name: WordPress Plugin Deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SLUG: file-upload-types
+          VERSION: ${{ inputs.version }}
+          BUILD_DIR: build/file-upload-types/
